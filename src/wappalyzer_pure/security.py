@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import json
 from collections.abc import Mapping
+from functools import lru_cache
+from importlib import resources
 
+from .exceptions import DataLoadError
 from .models import SecurityHeaderStatus
 
 SECURITY_KEYWORDS = (
@@ -24,18 +28,6 @@ SECURITY_KEYWORDS = (
     "network appliance",
 )
 
-SECURITY_HEADER_NAMES = (
-    ("Content-Security-Policy", "content-security-policy"),
-    ("Strict-Transport-Security", "strict-transport-security"),
-    ("X-Frame-Options", "x-frame-options"),
-    ("X-Content-Type-Options", "x-content-type-options"),
-    ("Referrer-Policy", "referrer-policy"),
-    ("Permissions-Policy", "permissions-policy"),
-    ("Cross-Origin-Opener-Policy", "cross-origin-opener-policy"),
-    ("Cross-Origin-Embedder-Policy", "cross-origin-embedder-policy"),
-    ("Cross-Origin-Resource-Policy", "cross-origin-resource-policy"),
-)
-
 
 def is_security_technology(
     *,
@@ -49,12 +41,39 @@ def is_security_technology(
     return any(keyword in text for text in haystacks for keyword in SECURITY_KEYWORDS)
 
 
+@lru_cache
+def get_security_header_names() -> tuple[str, ...]:
+    package = "wappalyzer_pure.data"
+    try:
+        payload = json.loads(
+            resources.files(package)
+            .joinpath("security_headers_data.json")
+            .read_text(encoding="utf-8")
+        )
+    except json.JSONDecodeError as exc:
+        raise DataLoadError(f"failed to decode security header data: {exc}") from exc
+
+    headers = payload.get("headers")
+    if not isinstance(headers, list):
+        raise DataLoadError("security header data is missing the headers list")
+
+    result: list[str] = []
+    for value in headers:
+        if not isinstance(value, str) or not value:
+            raise DataLoadError(
+                f"security header names must be non-empty strings, got {value!r}"
+            )
+        result.append(value)
+    return tuple(result)
+
+
 def inspect_security_headers(
     headers: Mapping[str, list[str]],
 ) -> tuple[SecurityHeaderStatus, ...]:
     normalized = {key.casefold(): list(values) for key, values in headers.items()}
     statuses = []
-    for display_name, normalized_name in SECURITY_HEADER_NAMES:
+    for display_name in get_security_header_names():
+        normalized_name = display_name.casefold()
         values = normalized.get(normalized_name, [])
         statuses.append(
             SecurityHeaderStatus(

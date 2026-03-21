@@ -81,11 +81,12 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def default_sync_paths() -> SyncPaths:
-    data_dir = Path(__file__).resolve().parent / "data"
+    package_data_dir = Path(__file__).resolve().parent / "data"
+    project_root = Path(__file__).resolve().parents[2]
     return SyncPaths(
-        fingerprints=data_dir / "fingerprints_data.json",
-        categories=data_dir / "categories_data.json",
-        metadata=data_dir / "source_metadata.json",
+        fingerprints=package_data_dir / "fingerprints_data.json",
+        categories=package_data_dir / "categories_data.json",
+        metadata=project_root / ".github" / "data" / "source_metadata.json",
     )
 
 

@@ -1,0 +1,13 @@
+{
+    "source": {
+        "repo": "enthec/webappanalyzer",
+        "ref": "main",
+        "commit": null,
+        "fetched_at_utc": null
+    },
+    "counts": {
+        "technologies": 7515,
+        "categories": 108,
+        "technology_files": 27
+    }
+}

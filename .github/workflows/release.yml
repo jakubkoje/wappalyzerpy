@@ -5,11 +5,11 @@ on:
     branches:
       - main
     paths:
-      - 'src/wappalyzer_pure/data/fingerprints_data.json'
-      - 'src/wappalyzer_pure/data/categories_data.json'
-      - 'src/wappalyzer_pure/data/source_metadata.json'
-      - 'pyproject.toml'
-      - 'uv.lock'
+      - "src/wappalyzer_pure/data/fingerprints_data.json"
+      - "src/wappalyzer_pure/data/categories_data.json"
+      - ".github/data/source_metadata.json"
+      - "pyproject.toml"
+      - "uv.lock"
   workflow_dispatch:
 
 permissions:
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: "3.13"
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v7
@@ -58,21 +58,22 @@ jobs:
           import json
           from pathlib import Path
 
-          metadata = json.loads(
-              Path("src/wappalyzer_pure/data/source_metadata.json").read_text(
-                  encoding="utf-8"
-              )
-          )
+          metadata_path = Path(".github/data/source_metadata.json")
+          if metadata_path.exists():
+              metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+          else:
+              metadata = {"source": {}, "counts": {}}
+
           source = metadata.get("source", {})
           counts = metadata.get("counts", {})
           print("Automated data release for wappalyzer-pure.")
           print()
-          print(f"- Upstream repo: {source.get('repo')}")
-          print(f"- Upstream ref: {source.get('ref')}")
-          print(f"- Upstream commit: {source.get('commit')}")
-          print(f"- Synced at: {source.get('fetched_at_utc')}")
-          print(f"- Technologies: {counts.get('technologies')}")
-          print(f"- Categories: {counts.get('categories')}")
+          print(f"- Upstream repo: {source.get('repo') or 'enthec/webappanalyzer'}")
+          print(f"- Upstream ref: {source.get('ref') or 'main'}")
+          print(f"- Upstream commit: {source.get('commit') or 'unknown'}")
+          print(f"- Synced at: {source.get('fetched_at_utc') or 'unknown'}")
+          print(f"- Technologies: {counts.get('technologies', 'unknown')}")
+          print(f"- Categories: {counts.get('categories', 'unknown')}")
           PY
 
       - name: Create GitHub release

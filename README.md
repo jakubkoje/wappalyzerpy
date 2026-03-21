@@ -176,7 +176,7 @@ Fields:
 
 ## Security Headers
 
-The package reports these headers separately:
+The package reports these bundled security headers separately:
 
 - `Content-Security-Policy`
 - `Strict-Transport-Security`

@@ -43,7 +43,7 @@ jobs:
           if git diff --quiet -- \
             src/wappalyzer_pure/data/fingerprints_data.json \
             src/wappalyzer_pure/data/categories_data.json \
-            src/wappalyzer_pure/data/source_metadata.json; then
+            .github/data/source_metadata.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -83,7 +83,7 @@ jobs:
 
             - `src/wappalyzer_pure/data/fingerprints_data.json`
             - `src/wappalyzer_pure/data/categories_data.json`
-            - `src/wappalyzer_pure/data/source_metadata.json`
+            - `.github/data/source_metadata.json`
             - `pyproject.toml`
             - `uv.lock`
           labels: |
@@ -92,7 +92,7 @@ jobs:
           add-paths: |
             src/wappalyzer_pure/data/fingerprints_data.json
             src/wappalyzer_pure/data/categories_data.json
-            src/wappalyzer_pure/data/source_metadata.json
+            .github/data/source_metadata.json
             pyproject.toml
             uv.lock
 
