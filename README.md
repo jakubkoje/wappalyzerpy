@@ -1,8 +1,8 @@
-# wappalyzer-pure
+# wappalyzerpy
 
 Pure-Python website technology detection from HTTP responses.
 
-`wappalyzer-pure` fingerprints technologies from headers, cookies, HTML,
+`wappalyzerpy` fingerprints technologies from headers, cookies, HTML,
 `<meta>` tags, and `<script src>` URLs. It is library-first, with a small CLI
 for ad hoc scans.
 
@@ -191,9 +191,9 @@ The package reports these headers separately:
 ## CLI
 
 ```bash
-uv run wappalyzer-pure scan https://example.com
-uv run wappalyzer-pure scan https://example.com --json
-uv run wappalyzer-pure scan https://example.com --json --security-only
+uv run wappalyzerpy scan https://example.com
+uv run wappalyzerpy scan https://example.com --json
+uv run wappalyzerpy scan https://example.com --json --security-only
 ```
 
 ## Custom Data
