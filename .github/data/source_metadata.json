@@ -2,8 +2,8 @@
     "source": {
         "repo": "enthec/webappanalyzer",
         "ref": "main",
-        "commit": null,
-        "fetched_at_utc": null
+        "commit": "cd2a64f40775b8451302b4578efabb6889d8336b",
+        "fetched_at_utc": "2026-03-21T23:11:26Z"
     },
     "counts": {
         "technologies": 7515,
