@@ -1,0 +1,103 @@
+name: Update Fingerprint Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-fingerprint-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Sync project environment
+        run: uv sync --frozen
+
+      - name: Refresh vendored fingerprint data
+        run: uv run python -m wappalyzer_pure.sync_data
+
+      - name: Detect data changes
+        id: changes
+        run: |
+          if git diff --quiet -- \
+            src/wappalyzer_pure/data/fingerprints_data.json \
+            src/wappalyzer_pure/data/categories_data.json \
+            src/wappalyzer_pure/data/source_metadata.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bump patch version
+        if: steps.changes.outputs.changed == 'true'
+        run: uv run python -m wappalyzer_pure.versioning --bump-patch
+
+      - name: Refresh lockfile
+        if: steps.changes.outputs.changed == 'true'
+        run: uv lock
+
+      - name: Run tests
+        run: uv run pytest
+
+      - name: Run Ruff
+        run: uv run ruff check src tests main.py
+
+      - name: Run Ty
+        run: uv run ty check src tests main.py
+
+      - name: Create pull request
+        id: create-pr
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/update-fingerprint-data
+          delete-branch: true
+          commit-message: "chore(data): update fingerprint data"
+          title: "chore(data): update fingerprint data"
+          body: |
+            Automated weekly update of vendored fingerprint data from `enthec/webappanalyzer`.
+
+            This pull request was created by the scheduled update workflow after
+            regenerating:
+
+            - `src/wappalyzer_pure/data/fingerprints_data.json`
+            - `src/wappalyzer_pure/data/categories_data.json`
+            - `src/wappalyzer_pure/data/source_metadata.json`
+            - `pyproject.toml`
+            - `uv.lock`
+          labels: |
+            automation
+            dependencies
+          add-paths: |
+            src/wappalyzer_pure/data/fingerprints_data.json
+            src/wappalyzer_pure/data/categories_data.json
+            src/wappalyzer_pure/data/source_metadata.json
+            pyproject.toml
+            uv.lock
+
+      - name: Enable auto-merge
+        if: steps.create-pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr merge "${{ steps.create-pr.outputs.pull-request-number }}" --auto --squash

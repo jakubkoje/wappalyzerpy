@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=82"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wappalyzer-pure"
+version = "0.1.0"
+description = "Pure Python website technology detection using vendored Wappalyzer fingerprints."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest", "ruff", "ty"]
+
+[project.scripts]
+wappalyzer-pure = "wappalyzer_pure.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+wappalyzer_pure = ["py.typed", "data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

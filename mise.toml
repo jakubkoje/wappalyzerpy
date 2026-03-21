@@ -1,0 +1,11 @@
+min_version = "2024.9.5"
+
+[env]
+PROJECT_NAME = "{{ config_root | basename }}"
+_.python.venv = { path = ".venv", create = true }
+
+[tools]
+python = "3.14"
+uv = "latest"
+ruff = "latest"
+ty = "latest"

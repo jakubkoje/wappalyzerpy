@@ -1,0 +1,87 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/wappalyzer_pure/data/fingerprints_data.json'
+      - 'src/wappalyzer_pure/data/categories_data.json'
+      - 'src/wappalyzer_pure/data/source_metadata.json'
+      - 'pyproject.toml'
+      - 'uv.lock'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Sync project environment
+        run: uv sync --frozen
+
+      - name: Read version
+        id: version
+        run: echo "value=$(uv run python -m wappalyzer_pure.versioning --print-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Check for existing tag
+        id: tag
+        run: |
+          if git rev-parse "v${{ steps.version.outputs.value }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build release notes
+        if: steps.tag.outputs.exists == 'false'
+        run: |
+          python - <<'PY' > release-notes.txt
+          import json
+          from pathlib import Path
+
+          metadata = json.loads(
+              Path("src/wappalyzer_pure/data/source_metadata.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          source = metadata.get("source", {})
+          counts = metadata.get("counts", {})
+          print("Automated data release for wappalyzer-pure.")
+          print()
+          print(f"- Upstream repo: {source.get('repo')}")
+          print(f"- Upstream ref: {source.get('ref')}")
+          print(f"- Upstream commit: {source.get('commit')}")
+          print(f"- Synced at: {source.get('fetched_at_utc')}")
+          print(f"- Technologies: {counts.get('technologies')}")
+          print(f"- Categories: {counts.get('categories')}")
+          PY
+
+      - name: Create GitHub release
+        if: steps.tag.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create \
+            "v${{ steps.version.outputs.value }}" \
+            --target "${GITHUB_SHA}" \
+            --title "v${{ steps.version.outputs.value }}" \
+            --notes-file release-notes.txt
