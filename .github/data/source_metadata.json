@@ -1,5 +1,33 @@
 {
     "default_source": "merged",
+    "anti_bot_technologies": {
+        "count": 38,
+        "derived_from": "merged"
+    },
+    "anti_bot_aliases": {
+        "vendor_aliases": 44,
+        "product_aliases": 40
+    },
+    "anti_bot_rule_set": {
+        "path": "src/wappalyzer_pure/data/antibot",
+        "files": {
+            "anti_bot_signals_data.json": {
+                "sha256": "56abc639e6cbba2997833864bbdda4380fed3de1dfc90a156ef584f3e1f74818",
+                "vendor_count": 7,
+                "behavior_count": 11
+            },
+            "anti_bot_catalog_rules.json": {
+                "sha256": "1cced18e4e1d8e033915f21e9b7c2a6db93eaf0f7487b11f6734639e3897ab92",
+                "behavior_group_count": 4,
+                "keyword_count": 23
+            },
+            "anti_bot_alias_rules.json": {
+                "sha256": "ad15ebc90a3fda9bcde058895db6a64fd801ea0ee57f8c7c03872ef51906ee65",
+                "vendor_alias_group_count": 7,
+                "product_alias_group_count": 6
+            }
+        }
+    },
     "sources": {
         "enthec": {
             "counts": {
@@ -10,7 +38,7 @@
             "repo": "enthec/webappanalyzer",
             "ref": "main",
             "commit": "cd2a64f40775b8451302b4578efabb6889d8336b",
-            "fetched_at_utc": "2026-03-21T23:53:12Z"
+            "fetched_at_utc": "2026-03-22T01:51:40Z"
         },
         "httparchive": {
             "counts": {
@@ -21,7 +49,7 @@
             "repo": "HTTPArchive/wappalyzer",
             "ref": "main",
             "commit": "4e63cc18b4c7e660e314c7a3bbed96a20d17e21b",
-            "fetched_at_utc": "2026-03-21T23:53:12Z"
+            "fetched_at_utc": "2026-03-22T01:51:40Z"
         },
         "merged": {
             "counts": {
@@ -33,7 +61,7 @@
                 "enthec",
                 "httparchive"
             ],
-            "fetched_at_utc": "2026-03-21T23:53:12Z"
+            "fetched_at_utc": "2026-03-22T01:51:40Z"
         }
     },
     "comparison": {

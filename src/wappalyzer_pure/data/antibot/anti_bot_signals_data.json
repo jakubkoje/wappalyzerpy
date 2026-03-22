@@ -1,0 +1,244 @@
+{
+  "weights": {
+    "technology": 3,
+    "cookie": 3,
+    "body": 3,
+    "header": 1,
+    "header_value": 1,
+    "script_source": 3,
+    "script_content": 3,
+    "status_code": 1,
+    "redirect": 1
+  },
+  "default_confidence_thresholds": {
+    "medium": 3,
+    "high": 6
+  },
+  "vendors": [
+    {
+      "name": "Cloudflare",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 4,
+        "high": 7
+      },
+      "signals": {
+        "cookie_names": [
+          "__cf_bm",
+          "__cfseq",
+          "cf_clearance",
+          "cf_chl_rc_i",
+          "cf_chl_rc_ni",
+          "cf_chl_rc_m"
+        ],
+        "header_names": ["cf-ray"],
+        "script_source_substrings": ["challenges.cloudflare.com/turnstile"],
+        "header_value_contains": {
+          "server": ["cloudflare"]
+        },
+        "body_substrings": [
+          "/cdn-cgi/challenge-platform/",
+          "just a moment...",
+          "turnstile"
+        ]
+      },
+      "behaviors": [
+        {
+          "name": "bot_management",
+          "min_score": 3,
+          "signals": {
+            "technology_names": ["Cloudflare Bot Management"],
+            "cookie_names": ["__cf_bm", "__cfseq"]
+          }
+        },
+        {
+          "name": "challenge",
+          "min_score": 3,
+          "signals": {
+            "cookie_names": [
+              "cf_clearance",
+              "cf_chl_rc_i",
+              "cf_chl_rc_ni",
+              "cf_chl_rc_m"
+            ],
+            "body_substrings": [
+              "/cdn-cgi/challenge-platform/",
+              "just a moment..."
+            ]
+          }
+        },
+        {
+          "name": "captcha",
+          "min_score": 3,
+          "signals": {
+            "technology_names": ["Cloudflare Turnstile", "Turnstile"],
+            "script_source_substrings": ["challenges.cloudflare.com/turnstile"],
+            "body_substrings": ["turnstile"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Akamai Bot Manager",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 6
+      },
+      "signals": {
+        "cookie_names": ["_abck", "ak_bmsc", "bm_sv", "bm_sz"],
+        "header_value_contains": {
+          "server": ["akamaighost"]
+        }
+      },
+      "behaviors": [
+        {
+          "name": "bot_management",
+          "min_score": 3,
+          "signals": {
+            "cookie_names": ["_abck", "ak_bmsc", "bm_sv", "bm_sz"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Imperva",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 6
+      },
+      "signals": {
+        "cookie_names": ["incap_ses", "visid_incap"],
+        "cookie_prefixes": ["nlbi_"],
+        "header_value_contains": {
+          "x-cdn": ["incapsula"]
+        },
+        "body_substrings": ["_incapsula_resource", "incapsula incident id"]
+      },
+      "behaviors": [
+        {
+          "name": "session_enforcement",
+          "min_score": 3,
+          "signals": {
+            "cookie_names": ["incap_ses", "visid_incap"],
+            "cookie_prefixes": ["nlbi_"]
+          }
+        },
+        {
+          "name": "challenge",
+          "min_score": 3,
+          "signals": {
+            "body_substrings": ["_incapsula_resource", "incapsula incident id"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "DataDome",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 6
+      },
+      "signals": {
+        "technology_names": ["DataDome"],
+        "cookie_names": ["datadome"],
+        "body_substrings": [
+          "geo.captcha-delivery.com",
+          "/captcha/?initialcid=",
+          "datadome"
+        ]
+      },
+      "behaviors": [
+        {
+          "name": "captcha",
+          "min_score": 3,
+          "signals": {
+            "cookie_names": ["datadome"],
+            "body_substrings": [
+              "geo.captcha-delivery.com",
+              "/captcha/?initialcid="
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "HUMAN / PerimeterX",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 6
+      },
+      "signals": {
+        "technology_names": ["PerimeterX", "HUMAN Security"],
+        "cookie_names": ["_pxhd", "_pxvid", "_px3", "pxcts"],
+        "body_substrings": ["perimeterx", "px-captcha", "/px/captcha"]
+      },
+      "behaviors": [
+        {
+          "name": "bot_management",
+          "min_score": 3,
+          "signals": {
+            "cookie_names": ["_pxhd", "_pxvid", "_px3", "pxcts"]
+          }
+        },
+        {
+          "name": "captcha",
+          "min_score": 3,
+          "signals": {
+            "body_substrings": ["px-captcha", "/px/captcha"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kasada",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 6
+      },
+      "signals": {
+        "technology_names": ["Kasada"],
+        "cookie_names": ["_kpsdk_ct", "_kpsdk_v", "_kasada"],
+        "script_content_substrings": ["kpsdk"],
+        "body_substrings": ["kasada", "kpsdk"]
+      },
+      "behaviors": [
+        {
+          "name": "bot_management",
+          "min_score": 3,
+          "signals": {
+            "cookie_names": ["_kpsdk_ct", "_kpsdk_v", "_kasada"],
+            "script_content_substrings": ["kpsdk"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sucuri",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 6
+      },
+      "signals": {
+        "cookie_prefixes": ["sucuri_cloudproxy_uuid_"],
+        "header_names": ["x-sucuri-id"],
+        "body_substrings": ["access denied - sucuri website firewall"]
+      },
+      "behaviors": [
+        {
+          "name": "request_filtering",
+          "min_score": 3,
+          "signals": {
+            "cookie_prefixes": ["sucuri_cloudproxy_uuid_"],
+            "body_substrings": ["access denied - sucuri website firewall"]
+          }
+        }
+      ]
+    }
+  ]
+}

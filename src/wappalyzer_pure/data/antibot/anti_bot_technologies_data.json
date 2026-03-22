@@ -1,0 +1,272 @@
+{
+    "technologies": {
+        "33across": {
+            "name": "33Across",
+            "vendor": "33Across",
+            "behaviors": [
+                "challenge"
+            ]
+        },
+        "adcaptcha": {
+            "name": "adCAPTCHA",
+            "vendor": "adCAPTCHA",
+            "behaviors": [
+                "captcha",
+                "challenge"
+            ]
+        },
+        "agorize": {
+            "name": "Agorize",
+            "vendor": "Agorize",
+            "behaviors": [
+                "challenge"
+            ]
+        },
+        "akamai bot manager": {
+            "name": "Akamai Bot Manager",
+            "vendor": "Akamai Bot Manager",
+            "behaviors": [
+                "bot_management"
+            ]
+        },
+        "akamai web application protector": {
+            "name": "Akamai Web Application Protector",
+            "vendor": "Akamai Web Application Protector",
+            "behaviors": [
+                "request_filtering"
+            ]
+        },
+        "altcha": {
+            "name": "Altcha",
+            "vendor": "Altcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "arcaptcha": {
+            "name": "ARCaptcha",
+            "vendor": "ARCaptcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "aws waf captcha": {
+            "name": "AWS WAF Captcha",
+            "vendor": "AWS WAF Captcha",
+            "behaviors": [
+                "captcha",
+                "challenge"
+            ]
+        },
+        "canyon": {
+            "name": "Canyon",
+            "vendor": "Canyon",
+            "behaviors": [
+                "challenge"
+            ]
+        },
+        "cloudflare bot management": {
+            "name": "Cloudflare Bot Management",
+            "vendor": "Cloudflare",
+            "behaviors": [
+                "bot_management"
+            ]
+        },
+        "cloudflare turnstile": {
+            "name": "Cloudflare Turnstile",
+            "vendor": "Cloudflare",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "coinhive captcha": {
+            "name": "CoinHive Captcha",
+            "vendor": "CoinHive Captcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "contact form 7": {
+            "name": "Contact Form 7",
+            "vendor": "Contact Form 7",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "datadome": {
+            "name": "DataDome",
+            "vendor": "DataDome",
+            "behaviors": [
+                "bot_management"
+            ]
+        },
+        "friendly captcha": {
+            "name": "Friendly Captcha",
+            "vendor": "Friendly Captcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "frontstream": {
+            "name": "Frontstream",
+            "vendor": "Frontstream",
+            "behaviors": [
+                "challenge"
+            ]
+        },
+        "funcaptcha": {
+            "name": "FunCaptcha",
+            "vendor": "FunCaptcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "geetest": {
+            "name": "GeeTest",
+            "vendor": "GeeTest",
+            "behaviors": [
+                "bot_management",
+                "captcha"
+            ]
+        },
+        "hcaptcha": {
+            "name": "hCaptcha",
+            "vendor": "hCaptcha",
+            "behaviors": [
+                "bot_management",
+                "captcha"
+            ]
+        },
+        "indi": {
+            "name": "Indi",
+            "vendor": "Indi",
+            "behaviors": [
+                "challenge"
+            ]
+        },
+        "kasada": {
+            "name": "Kasada",
+            "vendor": "Kasada",
+            "behaviors": [
+                "bot_management"
+            ]
+        },
+        "mirus": {
+            "name": "Mirus",
+            "vendor": "Mirus",
+            "behaviors": [
+                "challenge"
+            ]
+        },
+        "mtcaptcha": {
+            "name": "MTCaptcha",
+            "vendor": "MTCaptcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "negate": {
+            "name": "Negate",
+            "vendor": "Negate",
+            "behaviors": [
+                "bot_management"
+            ]
+        },
+        "perimeterx": {
+            "name": "PerimeterX",
+            "vendor": "HUMAN / PerimeterX",
+            "behaviors": []
+        },
+        "picatcha": {
+            "name": "Picatcha",
+            "vendor": "Picatcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "really simple captcha": {
+            "name": "Really Simple CAPTCHA",
+            "vendor": "Really Simple CAPTCHA",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "recaptcha": {
+            "name": "reCAPTCHA",
+            "vendor": "reCAPTCHA",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "recaptcha v2 for contact form 7": {
+            "name": "ReCaptcha v2 for Contact Form 7",
+            "vendor": "ReCaptcha v2 for Contact Form 7",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "ringcaptcha": {
+            "name": "RingCaptcha",
+            "vendor": "RingCaptcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "shopblocks": {
+            "name": "Shopblocks",
+            "vendor": "Shopblocks",
+            "behaviors": [
+                "challenge"
+            ]
+        },
+        "slider captcha": {
+            "name": "Slider Captcha",
+            "vendor": "Slider Captcha",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "snaphost": {
+            "name": "SnapHost",
+            "vendor": "SnapHost",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "startest": {
+            "name": "StarTest",
+            "vendor": "StarTest",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "v4guard checkpoint": {
+            "name": "v4Guard Checkpoint",
+            "vendor": "v4Guard Checkpoint",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "variti": {
+            "name": "Variti",
+            "vendor": "Variti",
+            "behaviors": [
+                "bot_management"
+            ]
+        },
+        "wordfence login security": {
+            "name": "Wordfence Login Security",
+            "vendor": "Wordfence Login Security",
+            "behaviors": [
+                "captcha"
+            ]
+        },
+        "yandex smartcaptcha": {
+            "name": "Yandex SmartCaptcha",
+            "vendor": "Yandex SmartCaptcha",
+            "behaviors": [
+                "captcha"
+            ]
+        }
+    }
+}

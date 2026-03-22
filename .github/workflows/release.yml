@@ -5,12 +5,10 @@ on:
     branches:
       - main
     paths:
-      - "src/wappalyzer_pure/data/fingerprints_enthec_data.json"
-      - "src/wappalyzer_pure/data/categories_enthec_data.json"
-      - "src/wappalyzer_pure/data/fingerprints_httparchive_data.json"
-      - "src/wappalyzer_pure/data/categories_httparchive_data.json"
-      - "src/wappalyzer_pure/data/fingerprints_merged_data.json"
-      - "src/wappalyzer_pure/data/categories_merged_data.json"
+      - "src/wappalyzer_pure/data/fingerprints/**"
+      - "src/wappalyzer_pure/data/categories/**"
+      - "src/wappalyzer_pure/data/antibot/anti_bot_technologies_data.json"
+      - "src/wappalyzer_pure/data/antibot/anti_bot_aliases_data.json"
       - ".github/data/source_metadata.json"
       - "pyproject.toml"
       - "uv.lock"
@@ -88,6 +86,27 @@ jobs:
               print(f"  Synced at: {source.get('fetched_at_utc') or 'unknown'}")
               print(f"  Technologies: {counts.get('technologies', 'unknown')}")
               print(f"  Categories: {counts.get('categories', 'unknown')}")
+          anti_bot = metadata.get("anti_bot_technologies", {})
+          aliases = metadata.get("anti_bot_aliases", {})
+          if anti_bot or aliases:
+              print()
+              print("- Anti-bot derived data")
+              print(
+                  f"  Technology entries: "
+                  f"{anti_bot.get('count', 'unknown')}"
+              )
+              print(
+                  f"  Derived from: "
+                  f"{anti_bot.get('derived_from', 'unknown')}"
+              )
+              print(
+                  f"  Vendor aliases: "
+                  f"{aliases.get('vendor_aliases', 'unknown')}"
+              )
+              print(
+                  f"  Product aliases: "
+                  f"{aliases.get('product_aliases', 'unknown')}"
+              )
           technology_comparison = comparison.get("technologies", {})
           if technology_comparison:
               print()

@@ -11,3 +11,7 @@ def test_packaged_fingerprints_detect_cloudflare_from_header_for_both_sources() 
 
         assert "Cloudflare" in info
         assert info["Cloudflare"].website == "https://www.cloudflare.com"
+        assert "cloudflare bot management" in client.anti_bot_catalog
+        assert client.anti_bot_aliases.canonical_vendor_name("Akamai Bot Manager") == (
+            "Akamai"
+        )

@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+from typing import cast
+
+from wappalyzer_pure.antibot_catalog import derive_anti_bot_technology_catalog
 from wappalyzer_pure.data_sources import FingerprintDataSource
 from wappalyzer_pure.sync_data import (
     _build_comparison,
+    _build_curated_rule_set_metadata,
     _build_merged_dataset,
     _normalize_categories,
     _normalize_fingerprint,
@@ -91,6 +95,12 @@ def test_default_sync_paths_builds_source_specific_dataset_files() -> None:
     )
     assert paths.datasets[FingerprintDataSource.HTTPARCHIVE].categories.name == (
         "categories_httparchive_data.json"
+    )
+    assert paths.datasets[FingerprintDataSource.MERGED].fingerprints.parent.name == (
+        "fingerprints"
+    )
+    assert paths.datasets[FingerprintDataSource.MERGED].categories.parent.name == (
+        "categories"
     )
 
 
@@ -192,3 +202,53 @@ def test_build_merged_dataset_unions_lists_and_prefers_primary_scalars() -> None
             "description": "Content management systems",
         }
     }
+
+
+def test_derive_anti_bot_technology_catalog_uses_synced_fingerprints() -> None:
+    catalog = derive_anti_bot_technology_catalog(
+        {
+            "Cloudflare Turnstile": {
+                "cats": [16],
+                "description": "Turnstile is Cloudflare's smart CAPTCHA alternative.",
+                "website": "https://www.cloudflare.com/products/turnstile/",
+            },
+            "Friendly Captcha": {
+                "cats": [16],
+                "description": "Friendly Captcha is a privacy-friendly CAPTCHA alternative.",
+                "website": "https://friendlycaptcha.com",
+            },
+            "MetaCMS": {
+                "cats": [1],
+                "description": "A content management system.",
+            },
+        },
+        {
+            "1": {"name": "CMS", "priority": 1},
+            "16": {"name": "Security", "priority": 1},
+        },
+    )
+
+    assert catalog["cloudflare turnstile"].vendor == "Cloudflare"
+    assert catalog["cloudflare turnstile"].behaviors == ("captcha",)
+    assert catalog["friendly captcha"].vendor == "Friendly Captcha"
+    assert catalog["friendly captcha"].behaviors == ("captcha",)
+    assert "metacms" not in catalog
+
+
+def test_build_curated_rule_set_metadata_reports_packaged_rule_files() -> None:
+    metadata = _build_curated_rule_set_metadata()
+
+    assert metadata["path"] == "src/wappalyzer_pure/data/antibot"
+    files = cast(dict[str, dict[str, object]], metadata["files"])
+    signals = files["anti_bot_signals_data.json"]
+    catalog_rules = files["anti_bot_catalog_rules.json"]
+    alias_rules = files["anti_bot_alias_rules.json"]
+    assert cast(int, signals["vendor_count"]) >= 1
+    assert cast(int, signals["behavior_count"]) >= 1
+    assert len(cast(str, signals["sha256"])) == 64
+    assert cast(int, catalog_rules["behavior_group_count"]) >= 1
+    assert cast(int, catalog_rules["keyword_count"]) >= 1
+    assert len(cast(str, catalog_rules["sha256"])) == 64
+    assert cast(int, alias_rules["vendor_alias_group_count"]) >= 1
+    assert cast(int, alias_rules["product_alias_group_count"]) >= 1
+    assert len(cast(str, alias_rules["sha256"])) == 64

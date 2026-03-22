@@ -24,7 +24,7 @@ include-package-data = true
 where = ["src"]
 
 [tool.setuptools.package-data]
-wappalyzer_pure = ["py.typed", "data/*.json"]
+wappalyzer_pure = ["py.typed", "data/*/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

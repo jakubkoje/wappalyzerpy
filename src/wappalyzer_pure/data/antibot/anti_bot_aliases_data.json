@@ -1,0 +1,210 @@
+{
+    "vendors": {
+        "33across": "33Across",
+        "adcaptcha": "adCAPTCHA",
+        "agorize": "Agorize",
+        "akamai": "Akamai",
+        "akamai bot manager": "Akamai",
+        "akamai web application protector": "Akamai",
+        "altcha": "Altcha",
+        "arcaptcha": "ARCaptcha",
+        "aws waf captcha": "AWS WAF Captcha",
+        "canyon": "Canyon",
+        "cloudflare": "Cloudflare",
+        "coinhive captcha": "CoinHive Captcha",
+        "contact form 7": "Contact Form 7",
+        "datadome": "DataDome",
+        "friendly captcha": "Friendly Captcha",
+        "frontstream": "Frontstream",
+        "funcaptcha": "FunCaptcha",
+        "geetest": "GeeTest",
+        "hcaptcha": "hCaptcha",
+        "human": "HUMAN",
+        "human / perimeterx": "HUMAN",
+        "human security": "HUMAN",
+        "imperva": "Imperva",
+        "incapsula": "Imperva",
+        "indi": "Indi",
+        "kasada": "Kasada",
+        "mirus": "Mirus",
+        "mtcaptcha": "MTCaptcha",
+        "negate": "Negate",
+        "perimeterx": "HUMAN",
+        "picatcha": "Picatcha",
+        "really simple captcha": "Really Simple CAPTCHA",
+        "recaptcha": "reCAPTCHA",
+        "recaptcha v2 for contact form 7": "ReCaptcha v2 for Contact Form 7",
+        "ringcaptcha": "RingCaptcha",
+        "shopblocks": "Shopblocks",
+        "slider captcha": "Slider Captcha",
+        "snaphost": "SnapHost",
+        "startest": "StarTest",
+        "sucuri": "Sucuri",
+        "v4guard checkpoint": "v4Guard Checkpoint",
+        "variti": "Variti",
+        "wordfence login security": "Wordfence Login Security",
+        "yandex smartcaptcha": "Yandex SmartCaptcha"
+    },
+    "products": {
+        "33across": {
+            "canonical_name": "33Across",
+            "canonical_vendor": "33Across"
+        },
+        "adcaptcha": {
+            "canonical_name": "adCAPTCHA",
+            "canonical_vendor": "adCAPTCHA"
+        },
+        "agorize": {
+            "canonical_name": "Agorize",
+            "canonical_vendor": "Agorize"
+        },
+        "akamai bot manager": {
+            "canonical_name": "Akamai Bot Manager",
+            "canonical_vendor": "Akamai"
+        },
+        "akamai web application protector": {
+            "canonical_name": "Akamai Web Application Protector",
+            "canonical_vendor": "Akamai"
+        },
+        "altcha": {
+            "canonical_name": "Altcha",
+            "canonical_vendor": "Altcha"
+        },
+        "arcaptcha": {
+            "canonical_name": "ARCaptcha",
+            "canonical_vendor": "ARCaptcha"
+        },
+        "aws waf captcha": {
+            "canonical_name": "AWS WAF Captcha",
+            "canonical_vendor": "AWS WAF Captcha"
+        },
+        "canyon": {
+            "canonical_name": "Canyon",
+            "canonical_vendor": "Canyon"
+        },
+        "cloudflare bot management": {
+            "canonical_name": "Cloudflare Bot Management",
+            "canonical_vendor": "Cloudflare"
+        },
+        "cloudflare turnstile": {
+            "canonical_name": "Cloudflare Turnstile",
+            "canonical_vendor": "Cloudflare"
+        },
+        "coinhive captcha": {
+            "canonical_name": "CoinHive Captcha",
+            "canonical_vendor": "CoinHive Captcha"
+        },
+        "contact form 7": {
+            "canonical_name": "Contact Form 7",
+            "canonical_vendor": "Contact Form 7"
+        },
+        "datadome": {
+            "canonical_name": "DataDome",
+            "canonical_vendor": "DataDome"
+        },
+        "friendly captcha": {
+            "canonical_name": "Friendly Captcha",
+            "canonical_vendor": "Friendly Captcha"
+        },
+        "frontstream": {
+            "canonical_name": "Frontstream",
+            "canonical_vendor": "Frontstream"
+        },
+        "funcaptcha": {
+            "canonical_name": "FunCaptcha",
+            "canonical_vendor": "FunCaptcha"
+        },
+        "geetest": {
+            "canonical_name": "GeeTest",
+            "canonical_vendor": "GeeTest"
+        },
+        "hcaptcha": {
+            "canonical_name": "hCaptcha",
+            "canonical_vendor": "hCaptcha"
+        },
+        "human security": {
+            "canonical_name": "HUMAN Security",
+            "canonical_vendor": "HUMAN"
+        },
+        "indi": {
+            "canonical_name": "Indi",
+            "canonical_vendor": "Indi"
+        },
+        "kasada": {
+            "canonical_name": "Kasada",
+            "canonical_vendor": "Kasada"
+        },
+        "mirus": {
+            "canonical_name": "Mirus",
+            "canonical_vendor": "Mirus"
+        },
+        "mtcaptcha": {
+            "canonical_name": "MTCaptcha",
+            "canonical_vendor": "MTCaptcha"
+        },
+        "negate": {
+            "canonical_name": "Negate",
+            "canonical_vendor": "Negate"
+        },
+        "perimeterx": {
+            "canonical_name": "PerimeterX",
+            "canonical_vendor": "HUMAN"
+        },
+        "picatcha": {
+            "canonical_name": "Picatcha",
+            "canonical_vendor": "Picatcha"
+        },
+        "really simple captcha": {
+            "canonical_name": "Really Simple CAPTCHA",
+            "canonical_vendor": "Really Simple CAPTCHA"
+        },
+        "recaptcha": {
+            "canonical_name": "reCAPTCHA",
+            "canonical_vendor": "reCAPTCHA"
+        },
+        "recaptcha v2 for contact form 7": {
+            "canonical_name": "ReCaptcha v2 for Contact Form 7",
+            "canonical_vendor": "ReCaptcha v2 for Contact Form 7"
+        },
+        "ringcaptcha": {
+            "canonical_name": "RingCaptcha",
+            "canonical_vendor": "RingCaptcha"
+        },
+        "shopblocks": {
+            "canonical_name": "Shopblocks",
+            "canonical_vendor": "Shopblocks"
+        },
+        "slider captcha": {
+            "canonical_name": "Slider Captcha",
+            "canonical_vendor": "Slider Captcha"
+        },
+        "snaphost": {
+            "canonical_name": "SnapHost",
+            "canonical_vendor": "SnapHost"
+        },
+        "startest": {
+            "canonical_name": "StarTest",
+            "canonical_vendor": "StarTest"
+        },
+        "turnstile": {
+            "canonical_name": "Cloudflare Turnstile",
+            "canonical_vendor": "Cloudflare"
+        },
+        "v4guard checkpoint": {
+            "canonical_name": "v4Guard Checkpoint",
+            "canonical_vendor": "v4Guard Checkpoint"
+        },
+        "variti": {
+            "canonical_name": "Variti",
+            "canonical_vendor": "Variti"
+        },
+        "wordfence login security": {
+            "canonical_name": "Wordfence Login Security",
+            "canonical_vendor": "Wordfence Login Security"
+        },
+        "yandex smartcaptcha": {
+            "canonical_name": "Yandex SmartCaptcha",
+            "canonical_vendor": "Yandex SmartCaptcha"
+        }
+    }
+}

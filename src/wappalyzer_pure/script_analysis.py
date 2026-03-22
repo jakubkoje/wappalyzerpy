@@ -37,6 +37,12 @@ class ScriptAnalysisOptions:
         )
 
 
+@dataclass(frozen=True, slots=True)
+class FetchedScripts:
+    urls: tuple[str, ...] = ()
+    contents: tuple[str, ...] = ()
+
+
 def fetch_external_script_contents(
     *,
     page_url: str,
@@ -46,8 +52,27 @@ def fetch_external_script_contents(
     opener: urllib_request.OpenerDirector | None = None,
     request_headers: Mapping[str, str] | None = None,
 ) -> tuple[str, ...]:
+    return fetch_external_scripts(
+        page_url=page_url,
+        script_sources=script_sources,
+        options=options,
+        timeout=timeout,
+        opener=opener,
+        request_headers=request_headers,
+    ).contents
+
+
+def fetch_external_scripts(
+    *,
+    page_url: str,
+    script_sources: Iterable[str],
+    options: ScriptAnalysisOptions,
+    timeout: float,
+    opener: urllib_request.OpenerDirector | None = None,
+    request_headers: Mapping[str, str] | None = None,
+) -> FetchedScripts:
     if not options.fetch_enabled:
-        return ()
+        return FetchedScripts()
 
     candidate_urls = _resolve_script_urls(
         page_url=page_url,
@@ -55,10 +80,11 @@ def fetch_external_script_contents(
         options=options,
     )
     if not candidate_urls:
-        return ()
+        return FetchedScripts()
 
     active_opener = opener or urllib_request.build_opener()
     total_bytes = 0
+    fetched_urls: list[str] = []
     contents: list[str] = []
 
     for script_url in candidate_urls:
@@ -84,9 +110,10 @@ def fetch_external_script_contents(
             continue
 
         total_bytes += len(payload)
+        fetched_urls.append(script_url)
         contents.append(payload.decode("latin-1"))
 
-    return tuple(contents)
+    return FetchedScripts(urls=tuple(fetched_urls), contents=tuple(contents))
 
 
 def _resolve_script_urls(

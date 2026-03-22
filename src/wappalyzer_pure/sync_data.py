@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import string
 from collections.abc import Mapping, Sequence
@@ -10,6 +11,16 @@ from pathlib import Path
 from typing import cast
 from urllib import request as urllib_request
 
+from .antibot_aliases import (
+    anti_bot_aliases_filename,
+    derive_anti_bot_alias_catalog,
+    serialize_anti_bot_alias_catalog,
+)
+from .antibot_catalog import (
+    anti_bot_technologies_filename,
+    derive_anti_bot_technology_catalog,
+    serialize_anti_bot_technology_catalog,
+)
 from .data_sources import (
     DEFAULT_FINGERPRINT_DATA_SOURCE,
     FingerprintDataSource,
@@ -24,6 +35,11 @@ REQUEST_HEADERS = {
     "Accept": "application/json",
     "User-Agent": "wappalyzer-pure-sync/0.1.0",
 }
+CURATED_ANTI_BOT_RULE_FILES = (
+    "anti_bot_signals_data.json",
+    "anti_bot_catalog_rules.json",
+    "anti_bot_alias_rules.json",
+)
 NormalizedApps = dict[str, dict[str, object]]
 NormalizedCategories = dict[str, object]
 
@@ -153,6 +169,8 @@ def default_sync_paths(
     source: FingerprintDataSource | str | None = None,
 ) -> SyncPaths:
     package_data_dir = Path(__file__).resolve().parent / "data"
+    fingerprints_dir = package_data_dir / "fingerprints"
+    categories_dir = package_data_dir / "categories"
     project_root = Path(__file__).resolve().parents[2]
     if source is None:
         selected_sources = (
@@ -163,8 +181,8 @@ def default_sync_paths(
         selected_sources = (normalize_fingerprint_data_source(source),)
     datasets = {
         source_value: DatasetPaths(
-            fingerprints=package_data_dir / fingerprints_filename(source_value),
-            categories=package_data_dir / categories_filename(source_value),
+            fingerprints=fingerprints_dir / fingerprints_filename(source_value),
+            categories=categories_dir / categories_filename(source_value),
         )
         for source_value in selected_sources
     }
@@ -244,11 +262,40 @@ def sync_package_data(
             fingerprints=merged_paths.fingerprints,
             categories_file=merged_paths.categories,
         )
+        anti_bot_catalog = derive_anti_bot_technology_catalog(
+            merged_apps,
+            merged_categories,
+        )
+    else:
+        source_apps, source_categories = comparison_input[selected_source]
+        anti_bot_catalog = derive_anti_bot_technology_catalog(
+            source_apps,
+            source_categories,
+        )
+    anti_bot_aliases = derive_anti_bot_alias_catalog(anti_bot_catalog)
+
+    data_dir = Path(__file__).resolve().parent / "data" / "antibot"
+    _write_json(
+        data_dir / anti_bot_technologies_filename(),
+        serialize_anti_bot_technology_catalog(anti_bot_catalog),
+    )
+    _write_json(
+        data_dir / anti_bot_aliases_filename(),
+        serialize_anti_bot_alias_catalog(anti_bot_aliases),
+    )
 
     metadata = _build_metadata(
         source_results=source_results,
         comparison_input=comparison_input,
         fetched_at_utc=fetched_at_utc,
+        anti_bot_technologies_count=len(anti_bot_catalog),
+        anti_bot_technologies_source=(
+            FingerprintDataSource.MERGED.value
+            if selected_source is None
+            else selected_source.value
+        ),
+        anti_bot_vendor_aliases_count=len(anti_bot_aliases.vendor_aliases),
+        anti_bot_product_aliases_count=len(anti_bot_aliases.product_aliases),
     )
     _write_json(active_paths.metadata, metadata)
     return SyncResult(
@@ -303,6 +350,10 @@ def _build_metadata(
         FingerprintDataSource, tuple[NormalizedApps, NormalizedCategories]
     ],
     fetched_at_utc: str,
+    anti_bot_technologies_count: int,
+    anti_bot_technologies_source: str,
+    anti_bot_vendor_aliases_count: int,
+    anti_bot_product_aliases_count: int,
 ) -> dict[str, object]:
     sources_metadata: dict[str, object] = {}
     for source in sorted(source_results, key=lambda item: item.value):
@@ -329,9 +380,92 @@ def _build_metadata(
 
     return {
         "default_source": DEFAULT_FINGERPRINT_DATA_SOURCE.value,
+        "anti_bot_technologies": {
+            "count": anti_bot_technologies_count,
+            "derived_from": anti_bot_technologies_source,
+        },
+        "anti_bot_aliases": {
+            "vendor_aliases": anti_bot_vendor_aliases_count,
+            "product_aliases": anti_bot_product_aliases_count,
+        },
+        "anti_bot_rule_set": _build_curated_rule_set_metadata(),
         "sources": sources_metadata,
         "comparison": _build_comparison(comparison_input),
     }
+
+
+def _build_curated_rule_set_metadata() -> dict[str, object]:
+    data_dir = Path(__file__).resolve().parent / "data" / "antibot"
+    files: dict[str, object] = {}
+    for filename in CURATED_ANTI_BOT_RULE_FILES:
+        path = data_dir / filename
+        payload_text = path.read_text(encoding="utf-8")
+        payload = json.loads(payload_text)
+        files[filename] = {
+            "sha256": hashlib.sha256(payload_text.encode("utf-8")).hexdigest(),
+            **_curated_rule_file_counts(filename, payload),
+        }
+    return {
+        "path": "src/wappalyzer_pure/data/antibot",
+        "files": files,
+    }
+
+
+def _curated_rule_file_counts(
+    filename: str,
+    payload: object,
+) -> dict[str, int]:
+    if not isinstance(payload, Mapping):
+        raise TypeError(
+            f"curated anti-bot rule file must contain a mapping: {filename}"
+        )
+    mapping_payload = cast(Mapping[str, object], payload)
+
+    if filename == "anti_bot_signals_data.json":
+        vendors = mapping_payload.get("vendors", [])
+        if not isinstance(vendors, list):
+            raise TypeError("anti_bot_signals_data.json vendors must be a list")
+        behavior_count = 0
+        for vendor in vendors:
+            if not isinstance(vendor, Mapping):
+                continue
+            vendor_mapping = cast(Mapping[str, object], vendor)
+            behaviors = vendor_mapping.get("behaviors", [])
+            if isinstance(behaviors, list):
+                behavior_count += len(behaviors)
+        return {
+            "vendor_count": len(vendors),
+            "behavior_count": behavior_count,
+        }
+
+    if filename == "anti_bot_catalog_rules.json":
+        behavior_keywords = mapping_payload.get("behavior_keywords", {})
+        if not isinstance(behavior_keywords, Mapping):
+            raise TypeError(
+                "anti_bot_catalog_rules.json behavior_keywords must be a mapping"
+            )
+        keyword_count = 0
+        for keywords in behavior_keywords.values():
+            if isinstance(keywords, list):
+                keyword_count += len(keywords)
+        return {
+            "behavior_group_count": len(behavior_keywords),
+            "keyword_count": keyword_count,
+        }
+
+    if filename == "anti_bot_alias_rules.json":
+        vendors = mapping_payload.get("vendors", [])
+        products = mapping_payload.get("products", [])
+        if not isinstance(vendors, list):
+            raise TypeError("anti_bot_alias_rules.json vendors must be a list")
+        if not isinstance(products, list):
+            raise TypeError("anti_bot_alias_rules.json products must be a list")
+        return {
+            "vendor_alias_group_count": len(vendors),
+            "product_alias_group_count": len(products),
+        }
+
+    raise ValueError(f"unsupported curated anti-bot rule file: {filename}")
 
 
 def _build_merged_dataset(

@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: "3.13"
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v7
@@ -30,7 +30,7 @@ jobs:
         run: uv run pytest
 
       - name: Run Ruff
-        run: uv run ruff check src tests main.py
+        run: uv run ruff check src tests main.py examples
 
       - name: Run Ty
-        run: uv run ty check src tests main.py
+        run: uv run ty check src tests main.py examples

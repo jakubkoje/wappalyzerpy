@@ -1,0 +1,73 @@
+{
+  "vendors": [
+    {
+      "canonical_name": "Akamai",
+      "aliases": [
+        "Akamai",
+        "Akamai Bot Manager",
+        "Akamai Web Application Protector"
+      ]
+    },
+    {
+      "canonical_name": "Cloudflare",
+      "aliases": ["Cloudflare"]
+    },
+    {
+      "canonical_name": "DataDome",
+      "aliases": ["DataDome"]
+    },
+    {
+      "canonical_name": "HUMAN",
+      "aliases": [
+        "HUMAN",
+        "HUMAN Security",
+        "HUMAN / PerimeterX",
+        "PerimeterX"
+      ]
+    },
+    {
+      "canonical_name": "Imperva",
+      "aliases": ["Imperva", "Incapsula"]
+    },
+    {
+      "canonical_name": "Kasada",
+      "aliases": ["Kasada"]
+    },
+    {
+      "canonical_name": "Sucuri",
+      "aliases": ["Sucuri"]
+    }
+  ],
+  "products": [
+    {
+      "canonical_name": "Akamai Bot Manager",
+      "canonical_vendor": "Akamai",
+      "aliases": ["Akamai Bot Manager"]
+    },
+    {
+      "canonical_name": "Akamai Web Application Protector",
+      "canonical_vendor": "Akamai",
+      "aliases": ["Akamai Web Application Protector"]
+    },
+    {
+      "canonical_name": "Cloudflare Bot Management",
+      "canonical_vendor": "Cloudflare",
+      "aliases": ["Cloudflare Bot Management"]
+    },
+    {
+      "canonical_name": "Cloudflare Turnstile",
+      "canonical_vendor": "Cloudflare",
+      "aliases": ["Cloudflare Turnstile", "Turnstile"]
+    },
+    {
+      "canonical_name": "HUMAN Security",
+      "canonical_vendor": "HUMAN",
+      "aliases": ["HUMAN Security"]
+    },
+    {
+      "canonical_name": "PerimeterX",
+      "canonical_vendor": "HUMAN",
+      "aliases": ["PerimeterX"]
+    }
+  ]
+}

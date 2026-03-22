@@ -2776,8 +2776,8 @@
             },
             "icon": "afterpay.svg",
             "js": {
-                "Afterpay": "",
                 "AfterPay": "",
+                "Afterpay": "",
                 "Afterpay.version": "([\\d\\.]+)\\;version:\\1",
                 "afterpay_product": "",
                 "AfterpayAttractWidget": "",
@@ -8342,8 +8342,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "awesomplete": "",
-                "Awesomplete": ""
+                "Awesomplete": "",
+                "awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -13441,8 +13441,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "Bugsnag": "",
                 "bugsnag": "",
+                "Bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -24979,8 +24979,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DONORBOX": "",
                 "DonorBox": "",
+                "DONORBOX": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -33829,17 +33829,6 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
-        },
         "framework7": {
             "cats": [
                 59,
@@ -33857,6 +33846,17 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
+        },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -42666,6 +42666,22 @@
             "icon": "ImageEngine.svg",
             "website": "https://imageengine.io"
         },
+        "Imagekit": {
+            "cats": [
+                7
+            ],
+            "dom": {
+                "link[href*='ik.imagekit.io/']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "x-server": "imagekit\\.io"
+            },
+            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
+            "website": "https://imagekit.io/",
+            "icon": "ImageKit.svg"
+        },
         "ImageKit": {
             "cats": [
                 31,
@@ -42680,22 +42696,6 @@
                 "x-server": "imagekit\\.io"
             },
             "description": "ImageKit is a real-time image and video transformation, optimization, and delivery service with built-in digital asset management, powered by a global CDN.",
-            "website": "https://imagekit.io/",
-            "icon": "ImageKit.svg"
-        },
-        "Imagekit": {
-            "cats": [
-                7
-            ],
-            "dom": {
-                "link[href*='ik.imagekit.io/']": {
-                    "exists": ""
-                }
-            },
-            "headers": {
-                "x-server": "imagekit\\.io"
-            },
-            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
             "website": "https://imagekit.io/",
             "icon": "ImageKit.svg"
         },
@@ -49192,8 +49192,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrIgnition": "\\;confidence:25",
                 "lrignition": "\\;confidence:25",
+                "lrIgnition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -50996,6 +50996,19 @@
             "icon": "LiteSpeed.svg",
             "website": "https://litespeedtech.com"
         },
+        "Litespeed Cache": {
+            "cats": [
+                23,
+                87
+            ],
+            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
+            "headers": {
+                "x-litespeed-cache": "",
+                "x-turbo-charged-by": "litespeed"
+            },
+            "icon": "litespeed-cache.png",
+            "website": "https://wordpress.org/plugins/litespeed-cache/"
+        },
         "LiteSpeed Cache": {
             "cats": [
                 23,
@@ -51017,19 +51030,6 @@
             "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
             "website": "https://www.litespeedtech.com/products/cache-plugins/wordpress-acceleration",
             "icon": "LiteSpeed.svg"
-        },
-        "Litespeed Cache": {
-            "cats": [
-                23,
-                87
-            ],
-            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
-            "headers": {
-                "x-litespeed-cache": "",
-                "x-turbo-charged-by": "litespeed"
-            },
-            "icon": "litespeed-cache.png",
-            "website": "https://wordpress.org/plugins/litespeed-cache/"
         },
         "Lithium": {
             "cats": [
@@ -74417,8 +74417,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "Recaptcha": "",
-                "recaptcha": ""
+                "recaptcha": "",
+                "Recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -79394,8 +79394,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "scrivito": "",
-                "Scrivito": ""
+                "Scrivito": "",
+                "scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -81208,8 +81208,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "sheerid": "",
-                "SheerID": ""
+                "SheerID": "",
+                "sheerid": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -82022,8 +82022,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "Shoplazza": "",
-                "SHOPLAZZA": ""
+                "SHOPLAZZA": "",
+                "Shoplazza": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -86833,6 +86833,17 @@
             ],
             "website": "https://spinasale.com"
         },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
+        },
         "Spin.js": {
             "cats": [
                 59
@@ -86846,17 +86857,6 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
-        },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -89206,8 +89206,8 @@
             },
             "icon": "Stylitics.svg",
             "js": {
-                "Stylitics": "",
-                "stylitics": ""
+                "stylitics": "",
+                "Stylitics": ""
             },
             "scriptSrc": [
                 "/stylitics/js/stylitics\\.js\\?ver=v([\\d.]+)\\;version:\\1",
@@ -93926,17 +93926,6 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
-        },
         "timeago": {
             "cats": [
                 59
@@ -93949,6 +93938,17 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
+        },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -94850,8 +94850,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -98522,8 +98522,8 @@
                 "Java"
             ],
             "js": {
-                "Vaadin": "",
-                "vaadin": ""
+                "vaadin": "",
+                "Vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -99689,8 +99689,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "videojs": "",
                 "VideoJS": "",
+                "videojs": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -102704,17 +102704,6 @@
             },
             "website": "https://www.websitebuilder.com"
         },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
-        },
         "WebSocket": {
             "cats": [
                 19
@@ -102739,6 +102728,17 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
+        },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [

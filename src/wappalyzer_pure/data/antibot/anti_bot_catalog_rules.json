@@ -1,0 +1,35 @@
+{
+  "behavior_keywords": {
+    "bot_management": [
+      "bot management",
+      "bot manager",
+      "bot protection",
+      "bot mitigation",
+      "bad bots",
+      "anti-bot",
+      "anti bot",
+      "anti automation",
+      "anti-automation",
+      "automated threats",
+      "automated traffic",
+      "bot attacks",
+      "scraping",
+      "credential stuffing"
+    ],
+    "captcha": [
+      "captcha",
+      "turnstile",
+      "recaptcha",
+      "hcaptcha",
+      "smartcaptcha"
+    ],
+    "challenge": [
+      "challenge"
+    ],
+    "request_filtering": [
+      "request filtering",
+      "web application firewall",
+      "access denied"
+    ]
+  }
+}

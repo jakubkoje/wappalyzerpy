@@ -28,3 +28,11 @@ def fingerprints_filename(source: FingerprintDataSource | str) -> str:
 def categories_filename(source: FingerprintDataSource | str) -> str:
     normalized = normalize_fingerprint_data_source(source)
     return f"categories_{normalized.value}_data.json"
+
+
+def fingerprints_resource_path(source: FingerprintDataSource | str) -> str:
+    return f"fingerprints/{fingerprints_filename(source)}"
+
+
+def categories_resource_path(source: FingerprintDataSource | str) -> str:
+    return f"categories/{categories_filename(source)}"

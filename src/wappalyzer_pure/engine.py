@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from enum import Enum, auto
 from functools import lru_cache
@@ -8,11 +9,21 @@ from html.parser import HTMLParser
 from importlib import resources
 from typing import Any
 
+from .antibot_aliases import (
+    AntiBotAliasCatalog,
+    derive_anti_bot_alias_catalog,
+    load_packaged_anti_bot_alias_catalog,
+)
+from .antibot_catalog import (
+    AntiBotTechnologyCatalogEntry,
+    derive_anti_bot_technology_catalog,
+    load_packaged_anti_bot_technology_catalog,
+)
 from .data_sources import (
     DEFAULT_FINGERPRINT_DATA_SOURCE,
     FingerprintDataSource,
-    categories_filename,
-    fingerprints_filename,
+    categories_resource_path,
+    fingerprints_resource_path,
     normalize_fingerprint_data_source,
 )
 from .exceptions import DataLoadError
@@ -113,11 +124,17 @@ class Wappalyzer:
         self,
         fingerprints: dict[str, Any],
         categories: dict[int, CategoryInfo],
+        anti_bot_catalog: Mapping[str, AntiBotTechnologyCatalogEntry] | None = None,
+        anti_bot_aliases: AntiBotAliasCatalog | None = None,
     ) -> None:
         self.categories = categories
         self.apps: dict[str, CompiledFingerprint] = {
             name: compile_fingerprint(payload) for name, payload in fingerprints.items()
         }
+        self.anti_bot_catalog = dict(anti_bot_catalog or {})
+        self.anti_bot_aliases = anti_bot_aliases or derive_anti_bot_alias_catalog(
+            self.anti_bot_catalog
+        )
 
     @classmethod
     def from_json_strings(
@@ -135,7 +152,14 @@ class Wappalyzer:
         if not isinstance(apps, dict):
             raise DataLoadError("fingerprints JSON is missing the apps mapping")
         categories = _load_categories(categories_payload)
-        return cls(apps, categories)
+        anti_bot_catalog = derive_anti_bot_technology_catalog(apps, categories)
+        anti_bot_aliases = derive_anti_bot_alias_catalog(anti_bot_catalog)
+        return cls(
+            apps,
+            categories,
+            anti_bot_catalog=anti_bot_catalog,
+            anti_bot_aliases=anti_bot_aliases,
+        )
 
     @classmethod
     def from_package_data(
@@ -147,15 +171,18 @@ class Wappalyzer:
         package = "wappalyzer_pure.data"
         fingerprints_json = (
             resources.files(package)
-            .joinpath(fingerprints_filename(normalized_source))
+            .joinpath(fingerprints_resource_path(normalized_source))
             .read_text(encoding="utf-8")
         )
         categories_json = (
             resources.files(package)
-            .joinpath(categories_filename(normalized_source))
+            .joinpath(categories_resource_path(normalized_source))
             .read_text(encoding="utf-8")
         )
-        return cls.from_json_strings(fingerprints_json, categories_json)
+        client = cls.from_json_strings(fingerprints_json, categories_json)
+        client.anti_bot_catalog = load_packaged_anti_bot_technology_catalog()
+        client.anti_bot_aliases = load_packaged_anti_bot_alias_catalog()
+        return client
 
     def fingerprint(
         self,

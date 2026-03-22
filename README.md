@@ -7,7 +7,24 @@ Pure-Python website technology detection from HTTP responses.
 set of external JavaScript files. It is library-first, with a small CLI for ad
 hoc scans.
 
-The package ships three packaged datasets:
+## Table of Contents
+
+- [Features](#features)
+- [Install](#install)
+- [Quickstart](#quickstart)
+- [Anti-Bot Findings](#anti-bot-findings)
+- [Multi-Request Probing](#multi-request-probing)
+- [Public API](#public-api)
+- [Result Objects](#result-objects)
+- [CLI](#cli)
+- [Packaged Data](#packaged-data)
+- [Security Headers](#security-headers)
+- [Custom Data](#custom-data)
+- [Limitations](#limitations)
+- [Development](#development)
+- [Upstream](#upstream)
+
+The package ships three packaged fingerprint sources:
 
 - `merged` as the default source, built from both upstreams during sync
 - `enthec` as a source-specific view
@@ -22,8 +39,10 @@ The package ships three packaged datasets:
   inline script contents
 - Optionally fetch same-origin external JavaScript with explicit limits
 - Return structured result objects instead of raw strings
-- Use the merged default dataset or inspect the individual upstream datasets
-- Expose a lower-level `Wappalyzer` engine for custom datasets
+- Return structured anti-bot findings with exact matched artifacts
+- Run optional multi-request probes for active detection checks
+- Use the merged default source or inspect the individual upstream sources
+- Expose a lower-level `Wappalyzer` engine for custom fingerprint data
 - Report common security headers separately
 
 ## Install
@@ -36,6 +55,8 @@ uv sync
 
 ## Quickstart
 
+For a broader set of runnable usage patterns, see [examples/README.md](/Users/jakub/Projects/Projects/FIIT/DP/wappalyzer-pure/examples/README.md).
+
 ### Scan a URL
 
 ```python
@@ -47,11 +68,12 @@ print(result.status_code)
 print(result.final_url)
 print([tech.display_name for tech in result.technologies])
 print([tech.name for tech in result.security_technologies])
+print([finding.vendor for finding in result.anti_bot_findings])
 ```
 
 ### Choose a packaged fingerprint source
 
-`merged` is the default packaged dataset. To inspect one upstream directly, pass
+`merged` is the default packaged source. To inspect one upstream directly, pass
 a source explicitly.
 
 ```python
@@ -133,16 +155,155 @@ result = analyze_response(
 )
 ```
 
+### Run active detection probes
+
+```python
+from wappalyzer_pure import ProbeOptions, probe_url
+
+result = probe_url(
+    'https://example.com',
+    probe_options=ProbeOptions(
+        repeat_request=True,
+        follow_up_with_cookies=True,
+        browser_like_request=True,
+    ),
+)
+
+print(result.vendors)
+print(result.challenge_observed)
+for observation in result.observations:
+    print(observation.name, observation.result.status_code)
+```
+
+### Capture lightweight response artifacts
+
+```python
+from wappalyzer_pure import ArtifactCaptureOptions, analyze_url
+
+result = analyze_url(
+    'https://example.com',
+    capture_artifacts=ArtifactCaptureOptions(body_excerpt_chars=128),
+)
+
+print(result.artifacts.body_sha256 if result.artifacts else None)
+print(result.artifacts.script_sources if result.artifacts else ())
+```
+
+## Anti-Bot Findings
+
+`wappalyzer-pure` exposes a separate anti-bot layer through
+`AnalysisResult.anti_bot_findings`.
+
+This layer is part of the detection base. It gives you explicit
+scraping-protection findings instead of forcing you to infer them from generic
+technology names.
+
+Current behavior:
+
+- conservative by default, so generic CDN presence alone does not become an anti-bot finding
+- combines curated response-signal rules with a generated anti-bot technology catalog built from the synced fingerprint sources
+- normalizes anti-bot vendors and products to canonical labels before returning `AntiBotFinding`
+- evidence-driven, with exact matched artifacts recorded from cookies, headers, body markers, script URLs, fetched script contents, and matched technologies
+- derives `score` and `confidence` from configurable heuristic weights and thresholds stored in JSON rule data
+- `analyze_url(...)` augments findings with suspicious status-code and redirect evidence when applicable
+- optional active follow-up checks are available separately through `probe_url(...)`
+
+Canonicalization behavior:
+
+- `Akamai Bot Manager` findings normalize to vendor `Akamai`
+- `HUMAN / PerimeterX` findings normalize to vendor `HUMAN`
+- raw matched values stay available in `AntiBotEvidence`, so downstream code can still inspect the original technology or response artifact names
+
+Data sources behind this layer:
+
+- synced product fingerprints live under `src/wappalyzer_pure/data/fingerprints/`
+- synced categories live under `src/wappalyzer_pure/data/categories/`
+- generated anti-bot product catalog lives in `src/wappalyzer_pure/data/antibot/anti_bot_technologies_data.json`
+- generated anti-bot alias map lives in `src/wappalyzer_pure/data/antibot/anti_bot_aliases_data.json`
+- anti-bot catalog derivation rules live in `src/wappalyzer_pure/data/antibot/anti_bot_catalog_rules.json`
+- anti-bot alias rules live in `src/wappalyzer_pure/data/antibot/anti_bot_alias_rules.json`
+- curated response-signal rules live in `src/wappalyzer_pure/data/antibot/anti_bot_signals_data.json`
+
+Current curated vendors:
+
+- `Cloudflare`
+- `Akamai`
+- `Imperva`
+- `DataDome`
+- `HUMAN`
+- `Kasada`
+- `Sucuri`
+
+Example:
+
+```python
+from wappalyzer_pure import analyze_response
+
+result = analyze_response(
+    {
+        'Server': 'cloudflare',
+        'CF-Ray': 'abc123',
+        'Set-Cookie': ['__cf_bm=opaque; Path=/; HttpOnly'],
+    },
+    '<html></html>',
+)
+
+for finding in result.anti_bot_findings:
+    print(finding.vendor, finding.confidence, finding.behaviors)
+    for evidence in finding.evidence:
+        print(
+            evidence.source,
+            evidence.indicator,
+            evidence.matched_value,
+            evidence.artifact,
+        )
+```
+
+## Multi-Request Probing
+
+`probe_url(...)` adds an optional active detection layer on top of the passive
+response analysis.
+
+Current probe observations:
+
+- `initial`
+- `repeat`
+- `cookie_follow_up`
+- `browser_like`
+
+Probe summary fields:
+
+- `vendors`
+- `challenge_observed`
+- `throttled`
+- `observations`
+
+This layer is still lightweight:
+
+- it uses repeated HTTP requests, not a browser runtime
+- it replays cookies explicitly from the first response
+- it uses a browser-like header profile as an extra comparison point
+- it does not yet execute JavaScript or collect rendered DOM state
+
 ## Public API
 
 The package exports:
 
 - `analyze_url`
 - `analyze_response`
+- `probe_url`
+- `ArtifactCaptureOptions`
 - `FingerprintDataSource`
+- `ProbeOptions`
+- `ProbeObservation`
+- `ProbeResult`
 - `ScriptAnalysisOptions`
 - `ScriptFetchPolicy`
 - `AnalysisResult`
+- `AntiBotFinding`
+- `AntiBotEvidence`
+- `CapturedHeader`
+- `ResponseArtifacts`
 - `Technology`
 - `SecurityHeaderStatus`
 - `Wappalyzer`
@@ -161,6 +322,7 @@ def analyze_url(
     source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
     script_analysis: ScriptAnalysisOptions | None = None,
     client: Wappalyzer | None = None,
+    capture_artifacts: bool | ArtifactCaptureOptions | None = None,
 ) -> AnalysisResult: ...
 ```
 
@@ -177,17 +339,19 @@ Parameters:
 - `source`: packaged fingerprint source to use when `client` is not provided
 - `script_analysis`: optional external script fetch settings
 - `client`: custom `Wappalyzer` instance; overrides packaged source loading
+- `capture_artifacts`: `True` or `ArtifactCaptureOptions(...)` to attach lightweight response artifacts
 
 Returns:
 
 - `AnalysisResult` with `target_url`, `final_url`, `status_code`, `technologies`,
-  `security_headers`, and `body_length`
+  `security_headers`, `body_length`, and optional `artifacts`
 
 Behavior notes:
 
 - HTTP error responses are still fingerprinted when a response body is available
 - `Referer` is forwarded to optional external script requests
 - `client` takes precedence over `source`
+- anti-bot findings are enriched with suspicious status-code and redirect evidence
 
 ### `analyze_response`
 
@@ -203,6 +367,7 @@ def analyze_response(
     script_request_headers: Mapping[str, str] | None = None,
     script_opener: urllib_request.OpenerDirector | None = None,
     client: Wappalyzer | None = None,
+    capture_artifacts: bool | ArtifactCaptureOptions | None = None,
 ) -> AnalysisResult: ...
 ```
 
@@ -222,6 +387,7 @@ Parameters:
 - `script_request_headers`: headers to send with optional external script requests
 - `script_opener`: custom `urllib` opener for optional external script requests
 - `client`: custom `Wappalyzer` instance; overrides packaged source loading
+- `capture_artifacts`: `True` or `ArtifactCaptureOptions(...)` to attach lightweight response artifacts
 
 Returns:
 
@@ -230,6 +396,44 @@ Returns:
 Raises:
 
 - `ValueError` when external script fetching is enabled but `response_url` is missing
+
+### `probe_url`
+
+```python
+def probe_url(
+    url: str,
+    *,
+    timeout: float = 10.0,
+    request_headers: Mapping[str, str] | None = None,
+    user_agent: str = DEFAULT_USER_AGENT,
+    opener: urllib_request.OpenerDirector | None = None,
+    source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
+    script_analysis: ScriptAnalysisOptions | None = None,
+    client: Wappalyzer | None = None,
+    probe_options: ProbeOptions | None = None,
+    capture_artifacts: bool | ArtifactCaptureOptions | None = None,
+) -> ProbeResult: ...
+```
+
+Runs multiple HTTP request profiles against the same target and returns a
+`ProbeResult`.
+
+Parameters:
+
+- `url`: target URL to probe
+- `timeout`: timeout in seconds for every probe request
+- `request_headers`: additional headers for the base request profile
+- `user_agent`: user agent for the base request profile
+- `opener`: custom `urllib` opener
+- `source`: packaged fingerprint source when `client` is not provided
+- `script_analysis`: optional external script fetch settings applied to every observation
+- `client`: custom `Wappalyzer` instance
+- `probe_options`: controls which follow-up probes are executed
+- `capture_artifacts`: `True` or `ArtifactCaptureOptions(...)` to attach artifacts to every observation result
+
+Returns:
+
+- `ProbeResult` with one `ProbeObservation` per executed request profile
 
 ### Example JSON Output
 
@@ -301,6 +505,39 @@ print(result.to_dict())
       "security_relevant": true
     }
   ],
+  "anti_bot_findings": [
+    {
+      "vendor": "Cloudflare",
+      "score": 7,
+      "confidence": "high",
+      "products": [
+        "Cloudflare Bot Management"
+      ],
+      "behaviors": [
+        "bot_management"
+      ],
+      "evidence": [
+        {
+          "source": "cookie",
+          "indicator": "__cf_bm",
+          "matched_value": "__cf_bm",
+          "artifact": "__cf_bm=example"
+        },
+        {
+          "source": "header_value",
+          "indicator": "server",
+          "matched_value": "cloudflare",
+          "artifact": "server: cloudflare"
+        },
+        {
+          "source": "technology",
+          "indicator": "cloudflare bot management",
+          "matched_value": "Cloudflare Bot Management",
+          "artifact": "Cloudflare Bot Management"
+        }
+      ]
+    }
+  ],
   "security_headers": [
     {
       "name": "Content-Security-Policy",
@@ -347,13 +584,14 @@ print(result.to_dict())
       "present": false,
       "value": null
     }
-  ]
+  ],
+  "artifacts": null
 }
 ```
 
 ### `FingerprintDataSource`
 
-Choose which packaged dataset to use when you are not passing a custom
+Choose which packaged source to use when you are not passing a custom
 `Wappalyzer` client.
 
 Available values:
@@ -393,6 +631,35 @@ Available values:
 - `ScriptFetchPolicy.OFF`
 - `ScriptFetchPolicy.SAME_ORIGIN`
 
+### `ArtifactCaptureOptions`
+
+```python
+@dataclass(frozen=True, slots=True)
+class ArtifactCaptureOptions:
+    body_excerpt_chars: int = 256
+    captured_at_utc: str | None = None
+```
+
+Controls the optional artifact capture attached to `AnalysisResult`.
+
+Fields:
+
+- `body_excerpt_chars`: maximum number of decoded response-body characters to retain
+- `captured_at_utc`: optional explicit UTC timestamp to store instead of generating one during URL fetches
+
+### `ProbeOptions`
+
+```python
+@dataclass(frozen=True, slots=True)
+class ProbeOptions:
+    repeat_request: bool = True
+    follow_up_with_cookies: bool = True
+    browser_like_request: bool = True
+    browser_user_agent: str = DEFAULT_BROWSER_USER_AGENT
+```
+
+Controls which active probe requests are sent by `probe_url(...)`.
+
 ### `get_default_wappalyzer`
 
 ```python
@@ -405,7 +672,7 @@ Returns the lazily loaded packaged engine for the selected source.
 
 ### `Wappalyzer`
 
-Low-level engine API for custom datasets or lower-level matching.
+Low-level engine API for custom fingerprint data or lower-level matching.
 
 Constructors:
 
@@ -417,6 +684,10 @@ client = Wappalyzer.from_package_data(source=FingerprintDataSource.MERGED)
 client = Wappalyzer.from_package_data(source=FingerprintDataSource.HTTPARCHIVE)
 client = Wappalyzer.from_json_strings(fingerprints_json, categories_json)
 ```
+
+`Wappalyzer.from_json_strings(...)` also derives an anti-bot technology catalog
+from the supplied fingerprint and category payloads, so custom datasets still
+participate in anti-bot product detection without using the packaged sync data.
 
 Common methods:
 
@@ -457,8 +728,10 @@ class AnalysisResult:
     final_url: str | None = None
     status_code: int | None = None
     technologies: tuple[Technology, ...] = ()
+    anti_bot_findings: tuple[AntiBotFinding, ...] = ()
     security_headers: tuple[SecurityHeaderStatus, ...] = ()
     body_length: int = 0
+    artifacts: ResponseArtifacts | None = None
 ```
 
 Returned by `analyze_url(...)` and `analyze_response(...)`.
@@ -469,13 +742,141 @@ Fields:
 - `final_url`: final response URL after redirects; `None` for `analyze_response`
 - `status_code`: HTTP status code for `analyze_url`; `None` for `analyze_response`
 - `technologies`: detected technologies as `tuple[Technology, ...]`
+- `anti_bot_findings`: scraping-protection findings as `tuple[AntiBotFinding, ...]`
 - `security_headers`: tracked header statuses as `tuple[SecurityHeaderStatus, ...]`
 - `body_length`: response body length in bytes after coercion
+- `artifacts`: optional lightweight captured artifacts as `ResponseArtifacts | None`
 
 Helpers:
 
 - `security_technologies`: filtered `technologies` tuple containing only security-relevant entries
 - `to_dict(security_only: bool = False)`: JSON-ready dictionary representation
+
+### `AntiBotFinding`
+
+```python
+@dataclass(frozen=True, slots=True)
+class AntiBotFinding:
+    vendor: str
+    score: int
+    confidence: str
+    products: tuple[str, ...] = ()
+    behaviors: tuple[str, ...] = ()
+    evidence: tuple[AntiBotEvidence, ...] = ()
+```
+
+Represents one anti-bot or scraping-protection finding derived from the passive
+response analysis.
+
+`vendor` and `products` are canonicalized labels. Original matched names remain
+visible through `evidence`.
+
+`score` and `confidence` are heuristic outputs derived from configured rule
+weights and thresholds. They are explicit and reproducible, but they are not an
+empirically calibrated research metric by themselves.
+
+Helpers:
+
+- `to_dict()`: JSON-ready dictionary representation
+
+### `AntiBotEvidence`
+
+```python
+@dataclass(frozen=True, slots=True)
+class AntiBotEvidence:
+    source: str
+    indicator: str
+    matched_value: str | None = None
+    artifact: str | None = None
+```
+
+Represents one matched anti-bot signal.
+
+Fields:
+
+- `source`: signal origin such as `cookie`, `header_value`, `body`, `script_source`, `script_content`, `status_code`, or `redirect`
+- `indicator`: normalized rule indicator that matched
+- `matched_value`: exact matched value
+- `artifact`: exact matched artifact or snippet used as evidence
+
+Helpers:
+
+- `to_dict()`: JSON-ready dictionary representation
+
+### `CapturedHeader`
+
+```python
+@dataclass(frozen=True, slots=True)
+class CapturedHeader:
+    name: str
+    values: tuple[str, ...]
+```
+
+Represents one normalized response header entry inside `ResponseArtifacts`.
+
+### `ResponseArtifacts`
+
+```python
+@dataclass(frozen=True, slots=True)
+class ResponseArtifacts:
+    captured_at_utc: str | None = None
+    headers: tuple[CapturedHeader, ...] = ()
+    set_cookie_values: tuple[str, ...] = ()
+    script_sources: tuple[str, ...] = ()
+    fetched_script_urls: tuple[str, ...] = ()
+    body_sha256: str | None = None
+    body_excerpt: str | None = None
+```
+
+Optional lightweight response artifacts attached to `AnalysisResult`.
+
+Fields:
+
+- `captured_at_utc`: explicit or generated UTC timestamp when artifacts were captured
+- `headers`: normalized response headers as `tuple[CapturedHeader, ...]`
+- `set_cookie_values`: raw `Set-Cookie` header values
+- `script_sources`: discovered `<script src>` values from the response body
+- `fetched_script_urls`: external script URLs actually fetched during optional script analysis
+- `body_sha256`: SHA-256 hash of the response body
+- `body_excerpt`: leading decoded body excerpt, capped by `ArtifactCaptureOptions.body_excerpt_chars`
+
+### `ProbeObservation`
+
+```python
+@dataclass(frozen=True, slots=True)
+class ProbeObservation:
+    name: str
+    result: AnalysisResult
+    request_headers: tuple[tuple[str, str], ...] = ()
+    request_cookie_names: tuple[str, ...] = ()
+    response_cookie_names: tuple[str, ...] = ()
+```
+
+Represents one active probe request.
+
+Helpers:
+
+- `redirected`
+- `challenge_observed`
+- `throttled`
+- `to_dict()`
+
+### `ProbeResult`
+
+```python
+@dataclass(frozen=True, slots=True)
+class ProbeResult:
+    observations: tuple[ProbeObservation, ...] = ()
+```
+
+Represents the full multi-request probe run.
+
+Helpers:
+
+- `challenge_observed`
+- `throttled`
+- `vendors`
+- `to_dict()`
 
 ### `Technology`
 
@@ -523,7 +924,11 @@ uv run wappalyzer-pure scan https://example.com
 uv run wappalyzer-pure scan https://example.com --json
 uv run wappalyzer-pure scan https://example.com --json --security-only
 uv run wappalyzer-pure scan https://example.com --fetch-scripts same-origin
+uv run wappalyzer-pure scan https://example.com --json --artifacts
 uv run wappalyzer-pure scan https://example.com --source httparchive
+uv run wappalyzer-pure probe https://example.com --json
+uv run wappalyzer-pure probe https://example.com --json --artifacts
+uv run wappalyzer-pure probe https://example.com --no-browser-like
 ```
 
 Script-related flags:
@@ -533,10 +938,45 @@ Script-related flags:
 - `--max-external-scripts`
 - `--max-bytes-per-script`
 - `--max-total-script-bytes`
+- `--artifacts`
+- `--body-excerpt-chars`
+
+Probe-related flags:
+
+- `--no-repeat`
+- `--no-cookie-follow-up`
+- `--no-browser-like`
+
+## Packaged Data
+
+The package data is split by responsibility:
+
+- `src/wappalyzer_pure/data/fingerprints/`: synced Wappalyzer-style technology fingerprints
+- `src/wappalyzer_pure/data/categories/`: synced category metadata
+- `src/wappalyzer_pure/data/antibot/anti_bot_technologies_data.json`: generated anti-bot product catalog derived during sync
+- `src/wappalyzer_pure/data/antibot/anti_bot_aliases_data.json`: generated canonical vendor/product alias map derived during sync
+- `src/wappalyzer_pure/data/antibot/anti_bot_catalog_rules.json`: JSON rules used to derive anti-bot behaviors from synced products
+- `src/wappalyzer_pure/data/antibot/anti_bot_alias_rules.json`: JSON rules used to canonicalize vendor and product aliases
+- `src/wappalyzer_pure/data/antibot/anti_bot_signals_data.json`: curated response-evidence rules for cookies, headers, body markers, and scripts
+- `src/wappalyzer_pure/data/security/security_headers_data.json`: tracked security header names
+- `.github/data/source_metadata.json`: repository metadata with upstream source snapshots plus hashes and counts for the curated anti-bot rule files
+
+This split is intentional:
+
+- fingerprint freshness comes from syncing upstream sources
+- anti-bot product detection is generated from those synced sources
+- anti-bot canonical labels are generated from the synced anti-bot catalog plus a small JSON alias ruleset
+- only response-evidence matching and alias overrides remain curated
+
+The repository metadata file records:
+
+- upstream repos, refs, commits, and sync timestamps
+- generated anti-bot product and alias counts
+- curated anti-bot rule file hashes and entry counts
 
 ## Security Headers
 
-The packaged security-header dataset currently tracks:
+The packaged security-header list currently tracks:
 
 - `Content-Security-Policy`
 - `Strict-Transport-Security`
@@ -550,7 +990,7 @@ The packaged security-header dataset currently tracks:
 
 ## Custom Data
 
-You can load your own fingerprint dataset:
+You can load your own fingerprint data:
 
 ```python
 import json
@@ -612,8 +1052,9 @@ Refresh the packaged fingerprint data manually:
 uv run python -m wappalyzer_pure.sync_data
 ```
 
-That command refreshes both upstream datasets, compares them, and rebuilds the
-default merged dataset in one pass.
+That command refreshes both upstream sources, compares them, rebuilds the
+default merged source, and regenerates the packaged anti-bot technology catalog
+in one pass.
 
 Refresh only one packaged upstream and write it to explicit output files:
 

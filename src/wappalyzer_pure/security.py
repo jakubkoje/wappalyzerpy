@@ -47,7 +47,7 @@ def get_security_header_names() -> tuple[str, ...]:
     try:
         payload = json.loads(
             resources.files(package)
-            .joinpath("security_headers_data.json")
+            .joinpath("security/security_headers_data.json")
             .read_text(encoding="utf-8")
         )
     except json.JSONDecodeError as exc:
