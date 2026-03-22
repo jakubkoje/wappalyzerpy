@@ -1,13 +1,55 @@
 {
-    "source": {
-        "repo": "enthec/webappanalyzer",
-        "ref": "main",
-        "commit": "cd2a64f40775b8451302b4578efabb6889d8336b",
-        "fetched_at_utc": "2026-03-21T23:11:26Z"
+    "default_source": "merged",
+    "sources": {
+        "enthec": {
+            "counts": {
+                "technologies": 7515,
+                "categories": 108,
+                "technology_files": 27
+            },
+            "repo": "enthec/webappanalyzer",
+            "ref": "main",
+            "commit": "cd2a64f40775b8451302b4578efabb6889d8336b",
+            "fetched_at_utc": "2026-03-21T23:53:12Z"
+        },
+        "httparchive": {
+            "counts": {
+                "technologies": 3994,
+                "categories": 108,
+                "technology_files": 27
+            },
+            "repo": "HTTPArchive/wappalyzer",
+            "ref": "main",
+            "commit": "4e63cc18b4c7e660e314c7a3bbed96a20d17e21b",
+            "fetched_at_utc": "2026-03-21T23:53:12Z"
+        },
+        "merged": {
+            "counts": {
+                "technologies": 7520,
+                "categories": 108,
+                "technology_files": 27
+            },
+            "generated_from": [
+                "enthec",
+                "httparchive"
+            ],
+            "fetched_at_utc": "2026-03-21T23:53:12Z"
+        }
     },
-    "counts": {
-        "technologies": 7515,
-        "categories": 108,
-        "technology_files": 27
+    "comparison": {
+        "technologies": {
+            "shared": 3989,
+            "only_enthec": 3526,
+            "only_httparchive": 5,
+            "identical_shared": 2505,
+            "different_shared": 1484
+        },
+        "categories": {
+            "shared": 108,
+            "only_enthec": 0,
+            "only_httparchive": 0,
+            "identical_shared": 0,
+            "different_shared": 108
+        }
     }
 }

@@ -5,8 +5,12 @@ on:
     branches:
       - main
     paths:
-      - "src/wappalyzer_pure/data/fingerprints_data.json"
-      - "src/wappalyzer_pure/data/categories_data.json"
+      - "src/wappalyzer_pure/data/fingerprints_enthec_data.json"
+      - "src/wappalyzer_pure/data/categories_enthec_data.json"
+      - "src/wappalyzer_pure/data/fingerprints_httparchive_data.json"
+      - "src/wappalyzer_pure/data/categories_httparchive_data.json"
+      - "src/wappalyzer_pure/data/fingerprints_merged_data.json"
+      - "src/wappalyzer_pure/data/categories_merged_data.json"
       - ".github/data/source_metadata.json"
       - "pyproject.toml"
       - "uv.lock"
@@ -62,18 +66,49 @@ jobs:
           if metadata_path.exists():
               metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
           else:
-              metadata = {"source": {}, "counts": {}}
+              metadata = {"sources": {}, "comparison": {}}
 
-          source = metadata.get("source", {})
-          counts = metadata.get("counts", {})
+          sources = metadata.get("sources", {})
+          comparison = metadata.get("comparison", {})
           print("Automated data release for wappalyzer-pure.")
           print()
-          print(f"- Upstream repo: {source.get('repo') or 'enthec/webappanalyzer'}")
-          print(f"- Upstream ref: {source.get('ref') or 'main'}")
-          print(f"- Upstream commit: {source.get('commit') or 'unknown'}")
-          print(f"- Synced at: {source.get('fetched_at_utc') or 'unknown'}")
-          print(f"- Technologies: {counts.get('technologies', 'unknown')}")
-          print(f"- Categories: {counts.get('categories', 'unknown')}")
+          for name in ("merged", "enthec", "httparchive"):
+              source = sources.get(name, {})
+              counts = source.get("counts", {})
+              print(f"- Source: {name}")
+              if name == "merged":
+                  print(
+                      f"  Generated from: "
+                      f"{', '.join(source.get('generated_from', [])) or 'unknown'}"
+                  )
+              else:
+                  print(f"  Repo: {source.get('repo') or 'unknown'}")
+                  print(f"  Ref: {source.get('ref') or 'unknown'}")
+                  print(f"  Commit: {source.get('commit') or 'unknown'}")
+              print(f"  Synced at: {source.get('fetched_at_utc') or 'unknown'}")
+              print(f"  Technologies: {counts.get('technologies', 'unknown')}")
+              print(f"  Categories: {counts.get('categories', 'unknown')}")
+          technology_comparison = comparison.get("technologies", {})
+          if technology_comparison:
+              print()
+              print("- Technology comparison")
+              print(f"  Shared: {technology_comparison.get('shared', 'unknown')}")
+              print(
+                  f"  Only enthec: "
+                  f"{technology_comparison.get('only_enthec', 'unknown')}"
+              )
+              print(
+                  f"  Only httparchive: "
+                  f"{technology_comparison.get('only_httparchive', 'unknown')}"
+              )
+              print(
+                  f"  Identical shared: "
+                  f"{technology_comparison.get('identical_shared', 'unknown')}"
+              )
+              print(
+                  f"  Different shared: "
+                  f"{technology_comparison.get('different_shared', 'unknown')}"
+              )
           PY
 
       - name: Create GitHub release

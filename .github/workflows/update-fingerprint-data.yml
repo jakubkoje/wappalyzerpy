@@ -41,8 +41,12 @@ jobs:
         id: changes
         run: |
           if git diff --quiet -- \
-            src/wappalyzer_pure/data/fingerprints_data.json \
-            src/wappalyzer_pure/data/categories_data.json \
+            src/wappalyzer_pure/data/fingerprints_enthec_data.json \
+            src/wappalyzer_pure/data/categories_enthec_data.json \
+            src/wappalyzer_pure/data/fingerprints_httparchive_data.json \
+            src/wappalyzer_pure/data/categories_httparchive_data.json \
+            src/wappalyzer_pure/data/fingerprints_merged_data.json \
+            src/wappalyzer_pure/data/categories_merged_data.json \
             .github/data/source_metadata.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
@@ -76,13 +80,20 @@ jobs:
           commit-message: "chore(data): update fingerprint data"
           title: "chore(data): update fingerprint data"
           body: |
-            Automated weekly update of vendored fingerprint data from `enthec/webappanalyzer`.
+            Automated weekly update of vendored fingerprint data from both upstreams:
+
+            - `enthec/webappanalyzer`
+            - `HTTPArchive/wappalyzer`
 
             This pull request was created by the scheduled update workflow after
             regenerating:
 
-            - `src/wappalyzer_pure/data/fingerprints_data.json`
-            - `src/wappalyzer_pure/data/categories_data.json`
+            - `src/wappalyzer_pure/data/fingerprints_enthec_data.json`
+            - `src/wappalyzer_pure/data/categories_enthec_data.json`
+            - `src/wappalyzer_pure/data/fingerprints_httparchive_data.json`
+            - `src/wappalyzer_pure/data/categories_httparchive_data.json`
+            - `src/wappalyzer_pure/data/fingerprints_merged_data.json`
+            - `src/wappalyzer_pure/data/categories_merged_data.json`
             - `.github/data/source_metadata.json`
             - `pyproject.toml`
             - `uv.lock`
@@ -90,8 +101,12 @@ jobs:
             automation
             dependencies
           add-paths: |
-            src/wappalyzer_pure/data/fingerprints_data.json
-            src/wappalyzer_pure/data/categories_data.json
+            src/wappalyzer_pure/data/fingerprints_enthec_data.json
+            src/wappalyzer_pure/data/categories_enthec_data.json
+            src/wappalyzer_pure/data/fingerprints_httparchive_data.json
+            src/wappalyzer_pure/data/categories_httparchive_data.json
+            src/wappalyzer_pure/data/fingerprints_merged_data.json
+            src/wappalyzer_pure/data/categories_merged_data.json
             .github/data/source_metadata.json
             pyproject.toml
             uv.lock

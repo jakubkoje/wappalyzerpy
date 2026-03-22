@@ -8,6 +8,13 @@ from html.parser import HTMLParser
 from importlib import resources
 from typing import Any
 
+from .data_sources import (
+    DEFAULT_FINGERPRINT_DATA_SOURCE,
+    FingerprintDataSource,
+    categories_filename,
+    fingerprints_filename,
+    normalize_fingerprint_data_source,
+)
 from .exceptions import DataLoadError
 from .patterns import ParsedPattern, parse_pattern
 
@@ -39,6 +46,7 @@ class CompiledFingerprint:
     headers: dict[str, ParsedPattern] = field(default_factory=dict)
     html: tuple[ParsedPattern, ...] = ()
     script_src: tuple[ParsedPattern, ...] = ()
+    scripts: tuple[ParsedPattern, ...] = ()
     meta: dict[str, tuple[ParsedPattern, ...]] = field(default_factory=dict)
 
 
@@ -47,6 +55,13 @@ class MatchPartResult:
     application: str
     confidence: int
     version: str = ""
+
+
+@dataclass(frozen=True, slots=True)
+class HTMLArtifacts:
+    script_sources: tuple[str, ...] = ()
+    inline_scripts: tuple[str, ...] = ()
+    metas: tuple[tuple[str, str], ...] = ()
 
 
 @dataclass(slots=True)
@@ -59,7 +74,8 @@ class _Part(Enum):
     COOKIES = auto()
     HEADERS = auto()
     HTML = auto()
-    SCRIPT = auto()
+    SCRIPT_SRC = auto()
+    SCRIPTS = auto()
     META = auto()
 
 
@@ -122,25 +138,34 @@ class Wappalyzer:
         return cls(apps, categories)
 
     @classmethod
-    def from_package_data(cls) -> Wappalyzer:
+    def from_package_data(
+        cls,
+        *,
+        source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
+    ) -> Wappalyzer:
+        normalized_source = normalize_fingerprint_data_source(source)
         package = "wappalyzer_pure.data"
         fingerprints_json = (
             resources.files(package)
-            .joinpath("fingerprints_data.json")
+            .joinpath(fingerprints_filename(normalized_source))
             .read_text(encoding="utf-8")
         )
         categories_json = (
             resources.files(package)
-            .joinpath("categories_data.json")
+            .joinpath(categories_filename(normalized_source))
             .read_text(encoding="utf-8")
         )
         return cls.from_json_strings(fingerprints_json, categories_json)
 
     def fingerprint(
-        self, headers: dict[str, list[str]], body: bytes
+        self,
+        headers: dict[str, list[str]],
+        body: bytes,
+        *,
+        html_artifacts: HTMLArtifacts | None = None,
+        extra_script_contents: tuple[str, ...] = (),
     ) -> dict[str, None]:
         unique_fingerprints = UniqueFingerprints()
-        normalized_body = body.lower()
         normalized_headers = self.normalize_headers(headers)
 
         for app in self.check_headers(normalized_headers):
@@ -159,7 +184,11 @@ class Wappalyzer:
                     app.confidence,
                 )
 
-        for app in self.check_body(normalized_body):
+        for app in self.check_body(
+            body,
+            html_artifacts=html_artifacts,
+            extra_script_contents=extra_script_contents,
+        ):
             unique_fingerprints.set_if_not_exists(
                 app.application,
                 app.version,
@@ -172,9 +201,11 @@ class Wappalyzer:
         self,
         headers: dict[str, list[str]],
         body: bytes,
+        *,
+        html_artifacts: HTMLArtifacts | None = None,
+        extra_script_contents: tuple[str, ...] = (),
     ) -> tuple[dict[str, None], str]:
         unique_fingerprints = UniqueFingerprints()
-        normalized_body = body.lower()
         normalized_headers = self.normalize_headers(headers)
 
         for app in self.check_headers(normalized_headers):
@@ -194,7 +225,11 @@ class Wappalyzer:
                 )
 
         if "text/html" in normalized_headers.get("content-type", ""):
-            for app in self.check_body(normalized_body):
+            for app in self.check_body(
+                body,
+                html_artifacts=html_artifacts,
+                extra_script_contents=extra_script_contents,
+            ):
                 unique_fingerprints.set_if_not_exists(
                     app.application,
                     app.version,
@@ -208,8 +243,16 @@ class Wappalyzer:
         self,
         headers: dict[str, list[str]],
         body: bytes,
+        *,
+        html_artifacts: HTMLArtifacts | None = None,
+        extra_script_contents: tuple[str, ...] = (),
     ) -> dict[str, AppInfo]:
-        apps = self.fingerprint(headers, body)
+        apps = self.fingerprint(
+            headers,
+            body,
+            html_artifacts=html_artifacts,
+            extra_script_contents=extra_script_contents,
+        )
         result: dict[str, AppInfo] = {}
 
         for app in apps:
@@ -231,21 +274,34 @@ class Wappalyzer:
         normalized = self.normalize_cookies(cookies)
         return self._match_map_string(normalized, _Part.COOKIES)
 
-    def check_body(self, body: bytes) -> list[MatchPartResult]:
+    def check_body(
+        self,
+        body: bytes,
+        *,
+        html_artifacts: HTMLArtifacts | None = None,
+        extra_script_contents: tuple[str, ...] = (),
+    ) -> list[MatchPartResult]:
         technologies: list[MatchPartResult] = []
         body_text = body.decode("latin-1")
+        normalized_body_text = body_text.lower()
 
-        technologies.extend(self._match_string(body_text, _Part.HTML))
+        technologies.extend(self._match_string(normalized_body_text, _Part.HTML))
 
-        parser = _FingerprintHTMLParser()
-        parser.feed(body_text)
-        parser.close()
+        parsed_artifacts = html_artifacts or extract_html_artifacts(body_text)
 
-        for source in parser.script_sources:
-            technologies.extend(self._match_string(source, _Part.SCRIPT))
+        for source in parsed_artifacts.script_sources:
+            technologies.extend(self._match_string(source.lower(), _Part.SCRIPT_SRC))
 
-        for name, content in parser.metas:
-            technologies.extend(self._match_key_value_string(name, content, _Part.META))
+        for script in parsed_artifacts.inline_scripts:
+            technologies.extend(self._match_string(script.lower(), _Part.SCRIPTS))
+
+        for script in extra_script_contents:
+            technologies.extend(self._match_string(script.lower(), _Part.SCRIPTS))
+
+        for name, content in parsed_artifacts.metas:
+            technologies.extend(
+                self._match_key_value_string(name.lower(), content.lower(), _Part.META)
+            )
 
         return technologies
 
@@ -297,8 +353,10 @@ class Wappalyzer:
             patterns = ()
             if part is _Part.HTML:
                 patterns = fingerprint.html
-            elif part is _Part.SCRIPT:
+            elif part is _Part.SCRIPT_SRC:
                 patterns = fingerprint.script_src
+            elif part is _Part.SCRIPTS:
+                patterns = fingerprint.scripts
 
             for pattern in patterns:
                 valid, version_string = pattern.evaluate(data)
@@ -454,20 +512,41 @@ class _FingerprintHTMLParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.script_sources: list[str] = []
+        self.inline_scripts: list[str] = []
         self.metas: list[tuple[str, str]] = []
+        self._in_script = False
+        self._script_chunks: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        self._handle_tag(tag, attrs)
+        self._handle_tag(tag, attrs, self_closing=False)
 
     def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        self._handle_tag(tag, attrs)
+        self._handle_tag(tag, attrs, self_closing=True)
 
-    def _handle_tag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "script":
+            self._flush_script()
+
+    def handle_data(self, data: str) -> None:
+        if self._in_script:
+            self._script_chunks.append(data)
+
+    def _handle_tag(
+        self,
+        tag: str,
+        attrs: list[tuple[str, str | None]],
+        *,
+        self_closing: bool,
+    ) -> None:
         attributes = {name: value or "" for name, value in attrs}
         if tag == "script":
+            if self._in_script:
+                self._flush_script()
             source = attributes.get("src")
             if source:
                 self.script_sources.append(source)
+            self._in_script = not self_closing
+            self._script_chunks = []
             return
 
         if tag == "meta":
@@ -475,6 +554,17 @@ class _FingerprintHTMLParser(HTMLParser):
             content = attributes.get("content", "")
             if name and content:
                 self.metas.append((name, content))
+
+    def _flush_script(self) -> None:
+        if not self._in_script:
+            self._script_chunks = []
+            return
+
+        script_text = "".join(self._script_chunks)
+        if script_text.strip():
+            self.inline_scripts.append(script_text)
+        self._in_script = False
+        self._script_chunks = []
 
 
 class _TitleHTMLParser(HTMLParser):
@@ -514,9 +604,22 @@ def app_info_from_fingerprint(
     )
 
 
+def extract_html_artifacts(body_text: str) -> HTMLArtifacts:
+    parser = _FingerprintHTMLParser()
+    parser.feed(body_text)
+    parser.close()
+    parser._flush_script()
+    return HTMLArtifacts(
+        script_sources=tuple(parser.script_sources),
+        inline_scripts=tuple(parser.inline_scripts),
+        metas=tuple(parser.metas),
+    )
+
+
 def compile_fingerprint(payload: dict[str, Any]) -> CompiledFingerprint:
     html_patterns: list[ParsedPattern] = []
     script_src_patterns: list[ParsedPattern] = []
+    script_patterns: list[ParsedPattern] = []
     header_patterns: dict[str, ParsedPattern] = {}
     cookie_patterns: dict[str, ParsedPattern] = {}
     meta_patterns: dict[str, tuple[ParsedPattern, ...]] = {}
@@ -541,6 +644,11 @@ def compile_fingerprint(payload: dict[str, Any]) -> CompiledFingerprint:
         if parsed is not None:
             script_src_patterns.append(parsed)
 
+    for pattern in payload.get("scripts", []):
+        parsed = _try_parse_pattern(pattern)
+        if parsed is not None:
+            script_patterns.append(parsed)
+
     for meta_name, patterns in payload.get("meta", {}).items():
         compiled_patterns = tuple(
             parsed
@@ -561,6 +669,7 @@ def compile_fingerprint(payload: dict[str, Any]) -> CompiledFingerprint:
         headers=header_patterns,
         html=tuple(html_patterns),
         script_src=tuple(script_src_patterns),
+        scripts=tuple(script_patterns),
         meta=meta_patterns,
     )
 
@@ -606,6 +715,13 @@ def _load_categories(payload: dict[str, Any]) -> dict[int, CategoryInfo]:
     return categories
 
 
-@lru_cache(maxsize=1)
-def get_default_wappalyzer() -> Wappalyzer:
-    return Wappalyzer.from_package_data()
+def get_default_wappalyzer(
+    source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
+) -> Wappalyzer:
+    normalized_source = normalize_fingerprint_data_source(source)
+    return _get_default_wappalyzer_cached(normalized_source.value)
+
+
+@lru_cache(maxsize=len(FingerprintDataSource))
+def _get_default_wappalyzer_cached(source: str) -> Wappalyzer:
+    return Wappalyzer.from_package_data(source=source)

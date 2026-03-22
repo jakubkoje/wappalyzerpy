@@ -6,8 +6,10 @@ from http.client import HTTPMessage
 from urllib import error as urllib_error
 from urllib import request as urllib_request
 
-from .engine import Wappalyzer, get_default_wappalyzer
+from .data_sources import DEFAULT_FINGERPRINT_DATA_SOURCE, FingerprintDataSource
+from .engine import Wappalyzer, extract_html_artifacts, get_default_wappalyzer
 from .models import AnalysisResult, Technology
+from .script_analysis import ScriptAnalysisOptions, fetch_external_script_contents
 from .security import inspect_security_headers, is_security_technology
 
 DEFAULT_USER_AGENT = "wappalyzer-pure/0.1.0"
@@ -17,13 +19,41 @@ def analyze_response(
     headers: Mapping[str, str | bytes | Sequence[str | bytes]],
     body: bytes | bytearray | memoryview | str,
     *,
+    source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
+    response_url: str | None = None,
+    script_analysis: ScriptAnalysisOptions | None = None,
+    script_timeout: float = 10.0,
+    script_request_headers: Mapping[str, str] | None = None,
+    script_opener: urllib_request.OpenerDirector | None = None,
     client: Wappalyzer | None = None,
 ) -> AnalysisResult:
     normalized_headers = normalize_headers(headers)
     body_bytes = _coerce_body(body)
-    active_client = client or get_default_wappalyzer()
+    active_client = client or get_default_wappalyzer(source)
+    active_script_analysis = script_analysis or ScriptAnalysisOptions()
+    html_artifacts = None
+    extra_script_contents: tuple[str, ...] = ()
+
+    if active_script_analysis.fetch_enabled:
+        if not response_url:
+            raise ValueError(
+                "response_url is required when external script fetching is enabled"
+            )
+        html_artifacts = extract_html_artifacts(body_bytes.decode("latin-1"))
+        extra_script_contents = fetch_external_script_contents(
+            page_url=response_url,
+            script_sources=html_artifacts.script_sources,
+            options=active_script_analysis,
+            timeout=script_timeout,
+            opener=script_opener,
+            request_headers=script_request_headers,
+        )
+
     raw_technologies = active_client.fingerprint_with_info(
-        normalized_headers, body_bytes
+        normalized_headers,
+        body_bytes,
+        html_artifacts=html_artifacts,
+        extra_script_contents=extra_script_contents,
     )
     technologies = tuple(
         _build_technology(name, info) for name, info in raw_technologies.items()
@@ -43,16 +73,18 @@ def analyze_url(
     request_headers: Mapping[str, str] | None = None,
     user_agent: str = DEFAULT_USER_AGENT,
     opener: urllib_request.OpenerDirector | None = None,
+    source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
+    script_analysis: ScriptAnalysisOptions | None = None,
     client: Wappalyzer | None = None,
 ) -> AnalysisResult:
     headers = {"User-Agent": user_agent}
     if request_headers:
         headers.update({str(key): str(value) for key, value in request_headers.items()})
 
+    active_opener = opener or urllib_request.build_opener()
     response = None
     try:
         request = urllib_request.Request(url, headers=headers)
-        active_opener = opener or urllib_request.build_opener()
         response = active_opener.open(request, timeout=timeout)
     except urllib_error.HTTPError as exc:
         response = exc
@@ -63,10 +95,23 @@ def analyze_url(
     with response:
         response_body = response.read()
         response_headers = headers_from_http_message(response.headers)
-        result = analyze_response(response_headers, response_body, client=client)
+        final_url = response.geturl()
+        script_headers = dict(headers)
+        script_headers.setdefault("Referer", final_url)
+        result = analyze_response(
+            response_headers,
+            response_body,
+            source=source,
+            response_url=final_url,
+            script_analysis=script_analysis,
+            script_timeout=timeout,
+            script_request_headers=script_headers,
+            script_opener=active_opener,
+            client=client,
+        )
         return AnalysisResult(
             target_url=url,
-            final_url=response.geturl(),
+            final_url=final_url,
             status_code=response.getcode(),
             technologies=result.technologies,
             security_headers=result.security_headers,

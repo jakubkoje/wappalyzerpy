@@ -10,24 +10,59 @@ from pathlib import Path
 from typing import cast
 from urllib import request as urllib_request
 
-DEFAULT_REPO = "enthec/webappanalyzer"
+from .data_sources import (
+    DEFAULT_FINGERPRINT_DATA_SOURCE,
+    FingerprintDataSource,
+    categories_filename,
+    fingerprints_filename,
+    normalize_fingerprint_data_source,
+)
+
 DEFAULT_REF = "main"
 TECHNOLOGY_FILE_STEMS = tuple(string.ascii_lowercase) + ("_",)
 REQUEST_HEADERS = {
     "Accept": "application/json",
     "User-Agent": "wappalyzer-pure-sync/0.1.0",
 }
+NormalizedApps = dict[str, dict[str, object]]
+NormalizedCategories = dict[str, object]
+
+
+@dataclass(frozen=True, slots=True)
+class UpstreamSource:
+    source: FingerprintDataSource
+    repo: str
+    ref: str = DEFAULT_REF
+
+
+UPSTREAM_SOURCES: dict[FingerprintDataSource, UpstreamSource] = {
+    FingerprintDataSource.ENTHEC: UpstreamSource(
+        source=FingerprintDataSource.ENTHEC,
+        repo="enthec/webappanalyzer",
+    ),
+    FingerprintDataSource.HTTPARCHIVE: UpstreamSource(
+        source=FingerprintDataSource.HTTPARCHIVE,
+        repo="HTTPArchive/wappalyzer",
+    ),
+}
+UPSTREAM_DATA_SOURCES = tuple(UPSTREAM_SOURCES)
+
+
+@dataclass(frozen=True, slots=True)
+class DatasetPaths:
+    fingerprints: Path
+    categories: Path
 
 
 @dataclass(frozen=True, slots=True)
 class SyncPaths:
-    fingerprints: Path
-    categories: Path
+    datasets: dict[FingerprintDataSource, DatasetPaths]
     metadata: Path
 
 
 @dataclass(frozen=True, slots=True)
-class SyncResult:
+class SourceSyncResult:
+    source: FingerprintDataSource
     repo: str
     ref: str
     commit: str | None
@@ -35,109 +70,397 @@ class SyncResult:
     categories: int
     fingerprints: Path
     categories_file: Path
+
+
+@dataclass(frozen=True, slots=True)
+class SyncResult:
+    sources: dict[FingerprintDataSource, SourceSyncResult]
     metadata: Path
+    comparison: dict[str, object]
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m wappalyzer_pure.sync_data")
-    parser.add_argument("--repo", default=DEFAULT_REPO)
-    parser.add_argument("--ref", default=DEFAULT_REF)
+    parser.add_argument(
+        "--source",
+        choices=["all", *(source.value for source in UPSTREAM_DATA_SOURCES)],
+        default="all",
+        help="which packaged fingerprint source to refresh",
+    )
+    parser.add_argument("--repo")
+    parser.add_argument("--ref")
     parser.add_argument("--fingerprints-path", type=Path)
     parser.add_argument("--categories-path", type=Path)
     parser.add_argument("--metadata-path", type=Path)
     args = parser.parse_args(argv)
 
-    active_paths = default_sync_paths()
-    if args.fingerprints_path is not None:
-        active_paths = SyncPaths(
-            fingerprints=args.fingerprints_path,
-            categories=active_paths.categories,
-            metadata=active_paths.metadata,
-        )
-    if args.categories_path is not None:
-        active_paths = SyncPaths(
-            fingerprints=active_paths.fingerprints,
-            categories=args.categories_path,
-            metadata=active_paths.metadata,
-        )
-    if args.metadata_path is not None:
-        active_paths = SyncPaths(
-            fingerprints=active_paths.fingerprints,
-            categories=active_paths.categories,
-            metadata=args.metadata_path,
+    selected_source = None
+    if args.source != "all":
+        selected_source = normalize_fingerprint_data_source(args.source)
+
+    if selected_source is None and (
+        args.repo is not None
+        or args.ref is not None
+        or args.fingerprints_path is not None
+        or args.categories_path is not None
+    ):
+        parser.error(
+            "--repo, --ref, --fingerprints-path, and --categories-path require "
+            "a single --source"
         )
 
-    result = sync_package_data(repo=args.repo, ref=args.ref, paths=active_paths)
-    print(
-        f"synced {result.technologies} technologies and {result.categories} "
-        f"categories from {result.repo}@{result.ref}"
+    active_paths = default_sync_paths(selected_source)
+    if args.metadata_path is not None:
+        active_paths = SyncPaths(
+            datasets=active_paths.datasets,
+            metadata=args.metadata_path,
+        )
+    if selected_source is not None and args.fingerprints_path is not None:
+        active_paths = _override_dataset_paths(
+            active_paths,
+            selected_source,
+            fingerprints=args.fingerprints_path,
+        )
+    if selected_source is not None and args.categories_path is not None:
+        active_paths = _override_dataset_paths(
+            active_paths,
+            selected_source,
+            categories=args.categories_path,
+        )
+
+    result = sync_package_data(
+        source=selected_source,
+        repo=args.repo,
+        ref=args.ref,
+        paths=active_paths,
     )
-    if result.commit:
-        print(f"upstream commit: {result.commit}")
-    print(f"fingerprints: {result.fingerprints}")
-    print(f"categories: {result.categories_file}")
+    for source in sorted(result.sources, key=lambda item: item.value):
+        source_result = result.sources[source]
+        print(
+            f"[{source.value}] synced {source_result.technologies} technologies and "
+            f"{source_result.categories} categories from "
+            f"{source_result.repo}@{source_result.ref}"
+        )
+        if source_result.commit:
+            print(f"[{source.value}] upstream commit: {source_result.commit}")
+        print(f"[{source.value}] fingerprints: {source_result.fingerprints}")
+        print(f"[{source.value}] categories: {source_result.categories_file}")
     print(f"metadata: {result.metadata}")
     return 0
 
 
-def default_sync_paths() -> SyncPaths:
+def default_sync_paths(
+    source: FingerprintDataSource | str | None = None,
+) -> SyncPaths:
     package_data_dir = Path(__file__).resolve().parent / "data"
     project_root = Path(__file__).resolve().parents[2]
+    if source is None:
+        selected_sources = (
+            FingerprintDataSource.MERGED,
+            *UPSTREAM_DATA_SOURCES,
+        )
+    else:
+        selected_sources = (normalize_fingerprint_data_source(source),)
+    datasets = {
+        source_value: DatasetPaths(
+            fingerprints=package_data_dir / fingerprints_filename(source_value),
+            categories=package_data_dir / categories_filename(source_value),
+        )
+        for source_value in selected_sources
+    }
     return SyncPaths(
-        fingerprints=package_data_dir / "fingerprints_data.json",
-        categories=package_data_dir / "categories_data.json",
+        datasets=datasets,
         metadata=project_root / ".github" / "data" / "source_metadata.json",
     )
 
 
 def sync_package_data(
     *,
-    repo: str = DEFAULT_REPO,
-    ref: str = DEFAULT_REF,
+    source: FingerprintDataSource | str | None = None,
+    repo: str | None = None,
+    ref: str | None = None,
     paths: SyncPaths | None = None,
 ) -> SyncResult:
-    active_paths = paths or default_sync_paths()
-    technologies = _download_technologies(repo=repo, ref=ref)
-    normalized_apps = {
-        name: _normalize_fingerprint(payload)
-        for name, payload in sorted(
-            technologies.items(), key=lambda item: item[0].casefold()
-        )
-    }
-    categories_payload = _download_categories(repo=repo, ref=ref)
-    normalized_categories = _normalize_categories(categories_payload)
-    commit = _fetch_commit_sha(repo=repo, ref=ref)
-    metadata = {
-        "source": {
-            "repo": repo,
-            "ref": ref,
-            "commit": commit,
-            "fetched_at_utc": datetime.now(timezone.utc)
-            .replace(microsecond=0)
-            .isoformat()
-            .replace("+00:00", "Z"),
-        },
-        "counts": {
-            "technologies": len(normalized_apps),
-            "categories": len(normalized_categories),
-            "technology_files": len(TECHNOLOGY_FILE_STEMS),
-        },
-    }
-
-    _write_json(active_paths.fingerprints, {"apps": normalized_apps})
-    _write_json(active_paths.categories, normalized_categories)
-    _write_json(active_paths.metadata, metadata)
-
-    return SyncResult(
-        repo=repo,
-        ref=ref,
-        commit=commit,
-        technologies=len(normalized_apps),
-        categories=len(normalized_categories),
-        fingerprints=active_paths.fingerprints,
-        categories_file=active_paths.categories,
-        metadata=active_paths.metadata,
+    selected_source = (
+        None if source is None else normalize_fingerprint_data_source(source)
     )
+    if selected_source is FingerprintDataSource.MERGED:
+        raise ValueError(
+            "sync_package_data does not accept the generated merged source"
+        )
+    active_paths = paths or default_sync_paths(selected_source)
+    source_results: dict[FingerprintDataSource, SourceSyncResult] = {}
+    comparison_input: dict[
+        FingerprintDataSource, tuple[NormalizedApps, NormalizedCategories]
+    ] = {}
+    fetched_at_utc = (
+        datetime.now(timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
+
+    for source_value in _selected_sources(selected_source):
+        upstream = _resolve_upstream_source(source_value, repo=repo, ref=ref)
+        dataset_paths = active_paths.datasets[source_value]
+        technologies = _download_technologies(repo=upstream.repo, ref=upstream.ref)
+        normalized_apps: NormalizedApps = {
+            name: _normalize_fingerprint(payload)
+            for name, payload in sorted(
+                technologies.items(), key=lambda item: item[0].casefold()
+            )
+        }
+        categories_payload = _download_categories(repo=upstream.repo, ref=upstream.ref)
+        normalized_categories = _normalize_categories(categories_payload)
+        commit = _fetch_commit_sha(repo=upstream.repo, ref=upstream.ref)
+
+        _write_json(dataset_paths.fingerprints, {"apps": normalized_apps})
+        _write_json(dataset_paths.categories, normalized_categories)
+
+        source_results[source_value] = SourceSyncResult(
+            source=source_value,
+            repo=upstream.repo,
+            ref=upstream.ref,
+            commit=commit,
+            technologies=len(normalized_apps),
+            categories=len(normalized_categories),
+            fingerprints=dataset_paths.fingerprints,
+            categories_file=dataset_paths.categories,
+        )
+        comparison_input[source_value] = (normalized_apps, normalized_categories)
+
+    if selected_source is None:
+        merged_apps, merged_categories = _build_merged_dataset(comparison_input)
+        merged_paths = active_paths.datasets[FingerprintDataSource.MERGED]
+        _write_json(merged_paths.fingerprints, {"apps": merged_apps})
+        _write_json(merged_paths.categories, merged_categories)
+        source_results[FingerprintDataSource.MERGED] = SourceSyncResult(
+            source=FingerprintDataSource.MERGED,
+            repo="local-merge",
+            ref="generated",
+            commit=None,
+            technologies=len(merged_apps),
+            categories=len(merged_categories),
+            fingerprints=merged_paths.fingerprints,
+            categories_file=merged_paths.categories,
+        )
+
+    metadata = _build_metadata(
+        source_results=source_results,
+        comparison_input=comparison_input,
+        fetched_at_utc=fetched_at_utc,
+    )
+    _write_json(active_paths.metadata, metadata)
+    return SyncResult(
+        sources=source_results,
+        metadata=active_paths.metadata,
+        comparison=cast(dict[str, object], metadata.get("comparison", {})),
+    )
+
+
+def _selected_sources(
+    source: FingerprintDataSource | None,
+) -> tuple[FingerprintDataSource, ...]:
+    if source is None:
+        return UPSTREAM_DATA_SOURCES
+    return (source,)
+
+
+def _resolve_upstream_source(
+    source: FingerprintDataSource,
+    *,
+    repo: str | None,
+    ref: str | None,
+) -> UpstreamSource:
+    defaults = UPSTREAM_SOURCES[source]
+    return UpstreamSource(
+        source=source,
+        repo=repo or defaults.repo,
+        ref=ref or defaults.ref,
+    )
+
+
+def _override_dataset_paths(
+    paths: SyncPaths,
+    source: FingerprintDataSource,
+    *,
+    fingerprints: Path | None = None,
+    categories: Path | None = None,
+) -> SyncPaths:
+    updated = dict(paths.datasets)
+    current = updated[source]
+    updated[source] = DatasetPaths(
+        fingerprints=fingerprints or current.fingerprints,
+        categories=categories or current.categories,
+    )
+    return SyncPaths(datasets=updated, metadata=paths.metadata)
+
+
+def _build_metadata(
+    *,
+    source_results: Mapping[FingerprintDataSource, SourceSyncResult],
+    comparison_input: Mapping[
+        FingerprintDataSource, tuple[NormalizedApps, NormalizedCategories]
+    ],
+    fetched_at_utc: str,
+) -> dict[str, object]:
+    sources_metadata: dict[str, object] = {}
+    for source in sorted(source_results, key=lambda item: item.value):
+        result = source_results[source]
+        source_metadata: dict[str, object] = {
+            "counts": {
+                "technologies": result.technologies,
+                "categories": result.categories,
+                "technology_files": len(TECHNOLOGY_FILE_STEMS),
+            }
+        }
+        if source is FingerprintDataSource.MERGED:
+            source_metadata["generated_from"] = [
+                FingerprintDataSource.ENTHEC.value,
+                FingerprintDataSource.HTTPARCHIVE.value,
+            ]
+            source_metadata["fetched_at_utc"] = fetched_at_utc
+        else:
+            source_metadata["repo"] = result.repo
+            source_metadata["ref"] = result.ref
+            source_metadata["commit"] = result.commit
+            source_metadata["fetched_at_utc"] = fetched_at_utc
+        sources_metadata[source.value] = source_metadata
+
+    return {
+        "default_source": DEFAULT_FINGERPRINT_DATA_SOURCE.value,
+        "sources": sources_metadata,
+        "comparison": _build_comparison(comparison_input),
+    }
+
+
+def _build_merged_dataset(
+    comparison_input: Mapping[
+        FingerprintDataSource, tuple[NormalizedApps, NormalizedCategories]
+    ],
+) -> tuple[NormalizedApps, NormalizedCategories]:
+    primary_apps, primary_categories = comparison_input[FingerprintDataSource.ENTHEC]
+    secondary_apps, secondary_categories = comparison_input[
+        FingerprintDataSource.HTTPARCHIVE
+    ]
+    merged_apps: NormalizedApps = {}
+    for name in sorted(set(primary_apps) | set(secondary_apps), key=str.casefold):
+        primary_value = primary_apps.get(name)
+        secondary_value = secondary_apps.get(name)
+        if primary_value is None:
+            merged_apps[name] = dict(secondary_value or {})
+            continue
+        if secondary_value is None:
+            merged_apps[name] = dict(primary_value)
+            continue
+        merged_apps[name] = cast(
+            dict[str, object],
+            _merge_normalized_value(primary_value, secondary_value),
+        )
+
+    merged_categories: NormalizedCategories = {}
+    for key in sorted(
+        set(primary_categories) | set(secondary_categories),
+        key=lambda value: int(value),
+    ):
+        primary_value = primary_categories.get(key)
+        secondary_value = secondary_categories.get(key)
+        if primary_value is None:
+            merged_categories[key] = secondary_value
+            continue
+        if secondary_value is None:
+            merged_categories[key] = primary_value
+            continue
+        merged_categories[key] = _merge_normalized_value(primary_value, secondary_value)
+
+    return merged_apps, merged_categories
+
+
+def _build_comparison(
+    comparison_input: Mapping[
+        FingerprintDataSource, tuple[NormalizedApps, NormalizedCategories]
+    ],
+) -> dict[str, object]:
+    if len(comparison_input) < 2:
+        return {}
+
+    left = FingerprintDataSource.ENTHEC
+    right = FingerprintDataSource.HTTPARCHIVE
+    if left not in comparison_input or right not in comparison_input:
+        return {}
+
+    left_apps, left_categories = comparison_input[left]
+    right_apps, right_categories = comparison_input[right]
+
+    left_app_names = set(left_apps)
+    right_app_names = set(right_apps)
+    shared_app_names = left_app_names & right_app_names
+    identical_apps = sum(
+        1 for name in shared_app_names if left_apps[name] == right_apps[name]
+    )
+
+    left_category_names = set(left_categories)
+    right_category_names = set(right_categories)
+    shared_category_names = left_category_names & right_category_names
+    identical_categories = sum(
+        1
+        for name in shared_category_names
+        if left_categories[name] == right_categories[name]
+    )
+
+    return {
+        "technologies": {
+            "shared": len(shared_app_names),
+            f"only_{left.value}": len(left_app_names - right_app_names),
+            f"only_{right.value}": len(right_app_names - left_app_names),
+            "identical_shared": identical_apps,
+            "different_shared": len(shared_app_names) - identical_apps,
+        },
+        "categories": {
+            "shared": len(shared_category_names),
+            f"only_{left.value}": len(left_category_names - right_category_names),
+            f"only_{right.value}": len(right_category_names - left_category_names),
+            "identical_shared": identical_categories,
+            "different_shared": len(shared_category_names) - identical_categories,
+        },
+    }
+
+
+def _merge_normalized_value(primary: object, secondary: object) -> object:
+    if isinstance(primary, Mapping) and isinstance(secondary, Mapping):
+        primary_mapping = cast(Mapping[str, object], primary)
+        secondary_mapping = cast(Mapping[str, object], secondary)
+        merged: dict[str, object] = {}
+        keys = sorted(
+            set(primary_mapping) | set(secondary_mapping),
+            key=str.casefold,
+        )
+        for key in keys:
+            primary_value = primary_mapping.get(key)
+            secondary_value = secondary_mapping.get(key)
+            if primary_value is None:
+                merged[key] = secondary_value
+                continue
+            if secondary_value is None:
+                merged[key] = primary_value
+                continue
+            merged[key] = _merge_normalized_value(primary_value, secondary_value)
+        return merged
+
+    if isinstance(primary, list) and isinstance(secondary, list):
+        merged_list: list[object] = []
+        seen: set[str] = set()
+        for item in [*primary, *secondary]:
+            marker = json.dumps(item, sort_keys=True)
+            if marker in seen:
+                continue
+            seen.add(marker)
+            merged_list.append(item)
+        return merged_list
+
+    if primary in (None, "", [], {}):
+        return secondary
+    return primary
 
 
 def _download_technologies(*, repo: str, ref: str) -> dict[str, Mapping[str, object]]:

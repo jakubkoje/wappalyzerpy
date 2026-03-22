@@ -32,6 +32,14 @@ FINGERPRINTS_JSON = json.dumps(
                 "scriptSrc": ["/assets/script-([0-9.]+)\\.js\\;version:\\1"],
                 "cats": [1],
             },
+            "InlineScriptApp": {
+                "scripts": ['inlinecms\\s*=\\s*"([0-9.]+)"\\;version:\\1'],
+                "cats": [1],
+            },
+            "FetchedScriptApp": {
+                "scripts": ['externalcms\\s*=\\s*"([0-9.]+)"\\;version:\\1'],
+                "cats": [1],
+            },
             "PrimaryApp": {
                 "headers": {"x-powered-by": "primary"},
                 "implies": ["ImpliedApp"],
@@ -60,7 +68,10 @@ def client() -> Wappalyzer:
 def test_fingerprint_matches_all_supported_parts(client: Wappalyzer) -> None:
     body = (
         b"<html><head><meta name='generator' content='MetaCMS 2.4'></head>"
-        b"<body>powered by htmlapp<script src='/assets/script-9.1.js'></script></body></html>"
+        b"<body>powered by htmlapp"
+        b"<script src='/assets/script-9.1.js'></script>"
+        b'<script>window.inlinecms = "3.7";</script>'
+        b"</body></html>"
     )
     headers = {
         "Server": ["Apache/2.4.29"],
@@ -73,12 +84,23 @@ def test_fingerprint_matches_all_supported_parts(client: Wappalyzer) -> None:
         "Apache HTTP Server:2.4.29",
         "CookieApp",
         "HTMLApp",
+        "InlineScriptApp:3.7",
         "MetaCMS:2.4",
         "ScriptApp:9.1",
         "PrimaryApp",
         "ImpliedApp",
     }
     assert set(matches) == expected
+
+
+def test_fingerprint_matches_fetched_script_contents(client: Wappalyzer) -> None:
+    matches = client.fingerprint(
+        {"Content-Type": ["text/html"]},
+        b"<html><body><script src='/assets/bundle.js'></script></body></html>",
+        extra_script_contents=('window.externalcms = "8.2";',),
+    )
+
+    assert "FetchedScriptApp:8.2" in matches
 
 
 def test_fingerprint_with_info_returns_categories(client: Wappalyzer) -> None:
