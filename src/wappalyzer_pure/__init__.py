@@ -2,12 +2,15 @@ from .api import analyze_response, analyze_url
 from .data_sources import FingerprintDataSource
 from .engine import AppInfo, Wappalyzer, get_default_wappalyzer
 from .exceptions import DataLoadError, PatternError, WappalyzerPureError
+from .fetching import FetchHeaderProfile, FetchOptions, FetchTLSMode
 from .models import (
     AnalysisResult,
     AntiBotEvidence,
     AntiBotFinding,
     ArtifactCaptureOptions,
     CapturedHeader,
+    FetchFailure,
+    FetchInfo,
     ProbeObservation,
     ProbeResult,
     ResponseArtifacts,
@@ -25,6 +28,11 @@ __all__ = [
     "AntiBotFinding",
     "CapturedHeader",
     "DataLoadError",
+    "FetchFailure",
+    "FetchHeaderProfile",
+    "FetchInfo",
+    "FetchOptions",
+    "FetchTLSMode",
     "FingerprintDataSource",
     "PatternError",
     "ProbeObservation",

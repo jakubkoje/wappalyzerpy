@@ -12,6 +12,7 @@ hoc scans.
 - [Features](#features)
 - [Install](#install)
 - [Quickstart](#quickstart)
+- [Fetch Behavior](#fetch-behavior)
 - [Anti-Bot Findings](#anti-bot-findings)
 - [Multi-Request Probing](#multi-request-probing)
 - [Public API](#public-api)
@@ -35,10 +36,12 @@ The package ships three packaged fingerprint sources:
 - Pure Python, no Go bridge or native build step
 - Analyze an already-fetched response with `analyze_response(...)`
 - Fetch and fingerprint a URL directly with `analyze_url(...)`
+- Tune retries, partial-read salvage, TLS verification, and request header profile with `FetchOptions`
 - Detect technologies from headers, cookies, HTML, meta tags, script URLs, and
   inline script contents
 - Optionally fetch same-origin external JavaScript with explicit limits
 - Return structured result objects instead of raw strings
+- Return structured fetch failures instead of aborting the whole scan on transient network errors
 - Return structured anti-bot findings with exact matched artifacts
 - Run optional multi-request probes for active detection checks
 - Use the merged default source or inspect the individual upstream sources
@@ -69,6 +72,44 @@ print(result.final_url)
 print([tech.display_name for tech in result.technologies])
 print([tech.name for tech in result.security_technologies])
 print([finding.vendor for finding in result.anti_bot_findings])
+print(result.fetch_info)
+print(result.fetch_failure)
+```
+
+### Tune URL fetching for larger crawls
+
+```python
+from wappalyzer_pure import FetchHeaderProfile, FetchOptions, FetchTLSMode, analyze_url
+
+result = analyze_url(
+    'https://example.com',
+    fetch_options=FetchOptions(
+        timeout=15.0,
+        retries=1,
+        retry_backoff_seconds=0.25,
+        allow_partial_reads=True,
+        tls_mode=FetchTLSMode.STRICT,
+        header_profile=FetchHeaderProfile.BROWSER,
+    ),
+)
+
+print(result.ok)
+print(result.fetch_info)
+```
+
+### Handle fetch failures without exceptions
+
+```python
+from wappalyzer_pure import FetchOptions, analyze_url
+
+result = analyze_url(
+    'https://expired.badssl.com',
+    fetch_options=FetchOptions(retries=0),
+)
+
+if not result.ok:
+    print(result.fetch_failure.category)
+    print(result.fetch_failure.message)
 ```
 
 ### Choose a packaged fingerprint source
@@ -189,6 +230,23 @@ print(result.artifacts.body_sha256 if result.artifacts else None)
 print(result.artifacts.script_sources if result.artifacts else ())
 ```
 
+## Fetch Behavior
+
+`analyze_url(...)` and `probe_url(...)` use a shared fetch layer built on top of
+`urllib`.
+
+Current behavior:
+
+- HTTP error responses such as `403` and `429` are still analyzed when a response body is available
+- transport failures return `AnalysisResult.fetch_failure` instead of raising in normal usage
+- transient failures can be retried through `FetchOptions.retries`
+- incomplete bodies can be salvaged through `FetchOptions.allow_partial_reads`
+- TLS verification stays strict by default, but can be relaxed explicitly for research crawls
+- the default header profile is browser-like, not a library-identifying user agent
+
+This matters for large crawls because many failures are fetch-layer problems, not
+fingerprint-matching problems.
+
 ## Anti-Bot Findings
 
 `wappalyzer-pure` exposes a separate anti-bot layer through
@@ -293,6 +351,11 @@ The package exports:
 - `analyze_response`
 - `probe_url`
 - `ArtifactCaptureOptions`
+- `FetchFailure`
+- `FetchHeaderProfile`
+- `FetchInfo`
+- `FetchOptions`
+- `FetchTLSMode`
 - `FingerprintDataSource`
 - `ProbeOptions`
 - `ProbeObservation`
@@ -317,12 +380,13 @@ def analyze_url(
     *,
     timeout: float = 10.0,
     request_headers: Mapping[str, str] | None = None,
-    user_agent: str = DEFAULT_USER_AGENT,
+    user_agent: str | None = DEFAULT_USER_AGENT,
     opener: urllib_request.OpenerDirector | None = None,
     source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
     script_analysis: ScriptAnalysisOptions | None = None,
     client: Wappalyzer | None = None,
     capture_artifacts: bool | ArtifactCaptureOptions | None = None,
+    fetch_options: FetchOptions | None = None,
 ) -> AnalysisResult: ...
 ```
 
@@ -334,21 +398,24 @@ Parameters:
 - `url`: target URL to fetch
 - `timeout`: request timeout in seconds for the main response and optional script fetches
 - `request_headers`: additional request headers for the initial page request
-- `user_agent`: user agent string for the initial page request
+- `user_agent`: optional explicit user agent string; otherwise the selected fetch header profile provides a default
 - `opener`: custom `urllib` opener to use instead of `urllib.request.build_opener()`
 - `source`: packaged fingerprint source to use when `client` is not provided
 - `script_analysis`: optional external script fetch settings
 - `client`: custom `Wappalyzer` instance; overrides packaged source loading
 - `capture_artifacts`: `True` or `ArtifactCaptureOptions(...)` to attach lightweight response artifacts
+- `fetch_options`: retry, TLS, partial-read, and header-profile controls for the page fetch
 
 Returns:
 
 - `AnalysisResult` with `target_url`, `final_url`, `status_code`, `technologies`,
-  `security_headers`, `body_length`, and optional `artifacts`
+  `security_headers`, `body_length`, optional `artifacts`, and fetch metadata
 
 Behavior notes:
 
 - HTTP error responses are still fingerprinted when a response body is available
+- transport failures become `AnalysisResult.fetch_failure` instead of aborting the scan
+- `fetch_info.partial_response` is set when an incomplete body was salvaged
 - `Referer` is forwarded to optional external script requests
 - `client` takes precedence over `source`
 - anti-bot findings are enriched with suspicious status-code and redirect evidence
@@ -405,13 +472,14 @@ def probe_url(
     *,
     timeout: float = 10.0,
     request_headers: Mapping[str, str] | None = None,
-    user_agent: str = DEFAULT_USER_AGENT,
+    user_agent: str | None = DEFAULT_USER_AGENT,
     opener: urllib_request.OpenerDirector | None = None,
     source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
     script_analysis: ScriptAnalysisOptions | None = None,
     client: Wappalyzer | None = None,
     probe_options: ProbeOptions | None = None,
     capture_artifacts: bool | ArtifactCaptureOptions | None = None,
+    fetch_options: FetchOptions | None = None,
 ) -> ProbeResult: ...
 ```
 
@@ -423,13 +491,14 @@ Parameters:
 - `url`: target URL to probe
 - `timeout`: timeout in seconds for every probe request
 - `request_headers`: additional headers for the base request profile
-- `user_agent`: user agent for the base request profile
+- `user_agent`: optional explicit user agent for the base request profile
 - `opener`: custom `urllib` opener
 - `source`: packaged fingerprint source when `client` is not provided
 - `script_analysis`: optional external script fetch settings applied to every observation
 - `client`: custom `Wappalyzer` instance
 - `probe_options`: controls which follow-up probes are executed
 - `capture_artifacts`: `True` or `ArtifactCaptureOptions(...)` to attach artifacts to every observation result
+- `fetch_options`: retry, TLS, partial-read, and header-profile controls for every probe request
 
 Returns:
 
@@ -585,7 +654,9 @@ print(result.to_dict())
       "value": null
     }
   ],
-  "artifacts": null
+  "artifacts": null,
+  "fetch_info": null,
+  "fetch_failure": null
 }
 ```
 
@@ -647,6 +718,44 @@ Fields:
 - `body_excerpt_chars`: maximum number of decoded response-body characters to retain
 - `captured_at_utc`: optional explicit UTC timestamp to store instead of generating one during URL fetches
 
+### `FetchOptions`
+
+```python
+@dataclass(frozen=True, slots=True)
+class FetchOptions:
+    timeout: float = 10.0
+    retries: int = 1
+    retry_backoff_seconds: float = 0.25
+    allow_partial_reads: bool = True
+    tls_mode: FetchTLSMode = FetchTLSMode.STRICT
+    header_profile: FetchHeaderProfile = FetchHeaderProfile.BROWSER
+```
+
+Controls the transport behavior for `analyze_url(...)` and `probe_url(...)`.
+
+Fields:
+
+- `timeout`: per-request timeout in seconds
+- `retries`: number of extra attempts after the first failed request
+- `retry_backoff_seconds`: linear backoff between retries
+- `allow_partial_reads`: whether salvaged partial bodies from `IncompleteRead` are analyzed
+- `tls_mode`: strict verification or relaxed certificate validation
+- `header_profile`: default request-header shape for page fetches
+
+### `FetchHeaderProfile`
+
+Available values:
+
+- `FetchHeaderProfile.BROWSER`
+- `FetchHeaderProfile.LIBRARY`
+
+### `FetchTLSMode`
+
+Available values:
+
+- `FetchTLSMode.STRICT`
+- `FetchTLSMode.INSECURE`
+
 ### `ProbeOptions`
 
 ```python
@@ -655,7 +764,7 @@ class ProbeOptions:
     repeat_request: bool = True
     follow_up_with_cookies: bool = True
     browser_like_request: bool = True
-    browser_user_agent: str = DEFAULT_BROWSER_USER_AGENT
+    browser_user_agent: str | None = DEFAULT_BROWSER_USER_AGENT
 ```
 
 Controls which active probe requests are sent by `probe_url(...)`.
@@ -732,6 +841,8 @@ class AnalysisResult:
     security_headers: tuple[SecurityHeaderStatus, ...] = ()
     body_length: int = 0
     artifacts: ResponseArtifacts | None = None
+    fetch_info: FetchInfo | None = None
+    fetch_failure: FetchFailure | None = None
 ```
 
 Returned by `analyze_url(...)` and `analyze_response(...)`.
@@ -746,11 +857,41 @@ Fields:
 - `security_headers`: tracked header statuses as `tuple[SecurityHeaderStatus, ...]`
 - `body_length`: response body length in bytes after coercion
 - `artifacts`: optional lightweight captured artifacts as `ResponseArtifacts | None`
+- `fetch_info`: optional fetch metadata for successful URL-based requests
+- `fetch_failure`: optional structured transport failure for URL-based requests
 
 Helpers:
 
+- `ok`: `True` when `fetch_failure is None`
 - `security_technologies`: filtered `technologies` tuple containing only security-relevant entries
 - `to_dict(security_only: bool = False)`: JSON-ready dictionary representation
+
+### `FetchInfo`
+
+```python
+@dataclass(frozen=True, slots=True)
+class FetchInfo:
+    attempts: int
+    partial_response: bool
+    header_profile: str
+    tls_mode: str
+```
+
+Returned on successful URL fetches.
+
+### `FetchFailure`
+
+```python
+@dataclass(frozen=True, slots=True)
+class FetchFailure:
+    category: str
+    error_type: str
+    message: str
+    retryable: bool
+    attempts: int
+```
+
+Returned on URL fetch failures instead of raising in normal batch usage.
 
 ### `AntiBotFinding`
 
@@ -925,15 +1066,25 @@ uv run wappalyzer-pure scan https://example.com --json
 uv run wappalyzer-pure scan https://example.com --json --security-only
 uv run wappalyzer-pure scan https://example.com --fetch-scripts same-origin
 uv run wappalyzer-pure scan https://example.com --json --artifacts
+uv run wappalyzer-pure scan https://example.com --retries 1 --header-profile browser
+uv run wappalyzer-pure scan https://expired.badssl.com --insecure-tls
 uv run wappalyzer-pure scan https://example.com --source httparchive
 uv run wappalyzer-pure probe https://example.com --json
 uv run wappalyzer-pure probe https://example.com --json --artifacts
+uv run wappalyzer-pure probe https://example.com --retries 1 --user-agent "CustomBot/1.0"
 uv run wappalyzer-pure probe https://example.com --no-browser-like
 ```
 
 Script-related flags:
 
 - `--source {merged,enthec,httparchive}`
+- `--timeout`
+- `--retries`
+- `--retry-backoff`
+- `--header-profile {browser,library}`
+- `--insecure-tls`
+- `--no-partial-reads`
+- `--user-agent`
 - `--fetch-scripts {off,same-origin}`
 - `--max-external-scripts`
 - `--max-bytes-per-script`

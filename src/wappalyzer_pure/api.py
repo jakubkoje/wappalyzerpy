@@ -4,7 +4,6 @@ from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import replace
 from email.message import Message
 from http.client import HTTPMessage
-from urllib import error as urllib_error
 from urllib import request as urllib_request
 
 from .antibot import (
@@ -18,11 +17,22 @@ from .artifacts import (
 )
 from .data_sources import DEFAULT_FINGERPRINT_DATA_SOURCE, FingerprintDataSource
 from .engine import Wappalyzer, extract_html_artifacts, get_default_wappalyzer
+from .fetching import (
+    DEFAULT_BROWSER_USER_AGENT,
+    FetchFailure,
+    FetchOptions,
+    build_opener,
+    build_request_headers,
+    fetch_url,
+)
+from .fetching import (
+    headers_from_http_message as _headers_from_http_message,
+)
 from .models import AnalysisResult, ArtifactCaptureOptions, Technology
 from .script_analysis import ScriptAnalysisOptions, fetch_external_scripts
 from .security import inspect_security_headers, is_security_technology
 
-DEFAULT_USER_AGENT = "wappalyzer-pure/0.1.0"
+DEFAULT_USER_AGENT = DEFAULT_BROWSER_USER_AGENT
 
 
 def analyze_response(
@@ -107,81 +117,81 @@ def analyze_url(
     *,
     timeout: float = 10.0,
     request_headers: Mapping[str, str] | None = None,
-    user_agent: str = DEFAULT_USER_AGENT,
+    user_agent: str | None = None,
     opener: urllib_request.OpenerDirector | None = None,
     source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
     script_analysis: ScriptAnalysisOptions | None = None,
     client: Wappalyzer | None = None,
     capture_artifacts: bool | ArtifactCaptureOptions | None = None,
+    fetch_options: FetchOptions | None = None,
 ) -> AnalysisResult:
-    headers = {"User-Agent": user_agent}
-    if request_headers:
-        headers.update({str(key): str(value) for key, value in request_headers.items()})
-
-    active_opener = opener or urllib_request.build_opener()
+    active_fetch_options = fetch_options or FetchOptions(timeout=timeout)
+    headers = build_request_headers(
+        request_headers=request_headers,
+        user_agent=user_agent,
+        options=active_fetch_options,
+    )
     active_capture_options = normalize_artifact_capture_options(capture_artifacts)
     active_client = client or get_default_wappalyzer(source)
-    response = None
-    try:
-        request = urllib_request.Request(url, headers=headers)
-        response = active_opener.open(request, timeout=timeout)
-    except urllib_error.HTTPError as exc:
-        response = exc
-
-    if response is None:
-        raise RuntimeError("failed to obtain an HTTP response")
-
-    with response:
-        response_body = response.read()
-        response_headers = headers_from_http_message(response.headers)
-        final_url = response.geturl()
-        script_headers = dict(headers)
-        script_headers.setdefault("Referer", final_url)
-        result = analyze_response(
-            response_headers,
-            response_body,
-            source=source,
-            response_url=final_url,
-            script_analysis=script_analysis,
-            script_timeout=timeout,
-            script_request_headers=script_headers,
-            script_opener=active_opener,
-            client=active_client,
-            capture_artifacts=active_capture_options,
-        )
-        anti_bot_findings = enrich_anti_bot_findings_with_response_metadata(
-            result.anti_bot_findings,
-            target_url=url,
-            final_url=final_url,
-            status_code=response.getcode(),
-            anti_bot_aliases=active_client.anti_bot_aliases,
-        )
-        artifacts = result.artifacts
-        if (
-            artifacts is not None
-            and active_capture_options is not None
-            and artifacts.captured_at_utc is None
-        ):
-            artifacts = replace(artifacts, captured_at_utc=capture_timestamp_utc())
+    active_opener = opener or build_opener(active_fetch_options)
+    fetched = fetch_url(
+        url,
+        request_headers=headers,
+        options=active_fetch_options,
+        opener=active_opener,
+        accept_http_error_response=True,
+    )
+    if isinstance(fetched, FetchFailure):
         return AnalysisResult(
             target_url=url,
-            final_url=final_url,
-            status_code=response.getcode(),
-            technologies=result.technologies,
-            anti_bot_findings=anti_bot_findings,
-            security_headers=result.security_headers,
-            body_length=result.body_length,
-            artifacts=artifacts,
+            fetch_failure=fetched,
         )
+
+    script_headers = dict(headers)
+    script_headers.setdefault("Referer", fetched.final_url)
+    result = analyze_response(
+        fetched.headers,
+        fetched.body,
+        source=source,
+        response_url=fetched.final_url,
+        script_analysis=script_analysis,
+        script_timeout=active_fetch_options.timeout,
+        script_request_headers=script_headers,
+        script_opener=active_opener,
+        client=active_client,
+        capture_artifacts=active_capture_options,
+    )
+    anti_bot_findings = enrich_anti_bot_findings_with_response_metadata(
+        result.anti_bot_findings,
+        target_url=url,
+        final_url=fetched.final_url,
+        status_code=fetched.status_code,
+        anti_bot_aliases=active_client.anti_bot_aliases,
+    )
+    artifacts = result.artifacts
+    if (
+        artifacts is not None
+        and active_capture_options is not None
+        and artifacts.captured_at_utc is None
+    ):
+        artifacts = replace(artifacts, captured_at_utc=capture_timestamp_utc())
+    return AnalysisResult(
+        target_url=url,
+        final_url=fetched.final_url,
+        status_code=fetched.status_code,
+        technologies=result.technologies,
+        anti_bot_findings=anti_bot_findings,
+        security_headers=result.security_headers,
+        body_length=result.body_length,
+        artifacts=artifacts,
+        fetch_info=fetched.fetch_info,
+    )
 
 
 def headers_from_http_message(
     message: HTTPMessage | Message[str, str],
 ) -> dict[str, list[str]]:
-    headers: dict[str, list[str]] = {}
-    for key, value in message.items():
-        headers.setdefault(key, []).append(value)
-    return headers
+    return _headers_from_http_message(message)
 
 
 def normalize_headers(

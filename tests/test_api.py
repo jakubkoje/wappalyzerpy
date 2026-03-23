@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import hashlib
+import http.client
 import json
+from collections.abc import Sequence
 from dataclasses import dataclass
 from email.message import Message
 from typing import cast
@@ -12,6 +14,11 @@ import pytest
 from wappalyzer_pure import AntiBotEvidence, ArtifactCaptureOptions, api
 from wappalyzer_pure.data_sources import FingerprintDataSource
 from wappalyzer_pure.engine import Wappalyzer
+from wappalyzer_pure.fetching import (
+    DEFAULT_BROWSER_USER_AGENT,
+    FetchFailure,
+    FetchOptions,
+)
 from wappalyzer_pure.script_analysis import ScriptAnalysisOptions, ScriptFetchPolicy
 
 FINGERPRINTS_JSON = json.dumps(
@@ -76,6 +83,7 @@ class ResponseSpec:
     headers: tuple[tuple[str, str], ...] = ()
     status: int = 200
     final_url: str | None = None
+    read_exception: Exception | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -83,6 +91,9 @@ class RequestRecord:
     url: str
     headers: tuple[tuple[str, str], ...]
     timeout: float
+
+
+ResponseOutcome = ResponseSpec | Exception
 
 
 class FakeHTTPResponse:
@@ -93,10 +104,12 @@ class FakeHTTPResponse:
         body: bytes,
         headers: tuple[tuple[str, str], ...],
         status: int,
+        read_exception: Exception | None = None,
     ) -> None:
         self._url = url
         self._body = body
         self._status = status
+        self._read_exception = read_exception
         self.headers = Message()
         for key, value in headers:
             self.headers.add_header(key, value)
@@ -108,6 +121,8 @@ class FakeHTTPResponse:
         return None
 
     def read(self, amount: int | None = None) -> bytes:
+        if self._read_exception is not None:
+            raise self._read_exception
         if amount is None or amount < 0:
             return self._body
         return self._body[:amount]
@@ -120,8 +135,16 @@ class FakeHTTPResponse:
 
 
 class FakeOpener:
-    def __init__(self, responses: dict[str, ResponseSpec]) -> None:
-        self._responses = responses
+    def __init__(
+        self,
+        responses: dict[str, ResponseOutcome | Sequence[ResponseOutcome]],
+    ) -> None:
+        self._responses = {
+            url: list(spec)
+            if isinstance(spec, Sequence) and not isinstance(spec, (bytes, str))
+            else [spec]
+            for url, spec in responses.items()
+        }
         self.calls: list[RequestRecord] = []
 
     def open(
@@ -139,12 +162,20 @@ class FakeOpener:
                 timeout=timeout,
             )
         )
-        spec = self._responses[url]
+        queue = self._responses[url]
+        spec = queue.pop(0)
+        if not queue:
+            queue.append(spec)
+        if isinstance(spec, Exception):
+            raise spec
+        if not isinstance(spec, ResponseSpec):
+            raise TypeError(f"unsupported fake response payload: {spec!r}")
         return FakeHTTPResponse(
             url=spec.final_url or url,
             body=spec.body,
             headers=spec.headers,
             status=spec.status,
+            read_exception=spec.read_exception,
         )
 
 
@@ -388,6 +419,154 @@ def test_analyze_url_keeps_http_error_response(client: Wappalyzer) -> None:
         header.name == "Strict-Transport-Security" and header.present
         for header in result.security_headers
     )
+    assert result.fetch_failure is None
+    assert result.fetch_info is not None
+    assert result.fetch_info.attempts == 1
+
+
+def test_analyze_url_returns_structured_fetch_failure_for_timeout(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com": TimeoutError("timed out"),
+        }
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+        fetch_options=FetchOptions(
+            timeout=1.0,
+            retries=0,
+            retry_backoff_seconds=0.0,
+        ),
+    )
+
+    assert result.ok is False
+    assert result.fetch_info is None
+    assert result.fetch_failure == FetchFailure(
+        category="timeout",
+        error_type="TimeoutError",
+        message="timed out",
+        retryable=True,
+        attempts=1,
+    )
+    assert result.technologies == ()
+
+
+def test_analyze_url_retries_transient_disconnect_and_succeeds(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com": [
+                http.client.RemoteDisconnected("remote end closed connection"),
+                ResponseSpec(
+                    body=b"<html></html>",
+                    headers=(("Server", "cloudflare"),),
+                    status=200,
+                ),
+            ]
+        }
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+        fetch_options=FetchOptions(retries=1, retry_backoff_seconds=0.0),
+    )
+
+    assert result.ok is True
+    assert result.fetch_failure is None
+    assert result.fetch_info is not None
+    assert result.fetch_info.attempts == 2
+    assert [technology.name for technology in result.technologies] == ["Cloudflare"]
+
+
+def test_analyze_url_salvages_partial_read_and_marks_fetch_info(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com": ResponseSpec(
+                body=b"",
+                headers=(("Server", "cloudflare"),),
+                read_exception=http.client.IncompleteRead(
+                    partial=b"<html>cloudflare partial body</html>",
+                    expected=64,
+                ),
+            )
+        }
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+    )
+
+    assert result.ok is True
+    assert result.fetch_info is not None
+    assert result.fetch_info.partial_response is True
+    assert [technology.name for technology in result.technologies] == ["Cloudflare"]
+
+
+def test_analyze_url_can_disable_partial_read_salvage(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com": ResponseSpec(
+                body=b"",
+                headers=(("Server", "cloudflare"),),
+                read_exception=http.client.IncompleteRead(
+                    partial=b"<html>partial</html>",
+                    expected=32,
+                ),
+            )
+        }
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+        fetch_options=FetchOptions(
+            retries=0,
+            retry_backoff_seconds=0.0,
+            allow_partial_reads=False,
+        ),
+    )
+
+    assert result.ok is False
+    assert result.fetch_failure is not None
+    assert result.fetch_failure.category == "incomplete_read"
+
+
+def test_analyze_url_uses_browser_headers_by_default(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com": ResponseSpec(
+                body=b"<html></html>",
+                headers=(("Content-Type", "text/html"),),
+            )
+        }
+    )
+
+    api.analyze_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+    )
+
+    headers = _headers_to_map(opener.calls[0].headers)
+    assert headers["user-agent"] == DEFAULT_BROWSER_USER_AGENT
+    assert "text/html" in headers["accept"]
 
 
 def test_analyze_url_preserves_anti_bot_findings(client: Wappalyzer) -> None:

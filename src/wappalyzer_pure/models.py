@@ -131,6 +131,40 @@ class ResponseArtifacts:
 
 
 @dataclass(frozen=True, slots=True)
+class FetchInfo:
+    attempts: int
+    partial_response: bool
+    header_profile: str
+    tls_mode: str
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "attempts": self.attempts,
+            "partial_response": self.partial_response,
+            "header_profile": self.header_profile,
+            "tls_mode": self.tls_mode,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class FetchFailure:
+    category: str
+    error_type: str
+    message: str
+    retryable: bool
+    attempts: int
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "category": self.category,
+            "error_type": self.error_type,
+            "message": self.message,
+            "retryable": self.retryable,
+            "attempts": self.attempts,
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class AnalysisResult:
     target_url: str | None = None
     final_url: str | None = None
@@ -140,6 +174,8 @@ class AnalysisResult:
     security_headers: tuple[SecurityHeaderStatus, ...] = ()
     body_length: int = 0
     artifacts: ResponseArtifacts | None = None
+    fetch_info: FetchInfo | None = None
+    fetch_failure: FetchFailure | None = None
 
     @property
     def security_technologies(self) -> tuple[Technology, ...]:
@@ -148,6 +184,10 @@ class AnalysisResult:
             for technology in self.technologies
             if technology.security_relevant
         )
+
+    @property
+    def ok(self) -> bool:
+        return self.fetch_failure is None
 
     def to_dict(self, *, security_only: bool = False) -> dict[str, object]:
         technologies = (
@@ -164,6 +204,12 @@ class AnalysisResult:
             ],
             "security_headers": [header.to_dict() for header in self.security_headers],
             "artifacts": None if self.artifacts is None else self.artifacts.to_dict(),
+            "fetch_info": (
+                None if self.fetch_info is None else self.fetch_info.to_dict()
+            ),
+            "fetch_failure": (
+                None if self.fetch_failure is None else self.fetch_failure.to_dict()
+            ),
         }
 
 

@@ -6,6 +6,7 @@ import json
 from .api import analyze_url
 from .data_sources import DEFAULT_FINGERPRINT_DATA_SOURCE, FingerprintDataSource
 from .exceptions import WappalyzerPureError
+from .fetching import FetchHeaderProfile, FetchOptions, FetchTLSMode
 from .models import ArtifactCaptureOptions
 from .probing import ProbeOptions, probe_url
 from .script_analysis import ScriptAnalysisOptions, ScriptFetchPolicy
@@ -18,6 +19,28 @@ def main(argv: list[str] | None = None) -> int:
     scan_parser = subparsers.add_parser("scan", help="fingerprint a URL")
     scan_parser.add_argument("url")
     scan_parser.add_argument("--timeout", type=float, default=10.0)
+    scan_parser.add_argument("--retries", type=int, default=1)
+    scan_parser.add_argument("--retry-backoff", type=float, default=0.25)
+    scan_parser.add_argument(
+        "--header-profile",
+        choices=[profile.value for profile in FetchHeaderProfile],
+        default=FetchHeaderProfile.BROWSER.value,
+        help="request header profile to use for the page fetch",
+    )
+    scan_parser.add_argument(
+        "--insecure-tls",
+        action="store_true",
+        help="disable TLS certificate verification for the page fetch",
+    )
+    scan_parser.add_argument(
+        "--no-partial-reads",
+        action="store_true",
+        help="treat incomplete response bodies as hard failures",
+    )
+    scan_parser.add_argument(
+        "--user-agent",
+        help="override the default user agent for the selected header profile",
+    )
     scan_parser.add_argument(
         "--source",
         choices=[source.value for source in FingerprintDataSource],
@@ -72,6 +95,28 @@ def main(argv: list[str] | None = None) -> int:
     )
     probe_parser.add_argument("url")
     probe_parser.add_argument("--timeout", type=float, default=10.0)
+    probe_parser.add_argument("--retries", type=int, default=1)
+    probe_parser.add_argument("--retry-backoff", type=float, default=0.25)
+    probe_parser.add_argument(
+        "--header-profile",
+        choices=[profile.value for profile in FetchHeaderProfile],
+        default=FetchHeaderProfile.BROWSER.value,
+        help="request header profile to use for the base page fetches",
+    )
+    probe_parser.add_argument(
+        "--insecure-tls",
+        action="store_true",
+        help="disable TLS certificate verification for the page fetches",
+    )
+    probe_parser.add_argument(
+        "--no-partial-reads",
+        action="store_true",
+        help="treat incomplete response bodies as hard failures",
+    )
+    probe_parser.add_argument(
+        "--user-agent",
+        help="override the default user agent for the selected header profile",
+    )
     probe_parser.add_argument(
         "--source",
         choices=[source.value for source in FingerprintDataSource],
@@ -133,6 +178,16 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        fetch_options = FetchOptions(
+            timeout=args.timeout,
+            retries=args.retries,
+            retry_backoff_seconds=args.retry_backoff,
+            allow_partial_reads=not args.no_partial_reads,
+            tls_mode=(
+                FetchTLSMode.INSECURE if args.insecure_tls else FetchTLSMode.STRICT
+            ),
+            header_profile=FetchHeaderProfile(args.header_profile),
+        )
         script_analysis = ScriptAnalysisOptions(
             fetch_policy=ScriptFetchPolicy(args.fetch_scripts),
             max_external_scripts=args.max_external_scripts,
@@ -147,10 +202,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "scan":
             result = analyze_url(
                 args.url,
-                timeout=args.timeout,
                 source=args.source,
                 script_analysis=script_analysis,
                 capture_artifacts=artifact_capture,
+                user_agent=args.user_agent,
+                fetch_options=fetch_options,
             )
             if args.json:
                 print(
@@ -173,14 +229,16 @@ def main(argv: list[str] | None = None) -> int:
         else:
             result = probe_url(
                 args.url,
-                timeout=args.timeout,
                 source=args.source,
                 script_analysis=script_analysis,
                 capture_artifacts=artifact_capture,
+                user_agent=args.user_agent,
+                fetch_options=fetch_options,
                 probe_options=ProbeOptions(
                     repeat_request=not args.no_repeat,
                     follow_up_with_cookies=not args.no_cookie_follow_up,
                     browser_like_request=not args.no_browser_like,
+                    browser_user_agent=args.user_agent,
                 ),
             )
             if args.json:

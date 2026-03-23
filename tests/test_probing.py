@@ -1,12 +1,18 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Sequence
 from dataclasses import dataclass
 from email.message import Message
 from typing import cast
 from urllib import request as urllib_request
 
-from wappalyzer_pure import ArtifactCaptureOptions, ProbeOptions, probe_url
+from wappalyzer_pure import (
+    ArtifactCaptureOptions,
+    FetchOptions,
+    ProbeOptions,
+    probe_url,
+)
 from wappalyzer_pure.engine import Wappalyzer
 
 FINGERPRINTS_JSON = json.dumps(
@@ -38,6 +44,9 @@ class ResponseSpec:
     headers: tuple[tuple[str, str], ...] = ()
     status: int = 200
     final_url: str | None = None
+
+
+ResponseOutcome = ResponseSpec | Exception
 
 
 class FakeHTTPResponse:
@@ -75,8 +84,16 @@ class FakeHTTPResponse:
 
 
 class FakeOpener:
-    def __init__(self, responses: dict[str, ResponseSpec]) -> None:
-        self._responses = responses
+    def __init__(
+        self,
+        responses: dict[str, ResponseOutcome | Sequence[ResponseOutcome]],
+    ) -> None:
+        self._responses = {
+            url: list(spec)
+            if isinstance(spec, Sequence) and not isinstance(spec, (bytes, str))
+            else [spec]
+            for url, spec in responses.items()
+        }
         self.calls: list[tuple[str, tuple[tuple[str, str], ...]]] = []
 
     def open(
@@ -91,7 +108,14 @@ class FakeOpener:
                 tuple((key.lower(), value) for key, value in request.header_items()),
             )
         )
-        spec = self._responses[url]
+        queue = self._responses[url]
+        spec = queue.pop(0)
+        if not queue:
+            queue.append(spec)
+        if isinstance(spec, Exception):
+            raise spec
+        if not isinstance(spec, ResponseSpec):
+            raise TypeError(f"unsupported fake response payload: {spec!r}")
         return FakeHTTPResponse(
             url=spec.final_url or url,
             body=spec.body,
@@ -226,3 +250,36 @@ def test_probe_url_can_capture_artifacts_for_each_observation() -> None:
         result.observations[0].result.artifacts.captured_at_utc
         == "2026-03-22T12:00:00Z"
     )
+
+
+def test_probe_url_keeps_failed_observations_with_structured_fetch_failure() -> None:
+    client = Wappalyzer.from_json_strings(FINGERPRINTS_JSON, CATEGORIES_JSON)
+    opener = FakeOpener(
+        {
+            "https://example.com": TimeoutError("timed out"),
+        }
+    )
+
+    result = probe_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+        fetch_options=FetchOptions(
+            timeout=1.0,
+            retries=0,
+            retry_backoff_seconds=0.0,
+        ),
+        probe_options=ProbeOptions(
+            repeat_request=False,
+            follow_up_with_cookies=False,
+            browser_like_request=False,
+        ),
+    )
+
+    assert len(result.observations) == 1
+    observation = result.observations[0]
+    assert observation.name == "initial"
+    assert observation.result.ok is False
+    assert observation.result.fetch_failure is not None
+    assert observation.result.fetch_failure.category == "timeout"
+    assert result.challenge_observed is False

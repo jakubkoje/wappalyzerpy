@@ -1,11 +1,18 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
-from urllib import error as urllib_error
 from urllib import parse as urllib_parse
 from urllib import request as urllib_request
+
+from .fetching import (
+    FetchFailure,
+    FetchHeaderProfile,
+    FetchOptions,
+    build_opener,
+    fetch_url,
+)
 
 
 class ScriptFetchPolicy(str, Enum):
@@ -51,6 +58,7 @@ def fetch_external_script_contents(
     timeout: float,
     opener: urllib_request.OpenerDirector | None = None,
     request_headers: Mapping[str, str] | None = None,
+    fetch_options: FetchOptions | None = None,
 ) -> tuple[str, ...]:
     return fetch_external_scripts(
         page_url=page_url,
@@ -59,6 +67,7 @@ def fetch_external_script_contents(
         timeout=timeout,
         opener=opener,
         request_headers=request_headers,
+        fetch_options=fetch_options,
     ).contents
 
 
@@ -70,6 +79,7 @@ def fetch_external_scripts(
     timeout: float,
     opener: urllib_request.OpenerDirector | None = None,
     request_headers: Mapping[str, str] | None = None,
+    fetch_options: FetchOptions | None = None,
 ) -> FetchedScripts:
     if not options.fetch_enabled:
         return FetchedScripts()
@@ -82,7 +92,13 @@ def fetch_external_scripts(
     if not candidate_urls:
         return FetchedScripts()
 
-    active_opener = opener or urllib_request.build_opener()
+    active_fetch_options = fetch_options or FetchOptions(
+        timeout=timeout,
+        header_profile=FetchHeaderProfile.LIBRARY,
+    )
+    if active_fetch_options.timeout != timeout:
+        active_fetch_options = replace(active_fetch_options, timeout=timeout)
+    active_opener = opener or build_opener(active_fetch_options)
     total_bytes = 0
     fetched_urls: list[str] = []
     contents: list[str] = []
@@ -96,21 +112,22 @@ def fetch_external_scripts(
         if per_script_limit <= 0:
             break
 
-        request = urllib_request.Request(
+        fetched = fetch_url(
             script_url,
-            headers=_normalize_request_headers(request_headers),
+            request_headers=_normalize_request_headers(request_headers),
+            options=active_fetch_options,
+            opener=active_opener,
+            accept_http_error_response=False,
+            read_limit=per_script_limit,
         )
-        try:
-            with active_opener.open(request, timeout=timeout) as response:
-                payload = response.read(per_script_limit + 1)
-        except (urllib_error.HTTPError, urllib_error.URLError, ValueError):
+        if isinstance(fetched, FetchFailure):
             continue
-
+        payload = fetched.body
         if not payload or len(payload) > per_script_limit:
             continue
 
         total_bytes += len(payload)
-        fetched_urls.append(script_url)
+        fetched_urls.append(fetched.final_url)
         contents.append(payload.decode("latin-1"))
 
     return FetchedScripts(urls=tuple(fetched_urls), contents=tuple(contents))

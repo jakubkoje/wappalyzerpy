@@ -21,6 +21,14 @@ uv run python examples/09_security_only_output.py
 uv run python examples/10_analyze_response_with_response_url.py
 uv run python examples/11_direct_script_fetch_helper.py
 uv run python examples/12_custom_antibot_canonicalization.py
+uv run python examples/14_failure_handling.py
+```
+
+The `examples/dataset/` folder contains a dataset-oriented batch runner and a
+copied sample CSV input:
+
+```bash
+uv run python examples/dataset/run_dataset_scan.py --limit 100
 ```
 
 ## Networked Examples
@@ -32,6 +40,7 @@ uv run python examples/01_analyze_url.py https://example.com
 uv run python examples/03_compare_sources.py https://example.com
 uv run python examples/04_fetch_external_scripts.py https://example.com
 uv run python examples/06_probe_target.py https://example.com
+uv run python examples/13_fetch_options.py https://example.com
 ```
 
 ## Included Scripts
@@ -48,3 +57,6 @@ uv run python examples/06_probe_target.py https://example.com
 - `10_analyze_response_with_response_url.py`: analyze an already-fetched response and resolve relative script URLs with a custom opener
 - `11_direct_script_fetch_helper.py`: call the external-script fetch helper directly
 - `12_custom_antibot_canonicalization.py`: customize anti-bot product detection through custom fingerprints and observe canonical vendor labels
+- `13_fetch_options.py`: tune retries, partial-read handling, TLS mode, and header profile for live scans
+- `14_failure_handling.py`: inspect structured fetch failures without raising exceptions
+- `dataset/run_dataset_scan.py`: batch-scan a CSV of URLs and save both JSONL and CSV outputs

@@ -37,8 +37,10 @@ def main() -> int:
     for observation in result.observations:
         print(
             f"- {observation.name}: status={observation.result.status_code} "
+            f"ok={observation.result.ok} "
             f"redirected={observation.redirected} "
             f"challenge_observed={observation.challenge_observed} "
+            f"fetch_failure={None if observation.result.fetch_failure is None else observation.result.fetch_failure.category} "
             f"vendors={[finding.vendor for finding in observation.result.anti_bot_findings]}"
         )
     return 0
