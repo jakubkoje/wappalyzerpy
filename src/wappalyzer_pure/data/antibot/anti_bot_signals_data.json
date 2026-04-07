@@ -174,14 +174,20 @@
       "signals": {
         "technology_names": ["PerimeterX", "HUMAN Security"],
         "cookie_names": ["_pxhd", "_pxvid", "_px3", "pxcts"],
-        "body_substrings": ["perimeterx", "px-captcha", "/px/captcha"]
+        "body_substrings": [
+          "perimeterx",
+          "px-captcha",
+          "/px/captcha",
+          "window._pxappid"
+        ]
       },
       "behaviors": [
         {
           "name": "bot_management",
           "min_score": 3,
           "signals": {
-            "cookie_names": ["_pxhd", "_pxvid", "_px3", "pxcts"]
+            "cookie_names": ["_pxhd", "_pxvid", "_px3", "pxcts"],
+            "body_substrings": ["window._pxappid"]
           }
         },
         {
@@ -213,6 +219,32 @@
           "signals": {
             "cookie_names": ["_kpsdk_ct", "_kpsdk_v", "_kasada"],
             "script_content_substrings": ["kpsdk"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "ByteDance AntiBot",
+      "min_score": 4,
+      "confidence_thresholds": {
+        "medium": 4,
+        "high": 6
+      },
+      "signals": {
+        "cookie_names": ["__ac_nonce"],
+        "header_value_contains": {
+          "server": ["tengine"]
+        }
+      },
+      "behaviors": [
+        {
+          "name": "challenge",
+          "min_score": 4,
+          "signals": {
+            "cookie_names": ["__ac_nonce"],
+            "header_value_contains": {
+              "server": ["tengine"]
+            }
           }
         }
       ]

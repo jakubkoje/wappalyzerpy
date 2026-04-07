@@ -104,6 +104,106 @@ def test_inspect_anti_bot_findings_can_match_script_content_signals() -> None:
     assert any(item.source == "script_content" for item in finding.evidence)
 
 
+def test_inspect_anti_bot_findings_matches_technology_names_from_signal_rules() -> None:
+    findings = inspect_anti_bot_findings(
+        headers={},
+        body=b"<html></html>",
+        technologies=(
+            Technology(
+                raw_name="HUMAN Security",
+                name="HUMAN Security",
+                categories=("Security",),
+                security_relevant=True,
+            ),
+        ),
+        anti_bot_aliases=derive_anti_bot_alias_catalog({}),
+    )
+
+    assert len(findings) == 1
+    finding = findings[0]
+    assert finding.vendor == "HUMAN"
+    assert finding.score == 3
+    assert finding.confidence == "medium"
+    assert finding.evidence == (
+        AntiBotEvidence(
+            source="technology",
+            indicator="human security",
+            matched_value="HUMAN Security",
+            artifact="HUMAN Security",
+        ),
+    )
+
+
+def test_inspect_anti_bot_findings_can_infer_recaptcha_from_security_headers() -> None:
+    anti_bot_catalog = {
+        "recaptcha": AntiBotTechnologyCatalogEntry(
+            name="reCAPTCHA",
+            vendor="reCAPTCHA",
+            behaviors=("captcha",),
+        )
+    }
+    findings = inspect_anti_bot_findings(
+        headers={
+            "Content-Security-Policy": [
+                "default-src 'self'; frame-src https://www.google.com/recaptcha/;"
+            ]
+        },
+        body=b"",
+        technologies=(),
+        anti_bot_catalog=anti_bot_catalog,
+        anti_bot_aliases=derive_anti_bot_alias_catalog(anti_bot_catalog),
+    )
+
+    assert len(findings) == 1
+    finding = findings[0]
+    assert finding.vendor == "reCAPTCHA"
+    assert finding.score == 3
+    assert finding.confidence == "medium"
+    assert finding.products == ("reCAPTCHA",)
+    assert finding.behaviors == ("captcha",)
+    assert finding.evidence == (
+        AntiBotEvidence(
+            source="security_header",
+            indicator="content-security-policy",
+            matched_value="www.google.com/recaptcha",
+            artifact=(
+                "content-security-policy: default-src 'self'; frame-src "
+                "https://www.google.com/recaptcha/;"
+            ),
+        ),
+    )
+
+
+def test_inspect_anti_bot_findings_can_infer_perimeterx_from_csp_and_inline_bootstrap() -> (
+    None
+):
+    anti_bot_catalog = {
+        "perimeterx": AntiBotTechnologyCatalogEntry(
+            name="PerimeterX",
+            vendor="HUMAN / PerimeterX",
+            behaviors=("bot_management",),
+        )
+    }
+    findings = inspect_anti_bot_findings(
+        headers={
+            "Content-Security-Policy": [
+                "script-src 'self' https://*.px-cdn.net https://*.px-cloud.net"
+            ]
+        },
+        body=b"<script>window._pxAppId='PXu6b0qd2S';</script>",
+        technologies=(),
+        anti_bot_catalog=anti_bot_catalog,
+        anti_bot_aliases=derive_anti_bot_alias_catalog(anti_bot_catalog),
+    )
+
+    assert len(findings) == 1
+    finding = findings[0]
+    assert finding.vendor == "HUMAN"
+    assert finding.products == ("PerimeterX",)
+    assert finding.behaviors == ("bot_management",)
+    assert {item.source for item in finding.evidence} == {"body", "security_header"}
+
+
 def test_inspect_anti_bot_findings_canonicalizes_vendor_aliases_from_signal_rules() -> (
     None
 ):

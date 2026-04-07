@@ -61,6 +61,7 @@ class FakeHTTPResponse:
         self._url = url
         self._body = body
         self._status = status
+        self._offset = 0
         self.headers = Message()
         for key, value in headers:
             self.headers.add_header(key, value)
@@ -73,8 +74,13 @@ class FakeHTTPResponse:
 
     def read(self, amount: int | None = None) -> bytes:
         if amount is None or amount < 0:
-            return self._body
-        return self._body[:amount]
+            chunk = self._body[self._offset :]
+            self._offset = len(self._body)
+            return chunk
+        start = self._offset
+        end = min(len(self._body), start + amount)
+        self._offset = end
+        return self._body[start:end]
 
     def geturl(self) -> str:
         return self._url

@@ -298,6 +298,7 @@ def _analyze_fetched_response(
         fetched.headers,
         fetched.body,
         source=source,
+        status_code=fetched.status_code,
         response_url=fetched.final_url,
         script_analysis=script_analysis,
         script_timeout=fetch_options.timeout,

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from functools import lru_cache
@@ -17,12 +18,19 @@ _DEFAULT_EVIDENCE_WEIGHTS = {
     "body": 3,
     "header": 1,
     "header_value": 1,
+    "security_header": 3,
     "script_source": 3,
     "script_content": 3,
     "status_code": 1,
+    "status_heuristic": 3,
     "redirect": 1,
 }
 _SUSPICIOUS_STATUS_CODES = {401, 403, 429, 503}
+_POLICY_HEADER_NAMES = (
+    "content-security-policy",
+    "content-security-policy-report-only",
+)
+_MINIMAL_BLOCK_TEXT_LIMIT = 256
 _SNIPPET_RADIUS = 48
 
 
@@ -67,6 +75,13 @@ class _VendorRule:
 
 
 @dataclass(frozen=True, slots=True)
+class _SecurityHeaderFingerprint:
+    product_name: str
+    substrings: tuple[str, ...]
+    header_names: tuple[str, ...] = _POLICY_HEADER_NAMES
+
+
+@dataclass(frozen=True, slots=True)
 class _DetectionContext:
     detected_technologies: tuple[Technology, ...]
     technologies: Mapping[str, Technology]
@@ -76,6 +91,7 @@ class _DetectionContext:
     body_text: str
     script_sources: tuple[str, ...]
     script_contents: tuple[str, ...]
+    status_code: int | None
 
 
 @dataclass(slots=True)
@@ -94,11 +110,56 @@ class _TechnologyFindingCandidate:
     evidence: tuple[AntiBotEvidence, ...]
 
 
+_SECURITY_HEADER_FINGERPRINTS = (
+    _SecurityHeaderFingerprint(
+        product_name="reCAPTCHA",
+        substrings=(
+            "www.google.com/recaptcha",
+            "recaptcha.net",
+            "recaptcha",
+        ),
+    ),
+    _SecurityHeaderFingerprint(
+        product_name="hCaptcha",
+        substrings=("hcaptcha.com", "hcaptcha"),
+    ),
+    _SecurityHeaderFingerprint(
+        product_name="GeeTest",
+        substrings=("geetest.com", "geetest"),
+    ),
+    _SecurityHeaderFingerprint(
+        product_name="Cloudflare Turnstile",
+        substrings=("challenges.cloudflare.com/turnstile", "cf-turnstile"),
+    ),
+    _SecurityHeaderFingerprint(
+        product_name="DataDome",
+        substrings=("captcha-delivery.com", "ct.datadome.co", "datadome"),
+    ),
+    _SecurityHeaderFingerprint(
+        product_name="PerimeterX",
+        substrings=(
+            "client.a.pxi.pub",
+            "pxi.pub",
+            "px-cdn.net",
+            "px-cloud.net",
+            "pxchk.net",
+            "perimeterx.net",
+            "perimeterx",
+        ),
+    ),
+    _SecurityHeaderFingerprint(
+        product_name="Kasada",
+        substrings=("kpsdk", "kasada"),
+    ),
+)
+
+
 def inspect_anti_bot_findings(
     *,
     headers: Mapping[str, list[str]],
     body: bytes,
     technologies: tuple[Technology, ...],
+    status_code: int | None = None,
     script_sources: tuple[str, ...] = (),
     script_contents: tuple[str, ...] = (),
     anti_bot_catalog: Mapping[str, AntiBotTechnologyCatalogEntry] | None = None,
@@ -110,6 +171,7 @@ def inspect_anti_bot_findings(
         technologies=technologies,
         script_sources=script_sources,
         script_contents=script_contents,
+        status_code=status_code,
     )
     accumulated: dict[str, _AccumulatedFinding] = {}
 
@@ -137,9 +199,34 @@ def inspect_anti_bot_findings(
             evidence=_deduplicate_evidence(combined_evidence),
         )
 
+    for candidate in _derive_security_header_finding_candidates(
+        context,
+        anti_bot_catalog=anti_bot_catalog,
+        anti_bot_aliases=anti_bot_aliases,
+    ):
+        _merge_finding_candidate(
+            accumulated,
+            vendor_name=candidate.vendor_name,
+            products=candidate.products,
+            behaviors=candidate.behaviors,
+            evidence=list(candidate.evidence),
+        )
+
     for candidate in _derive_technology_finding_candidates(
         context.detected_technologies,
         anti_bot_catalog=anti_bot_catalog,
+        anti_bot_aliases=anti_bot_aliases,
+    ):
+        _merge_finding_candidate(
+            accumulated,
+            vendor_name=candidate.vendor_name,
+            products=candidate.products,
+            behaviors=candidate.behaviors,
+            evidence=list(candidate.evidence),
+        )
+
+    for candidate in _derive_status_heuristic_finding_candidates(
+        context,
         anti_bot_aliases=anti_bot_aliases,
     ):
         _merge_finding_candidate(
@@ -316,6 +403,7 @@ def _build_detection_context(
     technologies: tuple[Technology, ...],
     script_sources: tuple[str, ...],
     script_contents: tuple[str, ...],
+    status_code: int | None,
 ) -> _DetectionContext:
     normalized_headers = {
         key.casefold(): tuple(str(value) for value in values)
@@ -331,6 +419,7 @@ def _build_detection_context(
         body_text=raw_body_text.casefold(),
         script_sources=script_sources,
         script_contents=script_contents,
+        status_code=status_code,
     )
 
 
@@ -380,6 +469,19 @@ def _match_signals(
     context: _DetectionContext,
 ) -> list[AntiBotEvidence]:
     evidence: list[AntiBotEvidence] = []
+
+    for technology_name in rule.technology_names:
+        technology = context.technologies.get(technology_name)
+        if technology is None:
+            continue
+        evidence.append(
+            AntiBotEvidence(
+                source="technology",
+                indicator=technology_name,
+                matched_value=technology.name,
+                artifact=technology.raw_name,
+            )
+        )
 
     for cookie_name in rule.cookie_names:
         actual = context.cookies.get(cookie_name)
@@ -537,6 +639,168 @@ def _find_text_artifact_in_many(
         if matched_value is not None:
             return matched_value, artifact
     return None, None
+
+
+def _derive_security_header_finding_candidates(
+    context: _DetectionContext,
+    *,
+    anti_bot_catalog: Mapping[str, AntiBotTechnologyCatalogEntry] | None,
+    anti_bot_aliases: AntiBotAliasCatalog | None = None,
+) -> tuple[_TechnologyFindingCandidate, ...]:
+    candidates: list[_TechnologyFindingCandidate] = []
+    seen: set[str] = set()
+
+    for fingerprint in _SECURITY_HEADER_FINGERPRINTS:
+        if fingerprint.product_name.casefold() in seen:
+            continue
+        match = _find_security_header_match(context, fingerprint)
+        if match is None:
+            continue
+        header_name, matched_value, artifact = match
+        candidates.append(
+            _build_named_finding_candidate(
+                vendor_name=fingerprint.product_name,
+                product_name=fingerprint.product_name,
+                evidence=AntiBotEvidence(
+                    source="security_header",
+                    indicator=header_name,
+                    matched_value=matched_value,
+                    artifact=artifact,
+                ),
+                anti_bot_catalog=anti_bot_catalog,
+                anti_bot_aliases=anti_bot_aliases,
+            )
+        )
+        seen.add(fingerprint.product_name.casefold())
+
+    return tuple(candidates)
+
+
+def _find_security_header_match(
+    context: _DetectionContext,
+    fingerprint: _SecurityHeaderFingerprint,
+) -> tuple[str, str, str] | None:
+    for header_name in fingerprint.header_names:
+        values = context.headers.get(header_name, ())
+        if not values:
+            continue
+        for value in values:
+            lowered = value.casefold()
+            for substring in fingerprint.substrings:
+                if substring not in lowered:
+                    continue
+                matched_value, _ = _find_text_artifact(value, lowered, substring)
+                if matched_value is None:
+                    continue
+                return header_name, matched_value, _header_artifact(header_name, value)
+    return None
+
+
+def _derive_status_heuristic_finding_candidates(
+    context: _DetectionContext,
+    *,
+    anti_bot_aliases: AntiBotAliasCatalog | None = None,
+) -> tuple[_TechnologyFindingCandidate, ...]:
+    if context.status_code != 403:
+        return ()
+    if not _has_generic_akamai_edge_signal(context):
+        return ()
+
+    return (
+        _build_named_finding_candidate(
+            vendor_name="Akamai",
+            product_name=None,
+            evidence=AntiBotEvidence(
+                source="status_heuristic",
+                indicator="akamai_edge_block",
+                matched_value="Akamai",
+                artifact="HTTP 403 with minimal body and Akamai edge fingerprints",
+            ),
+            anti_bot_catalog=None,
+            anti_bot_aliases=anti_bot_aliases,
+        ),
+    )
+
+
+def _build_named_finding_candidate(
+    *,
+    vendor_name: str,
+    product_name: str | None,
+    evidence: AntiBotEvidence,
+    anti_bot_catalog: Mapping[str, AntiBotTechnologyCatalogEntry] | None,
+    anti_bot_aliases: AntiBotAliasCatalog | None = None,
+) -> _TechnologyFindingCandidate:
+    behaviors: tuple[str, ...] = ()
+    products: tuple[str, ...] = ()
+    canonical_vendor = _canonical_vendor_name(vendor_name, anti_bot_aliases)
+
+    if product_name is not None:
+        catalog_entry = None
+        if anti_bot_catalog is not None:
+            catalog_entry = anti_bot_catalog.get(product_name.casefold())
+        if catalog_entry is not None:
+            vendor_name = catalog_entry.vendor
+            product_name = catalog_entry.name
+            behaviors = catalog_entry.behaviors
+        if anti_bot_aliases is not None:
+            product = anti_bot_aliases.canonicalize_product(
+                product_name,
+                vendor=vendor_name,
+            )
+            canonical_vendor = product.canonical_vendor
+            products = (product.canonical_name,)
+        else:
+            canonical_vendor = vendor_name
+            products = (product_name,)
+
+    return _TechnologyFindingCandidate(
+        vendor_name=canonical_vendor,
+        products=products,
+        behaviors=behaviors,
+        evidence=(evidence,),
+    )
+
+
+def _looks_like_minimal_block_page(raw_body_text: str) -> bool:
+    stripped = raw_body_text.strip()
+    if not stripped:
+        return True
+    stripped = re.sub(
+        r"<script\b[^>]*>.*?</script>",
+        " ",
+        stripped,
+        flags=re.I | re.S,
+    )
+    stripped = re.sub(
+        r"<style\b[^>]*>.*?</style>",
+        " ",
+        stripped,
+        flags=re.I | re.S,
+    )
+    visible_text = re.sub(r"<[^>]+>", " ", stripped)
+    normalized_text = " ".join(visible_text.split()).casefold()
+    if not normalized_text:
+        return True
+    return len(normalized_text) <= _MINIMAL_BLOCK_TEXT_LIMIT
+
+
+def _has_generic_akamai_edge_signal(context: _DetectionContext) -> bool:
+    for technology in context.detected_technologies:
+        if technology.name.casefold() == "akamai":
+            return True
+
+    if "x-akamai-transformed" in context.headers or "akamai-grn" in context.headers:
+        return True
+
+    for header_name, values in context.headers.items():
+        if header_name.startswith("x-akamai-"):
+            return True
+        if header_name != "server":
+            continue
+        if any("akamai" in value.casefold() for value in values):
+            return True
+
+    return False
 
 
 def _score_evidence(evidence: list[AntiBotEvidence]) -> int:

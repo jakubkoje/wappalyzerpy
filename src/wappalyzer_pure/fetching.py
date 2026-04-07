@@ -50,6 +50,7 @@ _BROWSER_HEADER_PROFILE = {
 _RETRYABLE_DNS_ERROR_CODES = {
     getattr(socket, "EAI_AGAIN", None),
 }
+_READ_CHUNK_SIZE = 64 * 1024
 
 
 @dataclass(frozen=True, slots=True)
@@ -114,8 +115,9 @@ def fetch_url(
         request = urllib_request.Request(url, headers=dict(request_headers))
         response = None
         failure: FetchFailure | None = None
+        attempt_timeout = options.timeout * attempt
         try:
-            response = active_opener.open(request, timeout=options.timeout)
+            response = active_opener.open(request, timeout=attempt_timeout)
         except urllib_error.HTTPError as exc:
             if accept_http_error_response:
                 response = exc
@@ -195,14 +197,40 @@ def _read_response_body(
     read_limit: int | None,
 ) -> tuple[bytes, bool]:
     reader = getattr(response, "read")
-    try:
-        if read_limit is None:
-            return reader(), False
-        return reader(read_limit + 1), False
-    except http.client.IncompleteRead as exc:
-        if allow_partial_reads and exc.partial:
-            return exc.partial, True
-        raise
+    limit = None if read_limit is None else read_limit + 1
+    chunks: list[bytes] = []
+    total = 0
+
+    while True:
+        remaining = None if limit is None else limit - total
+        if remaining is not None and remaining <= 0:
+            break
+        chunk_size = _READ_CHUNK_SIZE if remaining is None else min(
+            _READ_CHUNK_SIZE,
+            remaining,
+        )
+        try:
+            chunk = reader(chunk_size)
+        except http.client.IncompleteRead as exc:
+            partial = bytes(exc.partial or b"")
+            if allow_partial_reads and (chunks or partial):
+                if partial:
+                    chunks.append(partial)
+                return b"".join(chunks), True
+            raise
+        except (TimeoutError, socket.timeout):
+            if allow_partial_reads and chunks:
+                return b"".join(chunks), True
+            raise
+
+        if not chunk:
+            break
+
+        payload = bytes(chunk)
+        chunks.append(payload)
+        total += len(payload)
+
+    return b"".join(chunks), False
 
 
 def _classify_fetch_exception(exc: Exception, *, attempts: int) -> FetchFailure:

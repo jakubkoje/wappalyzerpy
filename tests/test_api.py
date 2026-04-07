@@ -12,6 +12,8 @@ from urllib import request as urllib_request
 import pytest
 
 from wappalyzer_pure import AntiBotEvidence, ArtifactCaptureOptions, api
+from wappalyzer_pure.antibot_aliases import derive_anti_bot_alias_catalog
+from wappalyzer_pure.antibot_catalog import AntiBotTechnologyCatalogEntry
 from wappalyzer_pure.data_sources import FingerprintDataSource
 from wappalyzer_pure.engine import Wappalyzer
 from wappalyzer_pure.fetching import (
@@ -47,6 +49,12 @@ FINGERPRINTS_JSON = json.dumps(
                 "cats": [16],
                 "description": "Friendly Captcha is a privacy-friendly CAPTCHA alternative.",
                 "website": "https://friendlycaptcha.com",
+            },
+            "Akamai": {
+                "headers": {"x-akamai-transformed": ""},
+                "cats": [31],
+                "description": "Akamai CDN",
+                "website": "https://www.akamai.com",
             },
             "MetaCMS": {
                 "meta": {"generator": ["metacms ([0-9.]+)\\;version:\\1"]},
@@ -110,6 +118,7 @@ class FakeHTTPResponse:
         self._body = body
         self._status = status
         self._read_exception = read_exception
+        self._offset = 0
         self.headers = Message()
         for key, value in headers:
             self.headers.add_header(key, value)
@@ -124,8 +133,13 @@ class FakeHTTPResponse:
         if self._read_exception is not None:
             raise self._read_exception
         if amount is None or amount < 0:
-            return self._body
-        return self._body[:amount]
+            chunk = self._body[self._offset :]
+            self._offset = len(self._body)
+            return chunk
+        start = self._offset
+        end = min(len(self._body), start + amount)
+        self._offset = end
+        return self._body[start:end]
 
     def geturl(self) -> str:
         return self._url
@@ -281,6 +295,47 @@ def test_analyze_response_reports_curated_vendor_without_technology_match(
             indicator="datadome",
             matched_value="datadome",
             artifact="datadome=opaque; Path=/; Secure",
+        ),
+    )
+
+
+def test_analyze_response_promotes_csp_captcha_mentions_to_antibot_findings() -> None:
+    client = Wappalyzer.from_json_strings(FINGERPRINTS_JSON, CATEGORIES_JSON)
+    client.anti_bot_catalog = {
+        "recaptcha": AntiBotTechnologyCatalogEntry(
+            name="reCAPTCHA",
+            vendor="reCAPTCHA",
+            behaviors=("captcha",),
+        )
+    }
+    client.anti_bot_aliases = derive_anti_bot_alias_catalog(client.anti_bot_catalog)
+
+    result = api.analyze_response(
+        {
+            "Content-Security-Policy": (
+                "default-src 'self'; frame-src https://www.google.com/recaptcha/;"
+            ),
+        },
+        "<html></html>",
+        client=client,
+    )
+
+    assert result.technologies == ()
+    assert len(result.anti_bot_findings) == 1
+    finding = result.anti_bot_findings[0]
+    assert finding.vendor == "reCAPTCHA"
+    assert finding.score == 3
+    assert finding.products == ("reCAPTCHA",)
+    assert finding.behaviors == ("captcha",)
+    assert finding.evidence == (
+        AntiBotEvidence(
+            source="security_header",
+            indicator="content-security-policy",
+            matched_value="www.google.com/recaptcha",
+            artifact=(
+                "content-security-policy: default-src 'self'; frame-src "
+                "https://www.google.com/recaptcha/;"
+            ),
         ),
     )
 
@@ -599,6 +654,66 @@ def test_analyze_url_preserves_anti_bot_findings(client: Wappalyzer) -> None:
     assert finding.score == 10
     assert any(item.source == "status_code" for item in finding.evidence)
     assert any(item.source == "redirect" for item in finding.evidence)
+
+
+def test_analyze_url_infers_akamai_from_bare_403_and_edge_headers(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com": ResponseSpec(
+                body=b"",
+                headers=(
+                    ("Strict-Transport-Security", "max-age=63072000"),
+                    ("X-Akamai-Transformed", "9 0 pmb=mRUM,1"),
+                ),
+                status=403,
+            )
+        }
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+    )
+
+    assert [technology.name for technology in result.technologies] == ["Akamai"]
+    assert len(result.anti_bot_findings) == 1
+    finding = result.anti_bot_findings[0]
+    assert finding.vendor == "Akamai"
+    assert finding.score == 4
+    assert finding.confidence == "medium"
+    assert any(item.source == "status_heuristic" for item in finding.evidence)
+    assert any(item.source == "status_code" for item in finding.evidence)
+
+
+def test_analyze_url_infers_akamai_from_403_server_header_and_generic_block_page(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com": ResponseSpec(
+                body=(
+                    b"<html><head><style>.x{color:red}</style></head>"
+                    b"<body><h1>Access Denied</h1><p>Reference #18.test</p></body></html>"
+                ),
+                headers=(("Server", "AkamaiNetStorage"),),
+                status=403,
+            )
+        }
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+    )
+
+    assert len(result.anti_bot_findings) == 1
+    finding = result.anti_bot_findings[0]
+    assert finding.vendor == "Akamai"
+    assert any(item.source == "status_heuristic" for item in finding.evidence)
 
 
 def test_analyze_response_can_capture_response_artifacts(
