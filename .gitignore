@@ -11,3 +11,4 @@ wheels/
 
 # Tool caches
 .ruff_cache/
+.DS_Store

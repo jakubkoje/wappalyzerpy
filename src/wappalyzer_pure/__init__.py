@@ -1,13 +1,25 @@
 from .api import analyze_response, analyze_url
 from .data_sources import FingerprintDataSource
 from .engine import AppInfo, Wappalyzer, get_default_wappalyzer
-from .exceptions import DataLoadError, PatternError, WappalyzerPureError
+from .exceptions import (
+    DataLoadError,
+    HeadlessUnavailableError,
+    PatternError,
+    WappalyzerPureError,
+)
 from .fetching import FetchHeaderProfile, FetchOptions, FetchTLSMode
+from .headless import (
+    DeepHeadlessOptions,
+    HeadlessBrowser,
+    HeadlessOptions,
+    HeadlessWaitUntil,
+)
 from .models import (
     AnalysisResult,
     AntiBotEvidence,
     AntiBotFinding,
     ArtifactCaptureOptions,
+    BrowserSignals,
     CapturedHeader,
     FetchFailure,
     FetchInfo,
@@ -26,14 +38,20 @@ __all__ = [
     "ArtifactCaptureOptions",
     "AntiBotEvidence",
     "AntiBotFinding",
+    "BrowserSignals",
     "CapturedHeader",
     "DataLoadError",
+    "DeepHeadlessOptions",
     "FetchFailure",
     "FetchHeaderProfile",
     "FetchInfo",
     "FetchOptions",
     "FetchTLSMode",
     "FingerprintDataSource",
+    "HeadlessBrowser",
+    "HeadlessOptions",
+    "HeadlessUnavailableError",
+    "HeadlessWaitUntil",
     "PatternError",
     "ProbeObservation",
     "ProbeOptions",

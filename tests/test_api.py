@@ -18,9 +18,18 @@ from wappalyzer_pure.data_sources import FingerprintDataSource
 from wappalyzer_pure.engine import Wappalyzer
 from wappalyzer_pure.fetching import (
     DEFAULT_BROWSER_USER_AGENT,
+    FetchedResponse,
     FetchFailure,
+    FetchInfo,
     FetchOptions,
 )
+from wappalyzer_pure.headless import (
+    DeepHeadlessOptions,
+    HeadlessBrowser,
+    HeadlessOptions,
+    HeadlessWaitUntil,
+)
+from wappalyzer_pure.models import BrowserSignals
 from wappalyzer_pure.script_analysis import ScriptAnalysisOptions, ScriptFetchPolicy
 
 FINGERPRINTS_JSON = json.dumps(
@@ -191,6 +200,47 @@ class FakeOpener:
             status=spec.status,
             read_exception=spec.read_exception,
         )
+
+
+@dataclass(frozen=True, slots=True)
+class HeadlessRequestRecord:
+    url: str
+    headers: tuple[tuple[str, str], ...]
+    fetch_timeout: float
+    navigation_timeout: float | None
+    wait_until: str
+    browser: str
+    deep_headless_enabled: bool
+
+
+class FakeHeadlessFetcher:
+    def __init__(self, result: FetchedResponse | FetchFailure) -> None:
+        self._result = result
+        self.calls: list[HeadlessRequestRecord] = []
+
+    def fetch_page(
+        self,
+        url: str,
+        *,
+        request_headers: dict[str, str],
+        fetch_options: FetchOptions,
+        headless_options: HeadlessOptions,
+        deep_headless: DeepHeadlessOptions | None = None,
+    ) -> FetchedResponse | FetchFailure:
+        self.calls.append(
+            HeadlessRequestRecord(
+                url=url,
+                headers=tuple(
+                    (key.lower(), value) for key, value in request_headers.items()
+                ),
+                fetch_timeout=fetch_options.timeout,
+                navigation_timeout=headless_options.navigation_timeout,
+                wait_until=headless_options.wait_until.value,
+                browser=headless_options.browser.value,
+                deep_headless_enabled=deep_headless is not None,
+            )
+        )
+        return self._result
 
 
 @pytest.fixture
@@ -934,6 +984,38 @@ def test_analyze_response_skips_scripts_exceeding_size_limits(
     ]
 
 
+def test_analyze_response_can_fetch_browser_discovered_script_sources(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com/assets/runtime.js": ResponseSpec(
+                body=b'window.externalcms = "6.4";',
+                headers=(("Content-Type", "application/javascript"),),
+            )
+        }
+    )
+
+    result = api.analyze_response(
+        {"Content-Type": "text/html"},
+        "<html><body>rendered app shell</body></html>",
+        response_url="https://example.com/dashboard",
+        script_analysis=ScriptAnalysisOptions(
+            fetch_policy=ScriptFetchPolicy.SAME_ORIGIN,
+        ),
+        script_opener=cast(urllib_request.OpenerDirector, opener),
+        browser_signals=BrowserSignals(
+            script_sources=("/assets/runtime.js",),
+        ),
+        client=client,
+    )
+
+    assert [tech.display_name for tech in result.technologies] == [
+        "ExternalScriptApp:6.4"
+    ]
+    assert opener.calls[0].url == "https://example.com/assets/runtime.js"
+
+
 def test_analyze_url_fetches_scripts_and_forwards_request_headers(
     client: Wappalyzer,
 ) -> None:
@@ -974,6 +1056,195 @@ def test_analyze_url_fetches_scripts_and_forwards_request_headers(
     assert script_headers["user-agent"] == "Agent/1.0"
     assert script_headers["x-test"] == "1"
     assert script_headers["referer"] == "https://example.com/final"
+
+
+def test_analyze_url_deep_headless_implies_headless_and_captures_browser_signals(
+    client: Wappalyzer,
+) -> None:
+    fetcher = FakeHeadlessFetcher(
+        FetchedResponse(
+            target_url="https://example.com",
+            final_url="https://example.com/challenge",
+            status_code=200,
+            headers={"Content-Type": ["text/html"]},
+            body=b"<html><body>challenge</body></html>",
+            fetch_info=FetchInfo(
+                attempts=1,
+                partial_response=False,
+                header_profile="browser",
+                tls_mode="strict",
+                transport="headless",
+                browser="chromium",
+                wait_until="load",
+            ),
+            browser_signals=BrowserSignals(
+                cookie_header="pxcts=opaque; datadome=token",
+                iframe_sources=("https://captcha.example.test/frame",),
+                resource_urls=("https://www.google.com/recaptcha/api.js",),
+                runtime_markers=("Grecaptcha", "grecaptcha"),
+            ),
+        )
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        client=client,
+        capture_artifacts=True,
+        deep_headless=True,
+        headless_fetcher=fetcher,
+    )
+
+    assert result.fetch_info is not None
+    assert result.fetch_info.transport == "headless"
+    assert fetcher.calls[0].deep_headless_enabled is True
+    assert any(finding.vendor == "reCAPTCHA" for finding in result.anti_bot_findings)
+    re_captcha = next(
+        finding
+        for finding in result.anti_bot_findings
+        if finding.vendor == "reCAPTCHA"
+    )
+    assert any(item.source == "runtime_marker" for item in re_captcha.evidence)
+    assert result.artifacts is not None
+    assert result.artifacts.browser_cookie_names == ("pxcts", "datadome")
+    assert result.artifacts.resource_urls == (
+        "https://www.google.com/recaptcha/api.js",
+    )
+    assert result.artifacts.runtime_markers == ("grecaptcha",)
+
+
+def test_analyze_url_can_use_headless_fetcher_for_rendered_html(
+    client: Wappalyzer,
+) -> None:
+    fetcher = FakeHeadlessFetcher(
+        FetchedResponse(
+            target_url="https://example.com",
+            final_url="https://example.com/app",
+            status_code=200,
+            headers={"Content-Type": ["text/html"]},
+            body=b'<html><script>window.inlinecms = "9.1";</script></html>',
+            fetch_info=FetchInfo(
+                attempts=1,
+                partial_response=False,
+                header_profile="browser",
+                tls_mode="strict",
+                transport="headless",
+                browser="chromium",
+                wait_until="networkidle",
+            ),
+        )
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        client=client,
+        headless_options=HeadlessOptions(),
+        headless_fetcher=fetcher,
+    )
+
+    assert result.final_url == "https://example.com/app"
+    assert [technology.display_name for technology in result.technologies] == [
+        "InlineScriptApp:9.1"
+    ]
+    assert result.fetch_info is not None
+    assert result.fetch_info.transport == "headless"
+    assert fetcher.calls[0].url == "https://example.com"
+    assert _headers_to_map(fetcher.calls[0].headers)["user-agent"] == (
+        DEFAULT_BROWSER_USER_AGENT
+    )
+
+
+def test_analyze_url_headless_fetcher_reuses_headers_for_script_fetches(
+    client: Wappalyzer,
+) -> None:
+    opener = FakeOpener(
+        {
+            "https://example.com/assets/app.js": ResponseSpec(
+                body=b'window.externalcms = "5.4";',
+                headers=(("Content-Type", "application/javascript"),),
+            )
+        }
+    )
+    fetcher = FakeHeadlessFetcher(
+        FetchedResponse(
+            target_url="https://example.com",
+            final_url="https://example.com/final",
+            status_code=200,
+            headers={"Content-Type": ["text/html"]},
+            body=b'<html><script src="/assets/app.js"></script></html>',
+            fetch_info=FetchInfo(
+                attempts=1,
+                partial_response=False,
+                header_profile="browser",
+                tls_mode="strict",
+                transport="headless",
+                browser="firefox",
+                wait_until="load",
+            ),
+        )
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        request_headers={"X-Test": "1"},
+        user_agent="Agent/2.0",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        script_analysis=ScriptAnalysisOptions(
+            fetch_policy=ScriptFetchPolicy.SAME_ORIGIN,
+        ),
+        client=client,
+        headless_options=HeadlessOptions(
+            browser=HeadlessBrowser.FIREFOX,
+            navigation_timeout=12.0,
+            wait_until=HeadlessWaitUntil.LOAD,
+            post_load_delay_seconds=0.0,
+        ),
+        headless_fetcher=fetcher,
+    )
+
+    assert [technology.display_name for technology in result.technologies] == [
+        "ExternalScriptApp:5.4"
+    ]
+    headless_headers = _headers_to_map(fetcher.calls[0].headers)
+    assert headless_headers["user-agent"] == "Agent/2.0"
+    assert headless_headers["x-test"] == "1"
+    assert fetcher.calls[0].navigation_timeout == 12.0
+    assert fetcher.calls[0].wait_until == "load"
+    assert fetcher.calls[0].browser == "firefox"
+
+    script_headers = _headers_to_map(opener.calls[0].headers)
+    assert script_headers["user-agent"] == "Agent/2.0"
+    assert script_headers["x-test"] == "1"
+    assert script_headers["referer"] == "https://example.com/final"
+
+
+def test_analyze_url_returns_headless_fetch_failure(client: Wappalyzer) -> None:
+    fetcher = FakeHeadlessFetcher(
+        FetchFailure(
+            category="timeout",
+            error_type="TimeoutError",
+            message="browser timed out",
+            retryable=True,
+            attempts=1,
+        )
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        client=client,
+        headless_options=HeadlessOptions(),
+        headless_fetcher=fetcher,
+    )
+
+    assert result.ok is False
+    assert result.fetch_failure == FetchFailure(
+        category="timeout",
+        error_type="TimeoutError",
+        message="browser timed out",
+        retryable=True,
+        attempts=1,
+    )
+    assert result.fetch_info is None
+    assert result.technologies == ()
 
 
 def _headers_to_map(headers: tuple[tuple[str, str], ...]) -> dict[str, str]:

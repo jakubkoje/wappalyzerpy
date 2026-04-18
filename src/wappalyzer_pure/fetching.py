@@ -12,7 +12,7 @@ from http.client import HTTPMessage
 from urllib import error as urllib_error
 from urllib import request as urllib_request
 
-from .models import FetchFailure, FetchInfo
+from .models import BrowserSignals, FetchFailure, FetchInfo
 
 
 class FetchTLSMode(str, Enum):
@@ -79,6 +79,7 @@ class FetchedResponse:
     headers: dict[str, list[str]]
     body: bytes
     fetch_info: FetchInfo
+    browser_signals: BrowserSignals | None = None
 
 
 def build_request_headers(

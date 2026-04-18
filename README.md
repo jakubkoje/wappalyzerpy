@@ -13,6 +13,7 @@ hoc scans.
 - [Install](#install)
 - [Quickstart](#quickstart)
 - [Fetch Behavior](#fetch-behavior)
+- [Headless Browser Mode](#headless-browser-mode)
 - [Anti-Bot Findings](#anti-bot-findings)
 - [Multi-Request Probing](#multi-request-probing)
 - [Public API](#public-api)
@@ -37,6 +38,8 @@ The package ships three packaged fingerprint sources:
 - Analyze an already-fetched response with `analyze_response(...)`
 - Fetch and fingerprint a URL directly with `analyze_url(...)`
 - Tune retries, partial-read salvage, TLS verification, and request header profile with `FetchOptions`
+- Enable opt-in headless browser rendering with Playwright when JavaScript execution is required
+- Enable opt-in deep headless analysis to record browser-only anti-bot signals such as runtime globals, iframe URLs, resource URLs, and browser cookies
 - Detect technologies from headers, cookies, HTML, meta tags, script URLs, and
   inline script contents
 - Optionally fetch same-origin external JavaScript with explicit limits
@@ -54,6 +57,13 @@ For local development in this repository:
 
 ```bash
 uv sync
+```
+
+For headless browser scans:
+
+```bash
+uv sync --extra headless
+uv run playwright install chromium
 ```
 
 ## Quickstart
@@ -196,6 +206,45 @@ result = analyze_response(
 )
 ```
 
+### Render the page in a headless browser
+
+Headless mode is disabled by default because it starts a browser and waits for
+client-side execution.
+
+```python
+from wappalyzer_pure import HeadlessOptions, HeadlessWaitUntil, analyze_url
+
+result = analyze_url(
+    'https://example.com',
+    headless_options=HeadlessOptions(
+        wait_until=HeadlessWaitUntil.LOAD,
+        post_load_delay_seconds=0.5,
+    ),
+)
+
+print(result.fetch_info.transport if result.fetch_info else None)
+print([finding.vendor for finding in result.anti_bot_findings])
+```
+
+### Record deeper browser-only anti-bot signals
+
+Use `deep_headless` when the protection only becomes visible after page
+execution and does not survive in the rendered HTML alone.
+
+```python
+from wappalyzer_pure import DeepHeadlessOptions, HeadlessOptions, analyze_url
+
+result = analyze_url(
+    'https://example.com',
+    headless_options=HeadlessOptions(),
+    deep_headless=DeepHeadlessOptions(),
+    capture_artifacts=True,
+)
+
+print(result.artifacts.runtime_markers if result.artifacts else ())
+print([finding.vendor for finding in result.anti_bot_findings])
+```
+
 ### Run active detection probes
 
 ```python
@@ -246,6 +295,57 @@ Current behavior:
 
 This matters for large crawls because many failures are fetch-layer problems, not
 fingerprint-matching problems.
+
+## Headless Browser Mode
+
+`analyze_url(...)` can switch from `urllib` to an opt-in headless browser fetch.
+
+Current behavior:
+
+- disabled by default
+- uses Playwright at runtime, with no hard dependency for normal HTTP-only usage
+- executes JavaScript and fingerprints the rendered DOM returned by `page.content()`
+- defaults to `wait_until="load"` because anti-bot pages often keep background traffic alive and do not reach a stable `networkidle` state
+- preserves the normal `AnalysisResult` shape and reports headless metadata through `fetch_info`
+- still uses the existing bounded external-script fetch path when `script_analysis` is enabled
+
+Deep headless mode:
+
+- is enabled separately through `deep_headless=True` or `deep_headless=DeepHeadlessOptions(...)`
+- implies headless rendering automatically when `headless_options` is not provided
+- records browser-only signals that are often invisible to a plain HTTP fetch or rendered DOM snapshot
+- feeds browser cookies, rendered iframe/script URLs, runtime globals, and browser resource URLs back into the existing anti-bot detection and artifact-capture pipeline
+
+Current scope:
+
+- available through `analyze_url(...)` and the CLI `scan` command
+- `probe_url(...)` remains HTTP-only today
+
+Install requirements:
+
+```bash
+uv sync --extra headless
+uv run playwright install chromium
+```
+
+CLI example:
+
+```bash
+uv run wappalyzer-pure scan https://example.com \
+  --headless \
+  --headless-wait-until load \
+  --headless-post-load-delay 0.5 \
+  --json
+```
+
+Deep headless CLI example:
+
+```bash
+uv run wappalyzer-pure scan https://example.com \
+  --deep-headless \
+  --artifacts \
+  --json
+```
 
 ## Anti-Bot Findings
 
@@ -342,6 +442,7 @@ This layer is still lightweight:
 - it replays cookies explicitly from the first response
 - it uses a browser-like header profile as an extra comparison point
 - it does not yet execute JavaScript or collect rendered DOM state
+- headless rendering is available separately through `analyze_url(...)`
 
 ## Public API
 
@@ -357,6 +458,12 @@ The package exports:
 - `FetchOptions`
 - `FetchTLSMode`
 - `FingerprintDataSource`
+- `BrowserSignals`
+- `DeepHeadlessOptions`
+- `HeadlessBrowser`
+- `HeadlessOptions`
+- `HeadlessUnavailableError`
+- `HeadlessWaitUntil`
 - `ProbeOptions`
 - `ProbeObservation`
 - `ProbeResult`
@@ -387,11 +494,13 @@ def analyze_url(
     client: Wappalyzer | None = None,
     capture_artifacts: bool | ArtifactCaptureOptions | None = None,
     fetch_options: FetchOptions | None = None,
+    headless_options: HeadlessOptions | None = None,
+    headless_fetcher: HeadlessFetcher | None = None,
+    deep_headless: bool | DeepHeadlessOptions | None = None,
 ) -> AnalysisResult: ...
 ```
 
-Fetches a URL with `urllib`, fingerprints the response, and returns an
-`AnalysisResult`.
+Fetches a URL, fingerprints the response, and returns an `AnalysisResult`.
 
 Parameters:
 
@@ -405,6 +514,9 @@ Parameters:
 - `client`: custom `Wappalyzer` instance; overrides packaged source loading
 - `capture_artifacts`: `True` or `ArtifactCaptureOptions(...)` to attach lightweight response artifacts
 - `fetch_options`: retry, TLS, partial-read, and header-profile controls for the page fetch
+- `headless_options`: opt-in browser-rendering controls; when omitted the normal `urllib` fetch path is used
+- `headless_fetcher`: override the Playwright-backed fetcher in tests or custom integrations
+- `deep_headless`: `True` or `DeepHeadlessOptions(...)` to capture browser-only signals in addition to the rendered HTML; implies headless rendering
 
 Returns:
 
@@ -419,6 +531,8 @@ Behavior notes:
 - `Referer` is forwarded to optional external script requests
 - `client` takes precedence over `source`
 - anti-bot findings are enriched with suspicious status-code and redirect evidence
+- headless mode reports `fetch_info.transport == "headless"` and uses Playwright instead of `urllib`
+- deep headless mode extends the same analysis with browser-only cookies, iframe/script URLs, resource URLs, and runtime markers
 
 ### `analyze_response`
 
@@ -428,6 +542,7 @@ def analyze_response(
     body: bytes | bytearray | memoryview | str,
     *,
     source: FingerprintDataSource | str = DEFAULT_FINGERPRINT_DATA_SOURCE,
+    status_code: int | None = None,
     response_url: str | None = None,
     script_analysis: ScriptAnalysisOptions | None = None,
     script_timeout: float = 10.0,
@@ -435,6 +550,7 @@ def analyze_response(
     script_opener: urllib_request.OpenerDirector | None = None,
     client: Wappalyzer | None = None,
     capture_artifacts: bool | ArtifactCaptureOptions | None = None,
+    browser_signals: BrowserSignals | None = None,
 ) -> AnalysisResult: ...
 ```
 
@@ -448,6 +564,7 @@ Accepted inputs:
 Parameters:
 
 - `source`: packaged fingerprint source to use when `client` is not provided
+- `status_code`: optional HTTP status code for anti-bot enrichment and status heuristics
 - `response_url`: original response URL; required when external script fetching is enabled
 - `script_analysis`: optional external script fetch settings
 - `script_timeout`: timeout in seconds for optional external script requests
@@ -455,6 +572,7 @@ Parameters:
 - `script_opener`: custom `urllib` opener for optional external script requests
 - `client`: custom `Wappalyzer` instance; overrides packaged source loading
 - `capture_artifacts`: `True` or `ArtifactCaptureOptions(...)` to attach lightweight response artifacts
+- `browser_signals`: advanced input for already-rendered pages; lets you feed browser-only cookies, iframe/script URLs, resource URLs, and runtime markers into the normal pipeline
 
 Returns:
 
@@ -1069,6 +1187,9 @@ uv run wappalyzer-pure scan https://example.com --json --artifacts
 uv run wappalyzer-pure scan https://example.com --retries 1 --header-profile browser
 uv run wappalyzer-pure scan https://expired.badssl.com --insecure-tls
 uv run wappalyzer-pure scan https://example.com --source httparchive
+uv run wappalyzer-pure scan https://example.com --headless --json
+uv run wappalyzer-pure scan https://example.com --headless --headless-wait-until load
+uv run wappalyzer-pure scan https://example.com --deep-headless --artifacts --json
 uv run wappalyzer-pure probe https://example.com --json
 uv run wappalyzer-pure probe https://example.com --json --artifacts
 uv run wappalyzer-pure probe https://example.com --retries 1 --user-agent "CustomBot/1.0"
@@ -1091,6 +1212,12 @@ Script-related flags:
 - `--max-total-script-bytes`
 - `--artifacts`
 - `--body-excerpt-chars`
+- `--headless`
+- `--deep-headless`
+- `--headless-browser {chromium,firefox,webkit}`
+- `--headless-timeout`
+- `--headless-wait-until {commit,domcontentloaded,load,networkidle}`
+- `--headless-post-load-delay`
 
 Probe-related flags:
 
@@ -1169,13 +1296,12 @@ print(result.to_dict())
 
 ## Limitations
 
-This package intentionally stays response-based.
+This package intentionally stays response-first by default.
 
 It does not:
 
-- execute JavaScript
-- evaluate browser DOM rules
-- emulate a real browser runtime
+- execute JavaScript unless you opt into headless mode
+- collect browser-only signals unless you opt into deep headless mode
 - crawl arbitrary script graphs
 
 External script fetching is limited to explicit `<script src>` references and is
@@ -1187,6 +1313,26 @@ Run tests:
 
 ```bash
 uv run pytest
+```
+
+To include the real browser-backed headless integration tests:
+
+```bash
+uv sync --extra headless
+uv run playwright install chromium
+uv run pytest
+```
+
+To run only the real headless browser tests:
+
+```bash
+uv run pytest -m headless_integration
+```
+
+To skip them explicitly:
+
+```bash
+uv run pytest -m "not headless_integration"
 ```
 
 Run formatting, linting, and type checking:

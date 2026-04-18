@@ -10,10 +10,14 @@ from pathlib import Path
 from typing import cast
 
 from wappalyzer_pure import (
+    DeepHeadlessOptions,
     FetchHeaderProfile,
     FetchOptions,
     FetchTLSMode,
     FingerprintDataSource,
+    HeadlessBrowser,
+    HeadlessOptions,
+    HeadlessWaitUntil,
     ScriptAnalysisOptions,
     ScriptFetchPolicy,
     analyze_url,
@@ -31,6 +35,9 @@ SUMMARY_FIELDNAMES = (
     "partial_response",
     "header_profile",
     "tls_mode",
+    "transport",
+    "headless_browser",
+    "headless_wait_until",
     "error_category",
     "error_type",
     "error_message",
@@ -117,6 +124,48 @@ def main() -> int:
         action="store_true",
         help="store only security-relevant technologies in the JSONL payload",
     )
+    parser.add_argument(
+        "--headless",
+        action="store_true",
+        help="render each page in a headless browser before fingerprinting",
+    )
+    parser.add_argument(
+        "--deep-headless",
+        action="store_true",
+        help=(
+            "record browser-only signals such as runtime globals, iframe URLs, "
+            "resource URLs, and browser cookies; implies --headless"
+        ),
+    )
+    parser.add_argument(
+        "--headless-browser",
+        choices=[browser.value for browser in HeadlessBrowser],
+        default=HeadlessBrowser.CHROMIUM.value,
+        help="browser engine to use when --headless is enabled",
+    )
+    parser.add_argument(
+        "--headless-timeout",
+        type=float,
+        default=None,
+        help="override the headless navigation timeout in seconds",
+    )
+    parser.add_argument(
+        "--headless-wait-until",
+        choices=[state.value for state in HeadlessWaitUntil],
+        default=HeadlessWaitUntil.LOAD.value,
+        help="navigation readiness state to wait for in headless mode",
+    )
+    parser.add_argument(
+        "--headless-post-load-delay",
+        type=float,
+        default=0.5,
+        help="extra settle time in seconds after the headless page load finishes",
+    )
+    parser.add_argument(
+        "--headless-simulate-interaction",
+        action="store_true",
+        help="scroll the page after load to trigger lazy-loaded widgets (e.g. GeeTest)",
+    )
     args = parser.parse_args()
 
     urls = _load_urls(args.input, column=args.column, limit=args.limit)
@@ -138,6 +187,18 @@ def main() -> int:
         max_bytes_per_script=args.max_bytes_per_script,
         max_total_script_bytes=args.max_total_script_bytes,
     )
+    headless_options = (
+        HeadlessOptions(
+            browser=HeadlessBrowser(args.headless_browser),
+            navigation_timeout=args.headless_timeout,
+            wait_until=HeadlessWaitUntil(args.headless_wait_until),
+            post_load_delay_seconds=args.headless_post_load_delay,
+            simulate_interaction=args.headless_simulate_interaction,
+        )
+        if args.headless or args.deep_headless
+        else None
+    )
+    deep_headless = DeepHeadlessOptions() if args.deep_headless else None
 
     ok_count = 0
     with (
@@ -153,6 +214,8 @@ def main() -> int:
             fetch_options=fetch_options,
             script_analysis=script_analysis,
             security_only=args.security_only,
+            headless_options=headless_options,
+            deep_headless=deep_headless,
         )
 
         for index, (json_record, csv_record) in enumerate(
@@ -200,6 +263,8 @@ def _scan_url(
     fetch_options: FetchOptions,
     script_analysis: ScriptAnalysisOptions,
     security_only: bool,
+    headless_options: HeadlessOptions | None,
+    deep_headless: DeepHeadlessOptions | None,
 ) -> tuple[dict[str, object], dict[str, str]]:
     try:
         result = analyze_url(
@@ -207,6 +272,8 @@ def _scan_url(
             source=source,
             fetch_options=fetch_options,
             script_analysis=script_analysis,
+            headless_options=headless_options,
+            deep_headless=deep_headless,
         )
         payload: dict[str, object] = {
             "source": url,
@@ -262,6 +329,15 @@ def _flatten_result(url: str, payload: dict[str, object]) -> dict[str, str]:
         ),
         "tls_mode": _stringify_scalar(
             None if fetch_info is None else fetch_info.get("tls_mode")
+        ),
+        "transport": _stringify_scalar(
+            None if fetch_info is None else fetch_info.get("transport")
+        ),
+        "headless_browser": _stringify_scalar(
+            None if fetch_info is None else fetch_info.get("browser")
+        ),
+        "headless_wait_until": _stringify_scalar(
+            None if fetch_info is None else fetch_info.get("wait_until")
         ),
         "error_category": _stringify_scalar(
             None if fetch_failure is None else fetch_failure.get("category")

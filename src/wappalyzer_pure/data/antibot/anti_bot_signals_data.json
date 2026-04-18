@@ -6,7 +6,10 @@
     "header": 1,
     "header_value": 1,
     "script_source": 3,
+    "iframe_source": 3,
+    "resource_url": 3,
     "script_content": 3,
+    "runtime_marker": 3,
     "status_code": 1,
     "redirect": 1
   },
@@ -33,6 +36,11 @@
         ],
         "header_names": ["cf-ray"],
         "script_source_substrings": ["challenges.cloudflare.com/turnstile"],
+        "iframe_source_substrings": ["challenges.cloudflare.com"],
+        "resource_url_substrings": [
+          "challenges.cloudflare.com/turnstile",
+          "/cdn-cgi/challenge-platform/"
+        ],
         "header_value_contains": {
           "server": ["cloudflare"]
         },
@@ -40,7 +48,8 @@
           "/cdn-cgi/challenge-platform/",
           "just a moment...",
           "turnstile"
-        ]
+        ],
+        "runtime_markers": ["turnstile", "_cf_chl_opt"]
       },
       "behaviors": [
         {
@@ -73,7 +82,10 @@
           "signals": {
             "technology_names": ["Cloudflare Turnstile", "Turnstile"],
             "script_source_substrings": ["challenges.cloudflare.com/turnstile"],
-            "body_substrings": ["turnstile"]
+            "iframe_source_substrings": ["challenges.cloudflare.com"],
+            "resource_url_substrings": ["challenges.cloudflare.com/turnstile"],
+            "body_substrings": ["turnstile"],
+            "runtime_markers": ["turnstile"]
           }
         }
       ]
@@ -109,7 +121,7 @@
         "high": 6
       },
       "signals": {
-        "cookie_names": ["incap_ses", "visid_incap"],
+        "cookie_names": ["incap_ses", "visid_incap", "reese84"],
         "cookie_prefixes": ["nlbi_"],
         "header_value_contains": {
           "x-cdn": ["incapsula"]
@@ -144,6 +156,10 @@
       "signals": {
         "technology_names": ["DataDome"],
         "cookie_names": ["datadome"],
+        "resource_url_substrings": [
+          "captcha-delivery.com",
+          "geo.captcha-delivery.com"
+        ],
         "body_substrings": [
           "geo.captcha-delivery.com",
           "/captcha/?initialcid=",
@@ -156,6 +172,10 @@
           "min_score": 3,
           "signals": {
             "cookie_names": ["datadome"],
+            "resource_url_substrings": [
+              "captcha-delivery.com",
+              "geo.captcha-delivery.com"
+            ],
             "body_substrings": [
               "geo.captcha-delivery.com",
               "/captcha/?initialcid="
@@ -174,12 +194,25 @@
       "signals": {
         "technology_names": ["PerimeterX", "HUMAN Security"],
         "cookie_names": ["_pxhd", "_pxvid", "_px3", "pxcts"],
+        "script_source_substrings": [
+          "px-cdn.net",
+          "px-cloud.net",
+          "perimeterx.net",
+          "pxchk.net"
+        ],
+        "resource_url_substrings": [
+          "px-cdn.net",
+          "px-cloud.net",
+          "perimeterx.net",
+          "pxchk.net"
+        ],
         "body_substrings": [
           "perimeterx",
           "px-captcha",
           "/px/captcha",
           "window._pxappid"
-        ]
+        ],
+        "runtime_markers": ["_pxappid"]
       },
       "behaviors": [
         {
@@ -187,7 +220,20 @@
           "min_score": 3,
           "signals": {
             "cookie_names": ["_pxhd", "_pxvid", "_px3", "pxcts"],
-            "body_substrings": ["window._pxappid"]
+            "script_source_substrings": [
+              "px-cdn.net",
+              "px-cloud.net",
+              "perimeterx.net",
+              "pxchk.net"
+            ],
+            "resource_url_substrings": [
+              "px-cdn.net",
+              "px-cloud.net",
+              "perimeterx.net",
+              "pxchk.net"
+            ],
+            "body_substrings": ["window._pxappid"],
+            "runtime_markers": ["_pxappid"]
           }
         },
         {
@@ -209,6 +255,7 @@
       "signals": {
         "technology_names": ["Kasada"],
         "cookie_names": ["_kpsdk_ct", "_kpsdk_v", "_kasada"],
+        "resource_url_substrings": ["kpsdk", "kasada"],
         "script_content_substrings": ["kpsdk"],
         "body_substrings": ["kasada", "kpsdk"]
       },
@@ -218,7 +265,95 @@
           "min_score": 3,
           "signals": {
             "cookie_names": ["_kpsdk_ct", "_kpsdk_v", "_kasada"],
+            "resource_url_substrings": ["kpsdk", "kasada"],
             "script_content_substrings": ["kpsdk"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "reCAPTCHA",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 5
+      },
+      "signals": {
+        "technology_names": ["reCAPTCHA"],
+        "script_source_substrings": ["recaptcha"],
+        "iframe_source_substrings": ["recaptcha"],
+        "resource_url_substrings": ["recaptcha"],
+        "body_substrings": ["grecaptcha", "recaptcha"],
+        "runtime_markers": ["grecaptcha", "___grecaptcha_cfg"]
+      },
+      "behaviors": [
+        {
+          "name": "captcha",
+          "min_score": 3,
+          "signals": {
+            "technology_names": ["reCAPTCHA"],
+            "script_source_substrings": ["recaptcha"],
+            "iframe_source_substrings": ["recaptcha"],
+            "resource_url_substrings": ["recaptcha"],
+            "runtime_markers": ["grecaptcha", "___grecaptcha_cfg"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "hCaptcha",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 5
+      },
+      "signals": {
+        "technology_names": ["hCaptcha"],
+        "script_source_substrings": ["hcaptcha"],
+        "iframe_source_substrings": ["hcaptcha"],
+        "resource_url_substrings": ["hcaptcha"],
+        "body_substrings": ["hcaptcha"],
+        "runtime_markers": ["hcaptcha"]
+      },
+      "behaviors": [
+        {
+          "name": "captcha",
+          "min_score": 3,
+          "signals": {
+            "technology_names": ["hCaptcha"],
+            "script_source_substrings": ["hcaptcha"],
+            "iframe_source_substrings": ["hcaptcha"],
+            "resource_url_substrings": ["hcaptcha"],
+            "runtime_markers": ["hcaptcha"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GeeTest",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 5
+      },
+      "signals": {
+        "technology_names": ["GeeTest"],
+        "script_source_substrings": ["geetest"],
+        "iframe_source_substrings": ["geetest"],
+        "resource_url_substrings": ["geetest"],
+        "body_substrings": ["geetest", "initgeetest"],
+        "runtime_markers": ["geetest", "initgeetest", "geetestcaptchaobj"]
+      },
+      "behaviors": [
+        {
+          "name": "captcha",
+          "min_score": 3,
+          "signals": {
+            "technology_names": ["GeeTest"],
+            "script_source_substrings": ["geetest"],
+            "iframe_source_substrings": ["geetest"],
+            "resource_url_substrings": ["geetest"],
+            "runtime_markers": ["geetest", "initgeetest", "geetestcaptchaobj"]
           }
         }
       ]
@@ -245,6 +380,33 @@
             "header_value_contains": {
               "server": ["tengine"]
             }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shape Security",
+      "min_score": 3,
+      "confidence_thresholds": {
+        "medium": 3,
+        "high": 6
+      },
+      "signals": {
+        "technology_names": ["Shape Security", "F5 Bot Defense"],
+        "cookie_names": ["_imp_apg_r_", "_imp_cv_", "_imp_di_pc_"],
+        "script_source_substrings": ["/__imp_apg__/", "_imp_apg_"],
+        "resource_url_substrings": ["/__imp_apg__/", "_imp_apg_"],
+        "body_substrings": ["istlwashere", "/__imp_apg__/"],
+        "runtime_markers": ["istlWasHere"]
+      },
+      "behaviors": [
+        {
+          "name": "bot_management",
+          "min_score": 3,
+          "signals": {
+            "script_source_substrings": ["/__imp_apg__/", "_imp_apg_"],
+            "body_substrings": ["istlwashere", "/__imp_apg__/"],
+            "runtime_markers": ["istlWasHere"]
           }
         }
       ]

@@ -8,3 +8,7 @@ class PatternError(WappalyzerPureError):
 
 class DataLoadError(WappalyzerPureError):
     pass
+
+
+class HeadlessUnavailableError(WappalyzerPureError):
+    pass

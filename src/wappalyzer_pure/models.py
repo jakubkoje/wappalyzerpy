@@ -109,12 +109,25 @@ class CapturedHeader:
 
 
 @dataclass(frozen=True, slots=True)
+class BrowserSignals:
+    cookie_header: str | None = None
+    script_sources: tuple[str, ...] = ()
+    iframe_sources: tuple[str, ...] = ()
+    resource_urls: tuple[str, ...] = ()
+    runtime_markers: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
 class ResponseArtifacts:
     captured_at_utc: str | None = None
     headers: tuple[CapturedHeader, ...] = ()
     set_cookie_values: tuple[str, ...] = ()
     script_sources: tuple[str, ...] = ()
+    iframe_sources: tuple[str, ...] = ()
     fetched_script_urls: tuple[str, ...] = ()
+    resource_urls: tuple[str, ...] = ()
+    runtime_markers: tuple[str, ...] = ()
+    browser_cookie_names: tuple[str, ...] = ()
     body_sha256: str | None = None
     body_excerpt: str | None = None
 
@@ -124,7 +137,11 @@ class ResponseArtifacts:
             "headers": [header.to_dict() for header in self.headers],
             "set_cookie_values": list(self.set_cookie_values),
             "script_sources": list(self.script_sources),
+            "iframe_sources": list(self.iframe_sources),
             "fetched_script_urls": list(self.fetched_script_urls),
+            "resource_urls": list(self.resource_urls),
+            "runtime_markers": list(self.runtime_markers),
+            "browser_cookie_names": list(self.browser_cookie_names),
             "body_sha256": self.body_sha256,
             "body_excerpt": self.body_excerpt,
         }
@@ -136,6 +153,9 @@ class FetchInfo:
     partial_response: bool
     header_profile: str
     tls_mode: str
+    transport: str = "http"
+    browser: str | None = None
+    wait_until: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -143,6 +163,9 @@ class FetchInfo:
             "partial_response": self.partial_response,
             "header_profile": self.header_profile,
             "tls_mode": self.tls_mode,
+            "transport": self.transport,
+            "browser": self.browser,
+            "wait_until": self.wait_until,
         }
 
 

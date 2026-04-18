@@ -20,7 +20,10 @@ _DEFAULT_EVIDENCE_WEIGHTS = {
     "header_value": 1,
     "security_header": 3,
     "script_source": 3,
+    "iframe_source": 3,
+    "resource_url": 3,
     "script_content": 3,
+    "runtime_marker": 3,
     "status_code": 1,
     "status_heuristic": 3,
     "redirect": 1,
@@ -55,7 +58,10 @@ class _SignalRule:
     header_value_contains: tuple[tuple[str, tuple[str, ...]], ...] = ()
     body_substrings: tuple[str, ...] = ()
     script_source_substrings: tuple[str, ...] = ()
+    iframe_source_substrings: tuple[str, ...] = ()
+    resource_url_substrings: tuple[str, ...] = ()
     script_content_substrings: tuple[str, ...] = ()
+    runtime_markers: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -90,7 +96,10 @@ class _DetectionContext:
     raw_body_text: str
     body_text: str
     script_sources: tuple[str, ...]
+    iframe_sources: tuple[str, ...]
+    resource_urls: tuple[str, ...]
     script_contents: tuple[str, ...]
+    runtime_markers: tuple[str, ...]
     status_code: int | None
 
 
@@ -161,7 +170,11 @@ def inspect_anti_bot_findings(
     technologies: tuple[Technology, ...],
     status_code: int | None = None,
     script_sources: tuple[str, ...] = (),
+    iframe_sources: tuple[str, ...] = (),
+    resource_urls: tuple[str, ...] = (),
     script_contents: tuple[str, ...] = (),
+    runtime_markers: tuple[str, ...] = (),
+    request_cookie_header: str | None = None,
     anti_bot_catalog: Mapping[str, AntiBotTechnologyCatalogEntry] | None = None,
     anti_bot_aliases: AntiBotAliasCatalog | None = None,
 ) -> tuple[AntiBotFinding, ...]:
@@ -170,8 +183,12 @@ def inspect_anti_bot_findings(
         body=body,
         technologies=technologies,
         script_sources=script_sources,
+        iframe_sources=iframe_sources,
+        resource_urls=resource_urls,
         script_contents=script_contents,
+        runtime_markers=runtime_markers,
         status_code=status_code,
+        request_cookie_header=request_cookie_header,
     )
     accumulated: dict[str, _AccumulatedFinding] = {}
 
@@ -402,8 +419,12 @@ def _build_detection_context(
     body: bytes,
     technologies: tuple[Technology, ...],
     script_sources: tuple[str, ...],
+    iframe_sources: tuple[str, ...],
+    resource_urls: tuple[str, ...],
     script_contents: tuple[str, ...],
+    runtime_markers: tuple[str, ...],
     status_code: int | None,
+    request_cookie_header: str | None,
 ) -> _DetectionContext:
     normalized_headers = {
         key.casefold(): tuple(str(value) for value in values)
@@ -413,12 +434,18 @@ def _build_detection_context(
     return _DetectionContext(
         detected_technologies=technologies,
         technologies=_build_technology_lookup(technologies),
-        cookies=_extract_cookie_artifacts(normalized_headers),
+        cookies=_extract_cookie_artifacts(
+            normalized_headers,
+            request_cookie_header=request_cookie_header,
+        ),
         headers=normalized_headers,
         raw_body_text=raw_body_text,
         body_text=raw_body_text.casefold(),
         script_sources=script_sources,
+        iframe_sources=iframe_sources,
+        resource_urls=resource_urls,
         script_contents=script_contents,
+        runtime_markers=runtime_markers,
         status_code=status_code,
     )
 
@@ -435,6 +462,8 @@ def _build_technology_lookup(
 
 def _extract_cookie_artifacts(
     headers: Mapping[str, tuple[str, ...]],
+    *,
+    request_cookie_header: str | None,
 ) -> dict[str, tuple[str, str]]:
     cookies: dict[str, tuple[str, str]] = {}
     for header_name, values in headers.items():
@@ -461,6 +490,16 @@ def _extract_cookie_artifacts(
                 if not cookie_name:
                     continue
                 cookies.setdefault(cookie_name.casefold(), (cookie_name, pair))
+    if request_cookie_header:
+        for fragment in request_cookie_header.split(";"):
+            pair = fragment.strip()
+            if "=" not in pair:
+                continue
+            name, _, _ = pair.partition("=")
+            cookie_name = name.strip()
+            if not cookie_name:
+                continue
+            cookies.setdefault(cookie_name.casefold(), (cookie_name, pair))
     return cookies
 
 
@@ -558,12 +597,38 @@ def _match_signals(
         )
 
     for substring in rule.script_source_substrings:
-        matched_value = _find_script_source(context.script_sources, substring)
+        matched_value = _find_source_value(context.script_sources, substring)
         if matched_value is None:
             continue
         evidence.append(
             AntiBotEvidence(
                 source="script_source",
+                indicator=substring,
+                matched_value=matched_value,
+                artifact=matched_value,
+            )
+        )
+
+    for substring in rule.iframe_source_substrings:
+        matched_value = _find_source_value(context.iframe_sources, substring)
+        if matched_value is None:
+            continue
+        evidence.append(
+            AntiBotEvidence(
+                source="iframe_source",
+                indicator=substring,
+                matched_value=matched_value,
+                artifact=matched_value,
+            )
+        )
+
+    for substring in rule.resource_url_substrings:
+        matched_value = _find_source_value(context.resource_urls, substring)
+        if matched_value is None:
+            continue
+        evidence.append(
+            AntiBotEvidence(
+                source="resource_url",
                 indicator=substring,
                 matched_value=matched_value,
                 artifact=matched_value,
@@ -586,6 +651,19 @@ def _match_signals(
             )
         )
 
+    for marker in rule.runtime_markers:
+        matched_value = _find_runtime_marker(context.runtime_markers, marker)
+        if matched_value is None:
+            continue
+        evidence.append(
+            AntiBotEvidence(
+                source="runtime_marker",
+                indicator=marker,
+                matched_value=matched_value,
+                artifact=matched_value,
+            )
+        )
+
     return evidence
 
 
@@ -600,13 +678,23 @@ def _header_artifact(name: str, value: str) -> str:
     return f"{name}: {value}"
 
 
-def _find_script_source(
-    script_sources: tuple[str, ...],
+def _find_source_value(
+    values: tuple[str, ...],
     substring: str,
 ) -> str | None:
-    for source in script_sources:
+    for source in values:
         if substring in source.casefold():
             return source
+    return None
+
+
+def _find_runtime_marker(
+    runtime_markers: tuple[str, ...],
+    marker: str,
+) -> str | None:
+    for item in runtime_markers:
+        if item == marker:
+            return item
     return None
 
 
@@ -970,9 +1058,16 @@ def _parse_signal_rule(payload: object) -> _SignalRule:
         script_source_substrings=_parse_string_list(
             mapping.get("script_source_substrings")
         ),
+        iframe_source_substrings=_parse_string_list(
+            mapping.get("iframe_source_substrings")
+        ),
+        resource_url_substrings=_parse_string_list(
+            mapping.get("resource_url_substrings")
+        ),
         script_content_substrings=_parse_string_list(
             mapping.get("script_content_substrings")
         ),
+        runtime_markers=_parse_string_list(mapping.get("runtime_markers")),
     )
 
 

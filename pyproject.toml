@@ -10,6 +10,9 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []
 
+[project.optional-dependencies]
+headless = ["playwright>=1.54,<2"]
+
 [dependency-groups]
 dev = ["pytest", "ruff", "ty"]
 
@@ -28,3 +31,6 @@ wappalyzer_pure = ["py.typed", "data/*/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "headless_integration: launches a real Playwright browser against a local test server",
+]

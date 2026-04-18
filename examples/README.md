@@ -8,6 +8,13 @@ Run them from the project root after:
 uv sync
 ```
 
+For the headless browser example, install the optional extra and a browser once:
+
+```bash
+uv sync --extra headless
+uv run playwright install chromium
+```
+
 ## Offline Examples
 
 These do not require network access.
@@ -41,6 +48,8 @@ uv run python examples/03_compare_sources.py https://example.com
 uv run python examples/04_fetch_external_scripts.py https://example.com
 uv run python examples/06_probe_target.py https://example.com
 uv run python examples/13_fetch_options.py https://example.com
+uv run python examples/15_headless_scan.py https://example.com
+uv run python examples/15_headless_scan.py https://example.com --deep-headless
 ```
 
 ## Included Scripts
@@ -59,4 +68,5 @@ uv run python examples/13_fetch_options.py https://example.com
 - `12_custom_antibot_canonicalization.py`: customize anti-bot product detection through custom fingerprints and observe canonical vendor labels
 - `13_fetch_options.py`: tune retries, partial-read handling, TLS mode, and header profile for live scans
 - `14_failure_handling.py`: inspect structured fetch failures without raising exceptions
+- `15_headless_scan.py`: render a page in a headless browser and optionally record deeper browser-only signals
 - `dataset/run_dataset_scan.py`: batch-scan a CSV of URLs and save both JSONL and CSV outputs

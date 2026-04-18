@@ -7,6 +7,7 @@ from .api import analyze_url
 from .data_sources import DEFAULT_FINGERPRINT_DATA_SOURCE, FingerprintDataSource
 from .exceptions import WappalyzerPureError
 from .fetching import FetchHeaderProfile, FetchOptions, FetchTLSMode
+from .headless import HeadlessBrowser, HeadlessOptions, HeadlessWaitUntil
 from .models import ArtifactCaptureOptions
 from .probing import ProbeOptions, probe_url
 from .script_analysis import ScriptAnalysisOptions, ScriptFetchPolicy
@@ -75,6 +76,49 @@ def main(argv: list[str] | None = None) -> int:
         "--artifacts",
         action="store_true",
         help="include lightweight response artifacts in the JSON result",
+    )
+    scan_parser.add_argument(
+        "--headless",
+        action="store_true",
+        help="render the page in a headless browser before fingerprinting",
+    )
+    scan_parser.add_argument(
+        "--deep-headless",
+        action="store_true",
+        help=(
+            "enable deeper headless analysis that also records browser-only "
+            "signals like runtime globals, iframe URLs, resource URLs, and "
+            "browser cookies; implies --headless"
+        ),
+    )
+    scan_parser.add_argument(
+        "--headless-browser",
+        choices=[browser.value for browser in HeadlessBrowser],
+        default=HeadlessBrowser.CHROMIUM.value,
+        help="browser engine to use when --headless is enabled",
+    )
+    scan_parser.add_argument(
+        "--headless-timeout",
+        type=float,
+        default=None,
+        help="override the headless navigation timeout in seconds",
+    )
+    scan_parser.add_argument(
+        "--headless-wait-until",
+        choices=[state.value for state in HeadlessWaitUntil],
+        default=HeadlessWaitUntil.LOAD.value,
+        help="navigation readiness state to wait for in headless mode",
+    )
+    scan_parser.add_argument(
+        "--headless-post-load-delay",
+        type=float,
+        default=0.5,
+        help="extra settle time in seconds after the headless page load finishes",
+    )
+    scan_parser.add_argument(
+        "--headless-simulate-interaction",
+        action="store_true",
+        help="scroll the page after load to trigger lazy-loaded antibot widgets",
     )
     scan_parser.add_argument(
         "--body-excerpt-chars",
@@ -207,6 +251,18 @@ def main(argv: list[str] | None = None) -> int:
                 capture_artifacts=artifact_capture,
                 user_agent=args.user_agent,
                 fetch_options=fetch_options,
+                headless_options=(
+                    HeadlessOptions(
+                        browser=HeadlessBrowser(args.headless_browser),
+                        navigation_timeout=args.headless_timeout,
+                        wait_until=HeadlessWaitUntil(args.headless_wait_until),
+                        post_load_delay_seconds=args.headless_post_load_delay,
+                        simulate_interaction=args.headless_simulate_interaction,
+                    )
+                    if args.headless or args.deep_headless
+                    else None
+                ),
+                deep_headless=args.deep_headless,
             )
             if args.json:
                 print(

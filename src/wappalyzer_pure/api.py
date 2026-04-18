@@ -16,7 +16,12 @@ from .artifacts import (
     normalize_artifact_capture_options,
 )
 from .data_sources import DEFAULT_FINGERPRINT_DATA_SOURCE, FingerprintDataSource
-from .engine import Wappalyzer, extract_html_artifacts, get_default_wappalyzer
+from .engine import (
+    Wappalyzer,
+    extract_html_artifacts,
+    get_default_wappalyzer,
+    merge_html_artifacts,
+)
 from .fetching import (
     DEFAULT_BROWSER_USER_AGENT,
     FetchFailure,
@@ -28,7 +33,19 @@ from .fetching import (
 from .fetching import (
     headers_from_http_message as _headers_from_http_message,
 )
-from .models import AnalysisResult, ArtifactCaptureOptions, Technology
+from .headless import (
+    DeepHeadlessOptions,
+    HeadlessFetcher,
+    HeadlessOptions,
+    build_headless_request_headers,
+    fetch_url_headless,
+)
+from .models import (
+    AnalysisResult,
+    ArtifactCaptureOptions,
+    BrowserSignals,
+    Technology,
+)
 from .script_analysis import ScriptAnalysisOptions, fetch_external_scripts
 from .security import inspect_security_headers, is_security_technology
 
@@ -48,14 +65,20 @@ def analyze_response(
     script_opener: urllib_request.OpenerDirector | None = None,
     client: Wappalyzer | None = None,
     capture_artifacts: bool | ArtifactCaptureOptions | None = None,
+    browser_signals: BrowserSignals | None = None,
 ) -> AnalysisResult:
     normalized_headers = normalize_headers(headers)
     body_bytes = _coerce_body(body)
     active_client = client or get_default_wappalyzer(source)
     active_script_analysis = script_analysis or ScriptAnalysisOptions()
     active_capture_options = normalize_artifact_capture_options(capture_artifacts)
+    active_browser_signals = _normalize_browser_signals(browser_signals)
     body_text = body_bytes.decode("latin-1")
-    html_artifacts = extract_html_artifacts(body_text)
+    html_artifacts = merge_html_artifacts(
+        extract_html_artifacts(body_text),
+        script_sources=active_browser_signals.script_sources,
+        iframe_sources=active_browser_signals.iframe_sources,
+    )
     extra_script_contents: tuple[str, ...] = ()
     fetched_script_urls: tuple[str, ...] = ()
 
@@ -90,7 +113,11 @@ def analyze_response(
         technologies=technologies,
         status_code=status_code,
         script_sources=html_artifacts.script_sources,
+        iframe_sources=html_artifacts.iframe_sources,
+        resource_urls=active_browser_signals.resource_urls,
         script_contents=html_artifacts.inline_scripts + extra_script_contents,
+        runtime_markers=active_browser_signals.runtime_markers,
+        request_cookie_header=active_browser_signals.cookie_header,
         anti_bot_catalog=active_client.anti_bot_catalog,
         anti_bot_aliases=active_client.anti_bot_aliases,
     )
@@ -107,6 +134,7 @@ def analyze_response(
                 html_artifacts=html_artifacts,
                 fetched_script_urls=fetched_script_urls,
                 capture_options=active_capture_options,
+                browser_signals=active_browser_signals,
             )
             if active_capture_options is not None
             else None
@@ -126,23 +154,47 @@ def analyze_url(
     client: Wappalyzer | None = None,
     capture_artifacts: bool | ArtifactCaptureOptions | None = None,
     fetch_options: FetchOptions | None = None,
+    headless_options: HeadlessOptions | None = None,
+    headless_fetcher: HeadlessFetcher | None = None,
+    deep_headless: bool | DeepHeadlessOptions | None = None,
 ) -> AnalysisResult:
     active_fetch_options = fetch_options or FetchOptions(timeout=timeout)
-    headers = build_request_headers(
-        request_headers=request_headers,
-        user_agent=user_agent,
-        options=active_fetch_options,
-    )
     active_capture_options = normalize_artifact_capture_options(capture_artifacts)
     active_client = client or get_default_wappalyzer(source)
     active_opener = opener or build_opener(active_fetch_options)
-    fetched = fetch_url(
-        url,
-        request_headers=headers,
-        options=active_fetch_options,
-        opener=active_opener,
-        accept_http_error_response=True,
-    )
+    active_deep_headless = _normalize_deep_headless_options(deep_headless)
+    active_headless_options = headless_options
+
+    if active_deep_headless is not None and active_headless_options is None:
+        active_headless_options = HeadlessOptions()
+
+    if active_headless_options is None:
+        headers = build_request_headers(
+            request_headers=request_headers,
+            user_agent=user_agent,
+            options=active_fetch_options,
+        )
+        fetched = fetch_url(
+            url,
+            request_headers=headers,
+            options=active_fetch_options,
+            opener=active_opener,
+            accept_http_error_response=True,
+        )
+    else:
+        headers = build_headless_request_headers(
+            request_headers=request_headers,
+            user_agent=user_agent,
+        )
+        fetched = fetch_url_headless(
+            url,
+            request_headers=headers,
+            fetch_options=active_fetch_options,
+            headless_options=active_headless_options,
+            deep_headless=active_deep_headless,
+            fetcher=headless_fetcher,
+        )
+
     if isinstance(fetched, FetchFailure):
         return AnalysisResult(
             target_url=url,
@@ -163,6 +215,7 @@ def analyze_url(
         script_opener=active_opener,
         client=active_client,
         capture_artifacts=active_capture_options,
+        browser_signals=fetched.browser_signals,
     )
     anti_bot_findings = enrich_anti_bot_findings_with_response_metadata(
         result.anti_bot_findings,
@@ -236,6 +289,44 @@ def _coerce_body(body: bytes | bytearray | memoryview | str) -> bytes:
     if isinstance(body, str):
         return body.encode("utf-8")
     raise TypeError(f"unsupported body type: {type(body)!r}")
+
+
+def _normalize_deep_headless_options(
+    deep_headless: bool | DeepHeadlessOptions | None,
+) -> DeepHeadlessOptions | None:
+    if deep_headless is None or deep_headless is False:
+        return None
+    if deep_headless is True:
+        return DeepHeadlessOptions()
+    return deep_headless
+
+
+def _normalize_browser_signals(
+    browser_signals: BrowserSignals | None,
+) -> BrowserSignals:
+    if browser_signals is None:
+        return BrowserSignals()
+    return BrowserSignals(
+        cookie_header=browser_signals.cookie_header,
+        script_sources=_deduplicate_strings(browser_signals.script_sources),
+        iframe_sources=_deduplicate_strings(browser_signals.iframe_sources),
+        resource_urls=_deduplicate_strings(browser_signals.resource_urls),
+        runtime_markers=_deduplicate_strings(
+            tuple(value.casefold() for value in browser_signals.runtime_markers)
+        ),
+    )
+
+
+def _deduplicate_strings(values: Sequence[str]) -> tuple[str, ...]:
+    deduplicated: list[str] = []
+    seen: set[str] = set()
+    for item in values:
+        text = str(item)
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        deduplicated.append(text)
+    return tuple(deduplicated)
 
 
 def _build_technology(name: str, info: object) -> Technology:

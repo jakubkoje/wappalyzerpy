@@ -71,6 +71,7 @@ class MatchPartResult:
 @dataclass(frozen=True, slots=True)
 class HTMLArtifacts:
     script_sources: tuple[str, ...] = ()
+    iframe_sources: tuple[str, ...] = ()
     inline_scripts: tuple[str, ...] = ()
     metas: tuple[tuple[str, str], ...] = ()
 
@@ -539,6 +540,7 @@ class _FingerprintHTMLParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.script_sources: list[str] = []
+        self.iframe_sources: list[str] = []
         self.inline_scripts: list[str] = []
         self.metas: list[tuple[str, str]] = []
         self._in_script = False
@@ -581,6 +583,12 @@ class _FingerprintHTMLParser(HTMLParser):
             content = attributes.get("content", "")
             if name and content:
                 self.metas.append((name, content))
+            return
+
+        if tag == "iframe":
+            source = attributes.get("src")
+            if source:
+                self.iframe_sources.append(source)
 
     def _flush_script(self) -> None:
         if not self._in_script:
@@ -638,9 +646,54 @@ def extract_html_artifacts(body_text: str) -> HTMLArtifacts:
     parser._flush_script()
     return HTMLArtifacts(
         script_sources=tuple(parser.script_sources),
+        iframe_sources=tuple(parser.iframe_sources),
         inline_scripts=tuple(parser.inline_scripts),
         metas=tuple(parser.metas),
     )
+
+
+def merge_html_artifacts(
+    base: HTMLArtifacts,
+    *,
+    script_sources: tuple[str, ...] = (),
+    iframe_sources: tuple[str, ...] = (),
+    inline_scripts: tuple[str, ...] = (),
+    metas: tuple[tuple[str, str], ...] = (),
+) -> HTMLArtifacts:
+    return HTMLArtifacts(
+        script_sources=_merge_unique_strings(base.script_sources, script_sources),
+        iframe_sources=_merge_unique_strings(base.iframe_sources, iframe_sources),
+        inline_scripts=_merge_unique_strings(base.inline_scripts, inline_scripts),
+        metas=_merge_unique_pairs(base.metas, metas),
+    )
+
+
+def _merge_unique_strings(
+    current: tuple[str, ...],
+    extra: tuple[str, ...],
+) -> tuple[str, ...]:
+    values = list(current)
+    seen = set(current)
+    for item in extra:
+        if not item or item in seen:
+            continue
+        seen.add(item)
+        values.append(item)
+    return tuple(values)
+
+
+def _merge_unique_pairs(
+    current: tuple[tuple[str, str], ...],
+    extra: tuple[tuple[str, str], ...],
+) -> tuple[tuple[str, str], ...]:
+    values = list(current)
+    seen = set(current)
+    for item in extra:
+        if item in seen:
+            continue
+        seen.add(item)
+        values.append(item)
+    return tuple(values)
 
 
 def compile_fingerprint(payload: dict[str, Any]) -> CompiledFingerprint:
