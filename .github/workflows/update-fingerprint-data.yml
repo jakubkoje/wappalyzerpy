@@ -112,6 +112,32 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh pr merge "${{ steps.create-pr.outputs.pull-request-number }}" --auto --squash
 
+      - name: Wait for update PR to merge
+        if: steps.create-pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
+        run: |
+          for attempt in {1..60}; do
+            merged_at="$(gh pr view "$PR_NUMBER" --json mergedAt --jq '.mergedAt')"
+            if [ -n "$merged_at" ]; then
+              echo "pull request #$PR_NUMBER merged at $merged_at"
+              exit 0
+            fi
+
+            state="$(gh pr view "$PR_NUMBER" --json state --jq '.state')"
+            if [ "$state" = "CLOSED" ]; then
+              echo "pull request #$PR_NUMBER closed without merging"
+              exit 1
+            fi
+
+            echo "waiting for pull request #$PR_NUMBER to merge (attempt $attempt/60)"
+            sleep 60
+          done
+
+          echo "timed out waiting for pull request #$PR_NUMBER to merge"
+          exit 1
+
       - name: Trigger release workflow
         if: steps.create-pr.outputs.pull-request-number != ''
         env:
