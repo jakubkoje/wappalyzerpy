@@ -9,8 +9,10 @@
     "iframe_source": 3,
     "resource_url": 3,
     "script_content": 3,
+    "security_header": 3,
     "runtime_marker": 3,
     "status_code": 1,
+    "status_heuristic": 3,
     "redirect": 1
   },
   "default_confidence_thresholds": {
@@ -99,8 +101,9 @@
       },
       "signals": {
         "cookie_names": ["_abck", "ak_bmsc", "bm_sv", "bm_sz"],
+        "cookie_prefixes": ["bm_"],
         "header_value_contains": {
-          "server": ["akamaighost"]
+          "server": ["akamaighost", "akamainetstorage"]
         }
       },
       "behaviors": [
@@ -108,7 +111,8 @@
           "name": "bot_management",
           "min_score": 3,
           "signals": {
-            "cookie_names": ["_abck", "ak_bmsc", "bm_sv", "bm_sz"]
+            "cookie_names": ["_abck", "ak_bmsc", "bm_sv", "bm_sz"],
+            "cookie_prefixes": ["bm_"]
           }
         }
       ]

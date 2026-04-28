@@ -40,6 +40,7 @@ The package ships three packaged fingerprint sources:
 - Tune retries, partial-read salvage, TLS verification, and request header profile with `FetchOptions`
 - Enable opt-in headless browser rendering with Playwright when JavaScript execution is required
 - Enable opt-in deep headless analysis to record browser-only anti-bot signals such as runtime globals, iframe URLs, resource URLs, and browser cookies
+- Batch-scan datasets with an HTTP-first mode that falls back to deep headless only when passive HTTP finds no anti-bot signal
 - Detect technologies from headers, cookies, HTML, meta tags, script URLs, and
   inline script contents
 - Optionally fetch same-origin external JavaScript with explicit limits
@@ -316,6 +317,12 @@ Deep headless mode:
 - records browser-only signals that are often invisible to a plain HTTP fetch or rendered DOM snapshot
 - feeds browser cookies, rendered iframe/script URLs, runtime globals, and browser resource URLs back into the existing anti-bot detection and artifact-capture pipeline
 
+Dataset scans can use a hybrid mode through
+`examples/dataset/run_dataset_scan.py --headless-on-http-miss`. That runner
+keeps the cheap HTTP path for pages where response evidence is enough, then
+reruns only HTTP misses with deep headless analysis. This is useful for
+JavaScript-injected CAPTCHA widgets such as reCAPTCHA, hCaptcha, and GeeTest.
+
 Current scope:
 
 - available through `analyze_url(...)` and the CLI `scan` command
@@ -362,8 +369,10 @@ Current behavior:
 - combines curated response-signal rules with a generated anti-bot technology catalog built from the synced fingerprint sources
 - normalizes anti-bot vendors and products to canonical labels before returning `AntiBotFinding`
 - evidence-driven, with exact matched artifacts recorded from cookies, headers, body markers, script URLs, fetched script contents, and matched technologies
+- parses `Content-Security-Policy` and report-only policy headers for known anti-bot and CAPTCHA endpoints such as reCAPTCHA, hCaptcha, GeeTest, DataDome, PerimeterX, Kasada, Akamai, and Temu Slider
 - derives `score` and `confidence` from configurable heuristic weights and thresholds stored in JSON rule data
 - `analyze_url(...)` augments findings with suspicious status-code and redirect evidence when applicable
+- infers Akamai on minimal 403 block pages when Akamai edge headers, server values, or edge cookies are present
 - optional active follow-up checks are available separately through `probe_url(...)`
 
 Canonicalization behavior:
@@ -1190,6 +1199,7 @@ uv run wappalyzer-pure scan https://example.com --source httparchive
 uv run wappalyzer-pure scan https://example.com --headless --json
 uv run wappalyzer-pure scan https://example.com --headless --headless-wait-until load
 uv run wappalyzer-pure scan https://example.com --deep-headless --artifacts --json
+uv run python examples/dataset/run_dataset_scan.py --headless-on-http-miss --headless-wait-until domcontentloaded
 uv run wappalyzer-pure probe https://example.com --json
 uv run wappalyzer-pure probe https://example.com --json --artifacts
 uv run wappalyzer-pure probe https://example.com --retries 1 --user-agent "CustomBot/1.0"
@@ -1218,6 +1228,11 @@ Script-related flags:
 - `--headless-timeout`
 - `--headless-wait-until {commit,domcontentloaded,load,networkidle}`
 - `--headless-post-load-delay`
+
+Dataset runner-only flags:
+
+- `--headless-on-http-miss`: run an HTTP scan first, then retry with deep headless analysis only when the HTTP result has no anti-bot findings
+- `--headless-simulate-interaction`: scroll and focus a visible input after page load to trigger lazy CAPTCHA widgets during headless dataset scans
 
 Probe-related flags:
 

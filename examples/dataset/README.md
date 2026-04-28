@@ -7,6 +7,8 @@ Included files:
 
 - `train_5k.csv`: copied from the external sample input you provided
 - `run_dataset_scan.py`: scans the CSV and writes both JSONL and CSV outputs
+- `stealth_bench_sites.csv`: 80-site stealth benchmark input with expected anti-bot categories
+- `eval_stealth_bench.py`: evaluates JSONL scan results against the stealth benchmark labels
 
 Run from the project root:
 
@@ -24,7 +26,30 @@ uv run python examples/dataset/run_dataset_scan.py --insecure-tls
 uv run python examples/dataset/run_dataset_scan.py --fetch-scripts same-origin
 uv run python examples/dataset/run_dataset_scan.py --headless --workers 5
 uv run python examples/dataset/run_dataset_scan.py --deep-headless --workers 5
+uv run python examples/dataset/run_dataset_scan.py --headless-on-http-miss --workers 5
 ```
+
+For the stealth benchmark, the recommended scan mode is HTTP-first fallback:
+
+```bash
+uv run python examples/dataset/run_dataset_scan.py \
+  --input examples/dataset/stealth_bench_sites.csv \
+  --column source \
+  --jsonl-name stealth_http_fallback.jsonl \
+  --csv-name stealth_http_fallback.csv \
+  --headless-on-http-miss \
+  --headless-wait-until domcontentloaded \
+  --headless-simulate-interaction \
+  --workers 5
+
+uv run python examples/dataset/eval_stealth_bench.py \
+  --results-jsonl examples/dataset/output/stealth_http_fallback.jsonl
+```
+
+`--headless-on-http-miss` first runs the normal HTTP detector. If that result
+has no `anti_bot_findings`, it reruns the URL with deep headless browser signals
+enabled. This keeps response-level detections cheap while giving JavaScript-only
+CAPTCHA widgets a browser pass.
 
 Outputs:
 

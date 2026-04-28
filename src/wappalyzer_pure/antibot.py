@@ -142,7 +142,13 @@ _SECURITY_HEADER_FINGERPRINTS = (
     ),
     _SecurityHeaderFingerprint(
         product_name="DataDome",
-        substrings=("captcha-delivery.com", "ct.datadome.co", "datadome"),
+        substrings=(
+            "captcha-delivery.com",
+            "ct.datadome.co",
+            "js.datadome.co",
+            "api-js.datadome.co",
+            "datadome",
+        ),
     ),
     _SecurityHeaderFingerprint(
         product_name="PerimeterX",
@@ -159,6 +165,23 @@ _SECURITY_HEADER_FINGERPRINTS = (
     _SecurityHeaderFingerprint(
         product_name="Kasada",
         substrings=("kpsdk", "kasada"),
+    ),
+    _SecurityHeaderFingerprint(
+        product_name="Akamai Bot Manager",
+        substrings=(
+            "akamai bot manager",
+            "akamai-bm",
+            "akamaihd.net",
+            "akamaized.net",
+            "go-mpulse.net",
+            "bm-verify",
+            "_abck",
+            "ak_bmsc",
+        ),
+    ),
+    _SecurityHeaderFingerprint(
+        product_name="Temu Slider",
+        substrings=("temu", "temu.com", "byteoversea", "bytedance"),
     ),
 )
 
@@ -791,6 +814,8 @@ def _derive_status_heuristic_finding_candidates(
 ) -> tuple[_TechnologyFindingCandidate, ...]:
     if context.status_code != 403:
         return ()
+    if not _looks_like_minimal_block_page(context.raw_body_text):
+        return ()
     if not _has_generic_akamai_edge_signal(context):
         return ()
 
@@ -879,6 +904,14 @@ def _has_generic_akamai_edge_signal(context: _DetectionContext) -> bool:
 
     if "x-akamai-transformed" in context.headers or "akamai-grn" in context.headers:
         return True
+    if "x-akamai-reference-id" in context.headers:
+        return True
+
+    for normalized_name in context.cookies:
+        if normalized_name in {"aka_a2", "_bman"}:
+            return True
+        if normalized_name.startswith(("akavpau_", "akacd_", "akaalb_")):
+            return True
 
     for header_name, values in context.headers.items():
         if header_name.startswith("x-akamai-"):

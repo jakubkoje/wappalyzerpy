@@ -138,6 +138,14 @@ def main() -> int:
         ),
     )
     parser.add_argument(
+        "--headless-on-http-miss",
+        action="store_true",
+        help=(
+            "fetch over HTTP first, then retry with deep headless analysis only "
+            "when the HTTP result has no anti-bot findings"
+        ),
+    )
+    parser.add_argument(
         "--headless-browser",
         choices=[browser.value for browser in HeadlessBrowser],
         default=HeadlessBrowser.CHROMIUM.value,
@@ -187,18 +195,31 @@ def main() -> int:
         max_bytes_per_script=args.max_bytes_per_script,
         max_total_script_bytes=args.max_total_script_bytes,
     )
+    configured_headless_options = HeadlessOptions(
+        browser=HeadlessBrowser(args.headless_browser),
+        navigation_timeout=args.headless_timeout,
+        wait_until=HeadlessWaitUntil(args.headless_wait_until),
+        post_load_delay_seconds=args.headless_post_load_delay,
+        simulate_interaction=args.headless_simulate_interaction,
+    )
     headless_options = (
-        HeadlessOptions(
-            browser=HeadlessBrowser(args.headless_browser),
-            navigation_timeout=args.headless_timeout,
-            wait_until=HeadlessWaitUntil(args.headless_wait_until),
-            post_load_delay_seconds=args.headless_post_load_delay,
-            simulate_interaction=args.headless_simulate_interaction,
-        )
+        configured_headless_options
         if args.headless or args.deep_headless
         else None
     )
+    fallback_headless_options = (
+        configured_headless_options if args.headless_on_http_miss else None
+    )
     deep_headless = DeepHeadlessOptions() if args.deep_headless else None
+    fallback_deep_headless = (
+        DeepHeadlessOptions() if args.headless_on_http_miss else None
+    )
+    if args.headless_on_http_miss and headless_options is not None:
+        raise ValueError("--headless-on-http-miss cannot be combined with --headless")
+    if args.headless_on_http_miss and args.deep_headless:
+        raise ValueError(
+            "--headless-on-http-miss cannot be combined with --deep-headless"
+        )
 
     ok_count = 0
     with (
@@ -216,6 +237,8 @@ def main() -> int:
             security_only=args.security_only,
             headless_options=headless_options,
             deep_headless=deep_headless,
+            fallback_headless_options=fallback_headless_options,
+            fallback_deep_headless=fallback_deep_headless,
         )
 
         for index, (json_record, csv_record) in enumerate(
@@ -265,6 +288,8 @@ def _scan_url(
     security_only: bool,
     headless_options: HeadlessOptions | None,
     deep_headless: DeepHeadlessOptions | None,
+    fallback_headless_options: HeadlessOptions | None,
+    fallback_deep_headless: DeepHeadlessOptions | None,
 ) -> tuple[dict[str, object], dict[str, str]]:
     try:
         result = analyze_url(
@@ -275,6 +300,19 @@ def _scan_url(
             headless_options=headless_options,
             deep_headless=deep_headless,
         )
+        if (
+            fallback_headless_options is not None
+            and result.fetch_failure is None
+            and not result.anti_bot_findings
+        ):
+            result = analyze_url(
+                url,
+                source=source,
+                fetch_options=fetch_options,
+                script_analysis=script_analysis,
+                headless_options=fallback_headless_options,
+                deep_headless=fallback_deep_headless,
+            )
         payload: dict[str, object] = {
             "source": url,
             "wappalyzer": result.to_dict(security_only=security_only),

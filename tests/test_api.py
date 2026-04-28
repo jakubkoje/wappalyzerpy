@@ -766,6 +766,31 @@ def test_analyze_url_infers_akamai_from_403_server_header_and_generic_block_page
     assert any(item.source == "status_heuristic" for item in finding.evidence)
 
 
+def test_analyze_url_does_not_infer_akamai_from_full_403_page(
+    client: Wappalyzer,
+) -> None:
+    body = "<html><body>" + "".join(
+        f"<p>Product support content paragraph {index}</p>" for index in range(40)
+    ) + "</body></html>"
+    opener = FakeOpener(
+        {
+            "https://example.com": ResponseSpec(
+                body=body.encode(),
+                headers=(("Server", "AkamaiGHost"),),
+                status=403,
+            )
+        }
+    )
+
+    result = api.analyze_url(
+        "https://example.com",
+        opener=cast(urllib_request.OpenerDirector, opener),
+        client=client,
+    )
+
+    assert result.anti_bot_findings == ()
+
+
 def test_analyze_response_can_capture_response_artifacts(
     client: Wappalyzer,
 ) -> None:

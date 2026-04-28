@@ -36,6 +36,7 @@ copied sample CSV input:
 
 ```bash
 uv run python examples/dataset/run_dataset_scan.py --limit 100
+uv run python examples/dataset/run_dataset_scan.py --headless-on-http-miss --workers 5
 ```
 
 ## Networked Examples
@@ -69,4 +70,4 @@ uv run python examples/15_headless_scan.py https://example.com --deep-headless
 - `13_fetch_options.py`: tune retries, partial-read handling, TLS mode, and header profile for live scans
 - `14_failure_handling.py`: inspect structured fetch failures without raising exceptions
 - `15_headless_scan.py`: render a page in a headless browser and optionally record deeper browser-only signals
-- `dataset/run_dataset_scan.py`: batch-scan a CSV of URLs and save both JSONL and CSV outputs
+- `dataset/run_dataset_scan.py`: batch-scan a CSV of URLs and save both JSONL and CSV outputs; optionally use HTTP-first deep-headless fallback for anti-bot misses

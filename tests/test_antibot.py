@@ -174,6 +174,62 @@ def test_inspect_anti_bot_findings_can_infer_recaptcha_from_security_headers() -
     )
 
 
+def test_inspect_anti_bot_findings_can_infer_akamai_from_csp() -> None:
+    anti_bot_catalog = {
+        "akamai bot manager": AntiBotTechnologyCatalogEntry(
+            name="Akamai Bot Manager",
+            vendor="Akamai Bot Manager",
+            behaviors=("bot_management",),
+        )
+    }
+    findings = inspect_anti_bot_findings(
+        headers={
+            "Content-Security-Policy": [
+                "script-src 'self' https://tags.tiqcdn.com https://s.go-mpulse.net"
+            ]
+        },
+        body=b"",
+        technologies=(),
+        anti_bot_catalog=anti_bot_catalog,
+        anti_bot_aliases=derive_anti_bot_alias_catalog(anti_bot_catalog),
+    )
+
+    assert len(findings) == 1
+    finding = findings[0]
+    assert finding.vendor == "Akamai"
+    assert finding.products == ("Akamai Bot Manager",)
+    assert finding.behaviors == ("bot_management",)
+    assert finding.evidence == (
+        AntiBotEvidence(
+            source="security_header",
+            indicator="content-security-policy",
+            matched_value="go-mpulse.net",
+            artifact=(
+                "content-security-policy: script-src 'self' "
+                "https://tags.tiqcdn.com https://s.go-mpulse.net"
+            ),
+        ),
+    )
+
+
+def test_inspect_anti_bot_findings_can_infer_temu_slider_from_csp() -> None:
+    findings = inspect_anti_bot_findings(
+        headers={
+            "Content-Security-Policy": [
+                "frame-src 'self' https://captcha.temu.com https://*.byteoversea.com"
+            ]
+        },
+        body=b"",
+        technologies=(),
+    )
+
+    assert len(findings) == 1
+    finding = findings[0]
+    assert finding.vendor == "Temu Slider"
+    assert finding.products == ("Temu Slider",)
+    assert finding.evidence[0].source == "security_header"
+
+
 def test_inspect_anti_bot_findings_can_infer_perimeterx_from_csp_and_inline_bootstrap() -> (
     None
 ):
