@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import http.client
 import json
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from email.message import Message
 from typing import cast
@@ -222,7 +222,7 @@ class FakeHeadlessFetcher:
         self,
         url: str,
         *,
-        request_headers: dict[str, str],
+        request_headers: Mapping[str, str],
         fetch_options: FetchOptions,
         headless_options: HeadlessOptions,
         deep_headless: DeepHeadlessOptions | None = None,

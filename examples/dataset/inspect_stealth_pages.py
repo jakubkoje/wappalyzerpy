@@ -5,7 +5,7 @@ import json
 import re
 from collections.abc import Iterable
 from pathlib import Path
-from urllib.parse import urlparse
+from typing import Any
 
 from wappalyzer_pure.api import analyze_response
 from wappalyzer_pure.engine import extract_html_artifacts, get_default_wappalyzer
@@ -16,7 +16,7 @@ from wappalyzer_pure.fetching import (
     build_request_headers,
     fetch_url,
 )
-from wappalyzer_pure.models import AnalysisResult
+from wappalyzer_pure.models import AnalysisResult, FetchFailure
 
 READ_LIMIT = 256_000
 
@@ -76,7 +76,7 @@ def main() -> int:
         options=options,
     )
 
-    rows: list[dict[str, object]] = []
+    rows: list[dict[str, Any]] = []
     for raw_site in args.site:
         url = raw_site if raw_site.startswith("http") else f"https://{raw_site}"
         fetched = fetch_url(
@@ -86,7 +86,7 @@ def main() -> int:
             accept_http_error_response=True,
             read_limit=READ_LIMIT,
         )
-        if hasattr(fetched, "category"):
+        if isinstance(fetched, FetchFailure):
             rows.append(
                 {
                     "site": raw_site,
@@ -108,7 +108,17 @@ def main() -> int:
             response_url=fetched.final_url,
             client=client,
         )
-        rows.append(_build_row(raw_site, url, fetched.final_url, fetched.status_code, fetched.headers, fetched.body, analysis))
+        rows.append(
+            _build_row(
+                raw_site,
+                url,
+                fetched.final_url,
+                fetched.status_code,
+                fetched.headers,
+                fetched.body,
+                analysis,
+            )
+        )
 
     args.output.write_text(json.dumps(rows, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"wrote {args.output}")
@@ -125,11 +135,13 @@ def _build_row(
     headers: dict[str, list[str]],
     body: bytes,
     analysis: AnalysisResult,
-) -> dict[str, object]:
+) -> dict[str, Any]:
     body_text = body.decode("latin-1", errors="replace")
     html_artifacts = extract_html_artifacts(body_text)
     normalized_headers = {key.lower(): values for key, values in headers.items()}
-    header_lines = [f"{key}: {' | '.join(values)}" for key, values in normalized_headers.items()]
+    header_lines = [
+        f"{key}: {' | '.join(values)}" for key, values in normalized_headers.items()
+    ]
     header_blob = "\n".join(header_lines).lower()
     body_blob = body_text.lower()
     script_sources = list(html_artifacts.script_sources)
@@ -146,13 +158,22 @@ def _build_row(
         "cookie_names": _cookie_names(normalized_headers.get("set-cookie", [])),
         "analysis": {
             "technologies": [tech.name for tech in analysis.technologies],
-            "anti_bot_vendors": [finding.vendor for finding in analysis.anti_bot_findings],
-            "anti_bot_products": [list(finding.products) for finding in analysis.anti_bot_findings],
+            "anti_bot_vendors": [
+                finding.vendor for finding in analysis.anti_bot_findings
+            ],
+            "anti_bot_products": [
+                list(finding.products) for finding in analysis.anti_bot_findings
+            ],
             "behaviors": [list(finding.behaviors) for finding in analysis.anti_bot_findings],
         },
         "csp_domains": _extract_csp_domains(normalized_headers),
         "script_sources_matching_markers": _matching_scripts(script_sources),
-        "marker_hits": _find_marker_hits(combined_blob, normalized_headers, body_text, script_sources),
+        "marker_hits": _find_marker_hits(
+            combined_blob,
+            normalized_headers,
+            body_text,
+            script_sources,
+        ),
     }
 
 
@@ -212,7 +233,11 @@ def _matching_scripts(script_sources: list[str]) -> list[str]:
     matches: list[str] = []
     for source in script_sources:
         lowered = source.lower()
-        if any(marker in lowered for markers in MARKER_PATTERNS.values() for marker in markers):
+        if any(
+            marker in lowered
+            for markers in MARKER_PATTERNS.values()
+            for marker in markers
+        ):
             matches.append(source)
     return matches[:20]
 
@@ -269,7 +294,7 @@ def _snippet(text: str, index: int, size: int) -> str:
     return text[start:end].replace("\n", " ")
 
 
-def _print_row(row: dict[str, object]) -> None:
+def _print_row(row: dict[str, Any]) -> None:
     print(f"\n## {row['site']}")
     if "fetch_failure" in row:
         failure = row["fetch_failure"]

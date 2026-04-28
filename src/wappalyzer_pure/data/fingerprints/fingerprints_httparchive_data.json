@@ -290,22 +290,6 @@
             "website": "https://www.abtasty.com",
             "icon": "AB Tasty.svg"
         },
-        "AbhiCMS": {
-            "cats": [
-                1
-            ],
-            "meta": {
-                "generator": [
-                    "abhicms\\s([\\d\\.]+)\\;version:\\1"
-                ]
-            },
-            "implies": [
-                "MySQL",
-                "PHP"
-            ],
-            "description": "AbhiCMS is a lesser-known content management system that may not have a significant user base or active development community.",
-            "website": "https://website999.org"
-        },
         "Abicart": {
             "cats": [
                 6
@@ -30253,7 +30237,7 @@
                 66
             ],
             "dom": {
-                "#data-marko-key, html[data-framework='marko']": {
+                "#data-marko-key, [data-marko-key], html[data-framework='marko']": {
                     "exists": ""
                 }
             },
@@ -49500,6 +49484,22 @@
             "website": "https://super.so",
             "icon": "Super Builder.svg"
         },
+        "Super Page Cache": {
+            "cats": [
+                23,
+                87
+            ],
+            "headers": {
+                "x-wp-cf-super-cache-active": "",
+                "x-wp-spc-disk-cache": ""
+            },
+            "scriptSrc": [
+                "/wp-content/plugins/(?:wp-cloudflare-page-cache|wp-super-page-cache-pro)/"
+            ],
+            "description": "Super Page Cache is a static caching plugin for WordPress.",
+            "website": "https://themeisle.com/plugins/super-page-cache-pro/",
+            "icon": "super-page-cache.svg"
+        },
         "Super Socializer": {
             "cats": [
                 69,
@@ -52478,13 +52478,6 @@
             "description": "Translate WordPress is a website translator plugin which can translate any website to any language automatically. Translate WordPress plugin is now a part of GTranslate family.",
             "website": "https://gtranslate.io",
             "icon": "GTranslate.svg"
-        },
-        "Transmart": {
-            "cats": [
-                99
-            ],
-            "description": "Transmart is a shipping company in Turkey.",
-            "website": "https://transmartshipping.com"
         },
         "Tray": {
             "cats": [

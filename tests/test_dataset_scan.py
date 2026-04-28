@@ -1,11 +1,30 @@
 from __future__ import annotations
 
+import importlib.util
+from pathlib import Path
+from types import ModuleType
+from typing import Any, cast
+
 from wappalyzer_pure.fetching import FetchOptions
 from wappalyzer_pure.headless import DeepHeadlessOptions, HeadlessOptions
 from wappalyzer_pure.models import AnalysisResult, AntiBotFinding
 from wappalyzer_pure.script_analysis import ScriptAnalysisOptions
 
-from examples.dataset import run_dataset_scan
+RUNNER_PATH = (
+    Path(__file__).resolve().parents[1] / "examples" / "dataset" / "run_dataset_scan.py"
+)
+
+
+def _load_dataset_runner() -> ModuleType:
+    spec = importlib.util.spec_from_file_location("run_dataset_scan", RUNNER_PATH)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"failed to load {RUNNER_PATH}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+run_dataset_scan = cast(Any, _load_dataset_runner())
 
 
 def test_scan_url_uses_headless_fallback_only_after_http_miss(monkeypatch) -> None:

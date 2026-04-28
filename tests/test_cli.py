@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from wappalyzer_pure import AnalysisResult, cli
+from wappalyzer_pure import AnalysisResult, HeadlessOptions, cli
 
 
 def test_scan_command_passes_headless_options_to_analyze_url(
@@ -46,7 +46,7 @@ def test_scan_command_passes_headless_options_to_analyze_url(
     assert exit_code == 0
     assert captured["url"] == "https://example.com"
     headless_options = captured["headless_options"]
-    assert headless_options is not None
+    assert isinstance(headless_options, HeadlessOptions)
     assert headless_options.browser.value == "firefox"
     assert headless_options.navigation_timeout == 12.0
     assert headless_options.wait_until.value == "load"

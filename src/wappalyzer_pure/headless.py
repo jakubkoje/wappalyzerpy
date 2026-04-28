@@ -4,7 +4,7 @@ import time
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Protocol
+from typing import Any, Protocol, TypeGuard, cast
 
 from .exceptions import HeadlessUnavailableError
 from .fetching import (
@@ -223,7 +223,7 @@ class PlaywrightHeadlessFetcher:
         if extra_headers:
             context_kwargs["extra_http_headers"] = extra_headers
 
-        browser_context = browser.new_context(
+        browser_context = cast(Any, browser).new_context(
             **context_kwargs,
         )
 
@@ -351,7 +351,7 @@ def _simulate_scroll_interaction(page: object) -> None:
 
 def _load_playwright_sync_api() -> tuple[Any, type[Exception], type[Exception]]:
     try:
-        from playwright.sync_api import (  # pyright: ignore[reportMissingImports]
+        from playwright.sync_api import (  # ty: ignore[unresolved-import]
             Error as PlaywrightError,
             TimeoutError as PlaywrightTimeoutError,
             sync_playwright,
@@ -450,7 +450,7 @@ def _collect_dom_sources(
     values = _call_member(
         page,
         "evaluate",
-        f"""
+        """
         ({{ selector, attribute, limit }}) => {{
           const values = [];
           const seen = new Set();
@@ -565,8 +565,9 @@ def _build_cookie_header(cookies_payload: object) -> str | None:
     for item in cookies_payload:
         if not isinstance(item, Mapping):
             continue
-        name = _stringify_scalar(item.get("name"))
-        value = _stringify_scalar(item.get("value"))
+        cookie = cast(Mapping[str, object], item)
+        name = _stringify_scalar(cookie.get("name"))
+        value = _stringify_scalar(cookie.get("value"))
         if not name or name in seen:
             continue
         seen.add(name)
@@ -622,8 +623,9 @@ def _headers_from_playwright_response(response: object | None) -> dict[str, list
         for item in header_items:
             if not isinstance(item, Mapping):
                 continue
-            name = item.get("name")
-            value = item.get("value")
+            header_item = cast(Mapping[str, object], item)
+            name = header_item.get("name")
+            value = header_item.get("value")
             if name is None or value is None:
                 continue
             headers.setdefault(str(name), []).append(str(value))
@@ -684,7 +686,7 @@ def _call_member(target: object, name: str, *args: object) -> Any:
     return member
 
 
-def _is_non_string_sequence(value: object) -> bool:
+def _is_non_string_sequence(value: object) -> TypeGuard[Sequence[object]]:
     return isinstance(value, Sequence) and not isinstance(
         value,
         (str, bytes, bytearray),

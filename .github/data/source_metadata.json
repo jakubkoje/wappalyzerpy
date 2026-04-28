@@ -5,16 +5,16 @@
         "derived_from": "merged"
     },
     "anti_bot_aliases": {
-        "vendor_aliases": 44,
+        "vendor_aliases": 47,
         "product_aliases": 40
     },
     "anti_bot_rule_set": {
         "path": "src/wappalyzer_pure/data/antibot",
         "files": {
             "anti_bot_signals_data.json": {
-                "sha256": "56abc639e6cbba2997833864bbdda4380fed3de1dfc90a156ef584f3e1f74818",
-                "vendor_count": 7,
-                "behavior_count": 11
+                "sha256": "ebd4fea2129c33aebdafdeb29e0476cac2222ed3e10dd1d64651bd69d6b8a986",
+                "vendor_count": 12,
+                "behavior_count": 16
             },
             "anti_bot_catalog_rules.json": {
                 "sha256": "1cced18e4e1d8e033915f21e9b7c2a6db93eaf0f7487b11f6734639e3897ab92",
@@ -22,8 +22,8 @@
                 "keyword_count": 23
             },
             "anti_bot_alias_rules.json": {
-                "sha256": "ad15ebc90a3fda9bcde058895db6a64fd801ea0ee57f8c7c03872ef51906ee65",
-                "vendor_alias_group_count": 7,
+                "sha256": "6f6d33f33a1cfbe64f0e96887635d4c100396a5d1f5bd35d7440e0d432e787b3",
+                "vendor_alias_group_count": 8,
                 "product_alias_group_count": 6
             }
         }
@@ -31,29 +31,29 @@
     "sources": {
         "enthec": {
             "counts": {
-                "technologies": 7515,
+                "technologies": 7518,
                 "categories": 108,
                 "technology_files": 27
             },
             "repo": "enthec/webappanalyzer",
             "ref": "main",
-            "commit": "cd2a64f40775b8451302b4578efabb6889d8336b",
-            "fetched_at_utc": "2026-03-22T01:51:40Z"
+            "commit": "c2855b4652b4a205c55a7fa7cbf6f02d0d6dd82b",
+            "fetched_at_utc": "2026-04-28T12:02:42Z"
         },
         "httparchive": {
             "counts": {
-                "technologies": 3994,
+                "technologies": 3993,
                 "categories": 108,
                 "technology_files": 27
             },
             "repo": "HTTPArchive/wappalyzer",
             "ref": "main",
-            "commit": "4e63cc18b4c7e660e314c7a3bbed96a20d17e21b",
-            "fetched_at_utc": "2026-03-22T01:51:40Z"
+            "commit": "4c736a0b5c5f03f466250839fae5f37053a03cbf",
+            "fetched_at_utc": "2026-04-28T12:02:42Z"
         },
         "merged": {
             "counts": {
-                "technologies": 7520,
+                "technologies": 7524,
                 "categories": 108,
                 "technology_files": 27
             },
@@ -61,16 +61,16 @@
                 "enthec",
                 "httparchive"
             ],
-            "fetched_at_utc": "2026-03-22T01:51:40Z"
+            "fetched_at_utc": "2026-04-28T12:02:42Z"
         }
     },
     "comparison": {
         "technologies": {
-            "shared": 3989,
-            "only_enthec": 3526,
-            "only_httparchive": 5,
-            "identical_shared": 2505,
-            "different_shared": 1484
+            "shared": 3987,
+            "only_enthec": 3531,
+            "only_httparchive": 6,
+            "identical_shared": 2502,
+            "different_shared": 1485
         },
         "categories": {
             "shared": 108,

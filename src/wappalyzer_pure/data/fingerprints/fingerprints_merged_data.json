@@ -554,16 +554,16 @@
             "cats": [
                 1
             ],
-            "description": "AbhiCMS is a lesser-known content management system that may not have a significant user base or active development community.",
-            "implies": [
-                "MySQL",
-                "PHP"
-            ],
             "meta": {
                 "generator": [
                     "abhicms\\s([\\d\\.]+)\\;version:\\1"
                 ]
             },
+            "implies": [
+                "MySQL",
+                "PHP"
+            ],
+            "description": "AbhiCMS is a lesser-known content management system that may not have a significant user base or active development community.",
             "website": "https://website999.org"
         },
         "Abicart": {
@@ -1882,8 +1882,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "admitad": "",
-                "ADMITAD": ""
+                "ADMITAD": "",
+                "admitad": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -2776,8 +2776,8 @@
             },
             "icon": "afterpay.svg",
             "js": {
-                "AfterPay": "",
                 "Afterpay": "",
+                "AfterPay": "",
                 "Afterpay.version": "([\\d\\.]+)\\;version:\\1",
                 "afterpay_product": "",
                 "AfterpayAttractWidget": "",
@@ -13441,8 +13441,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "bugsnag": "",
                 "Bugsnag": "",
+                "bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -24979,8 +24979,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DonorBox": "",
                 "DONORBOX": "",
+                "DonorBox": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -30874,6 +30874,17 @@
             ],
             "website": "https://fastpixel.io"
         },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
+        },
         "FastSpring": {
             "cats": [
                 6,
@@ -30895,17 +30906,6 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
-        },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -33829,6 +33829,17 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
+        },
         "framework7": {
             "cats": [
                 59,
@@ -33846,17 +33857,6 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
-        },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -45813,7 +45813,7 @@
                 "jQuery.prototype.jquery": "([\\d.]+)\\;version:\\1"
             },
             "scriptSrc": [
-                "/(\\d+\\.\\d+\\.\\d+)/jquery(?!\\.popupoverlay\\.js)[/.-][^u]\\;version:\\1",
+                "/(\\d+\\.\\d+\\.\\d+)/jquery(?!\\.popupoverlay\\.js|(?:\\.[\\w-]*)*fancybox)[/.-][^u]\\;version:\\1",
                 "/jquery(?:-(\\d+\\.\\d+\\.\\d+))[/.-]\\;version:\\1",
                 "jquery",
                 "/(\\d+\\.\\d+\\.\\d+)/jquery[/.-][^u]\\;version:\\1"
@@ -49030,8 +49030,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "Langify": "",
                 "langify": "",
+                "Langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -49097,8 +49097,8 @@
                 "Laravel"
             ],
             "js": {
-                "Echo.connector": "",
-                "echo.connector": ""
+                "echo.connector": "",
+                "Echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -49192,8 +49192,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrignition": "\\;confidence:25",
                 "lrIgnition": "\\;confidence:25",
+                "lrignition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -53702,8 +53702,8 @@
                 "webtrekkHeatmapObjects": "",
                 "webtrekkLinktrackObjects": "",
                 "webtrekkUnloadObjects": "",
-                "WebtrekkV3": "",
                 "webtrekkV3": "",
+                "WebtrekkV3": "",
                 "wt_tt": "",
                 "wt_ttv2": "",
                 "wtSmart": ""
@@ -53998,6 +53998,9 @@
             ],
             "description": "Marko is HTML re-imagined as a language for building dynamic and reactive user interfaces.",
             "dom": {
+                "#data-marko-key, [data-marko-key], html[data-framework='marko']": {
+                    "exists": ""
+                },
                 "#data-marko-key, html[data-framework='marko']": {
                     "exists": ""
                 }
@@ -58616,8 +58619,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -60773,6 +60776,22 @@
             "description": "Normi is a Compliance Management Platform designed to ensure adherence to Quebec's C-25 regulation.",
             "website": "https://normi.ca",
             "icon": "Normi.svg"
+        },
+        "Norse Env": {
+            "cats": [
+                1
+            ],
+            "headers": {
+                "x-powered-by": "norse env"
+            },
+            "meta": {
+                "generator": [
+                    "norse env"
+                ]
+            },
+            "description": "Norse Env is a lightweight PHP CMS for content-driven websites, featuring a visual editor, media library, and custom admin URL.",
+            "website": "https://esim.pe",
+            "icon": "NorseEnv.png"
         },
         "Northbeam": {
             "cats": [
@@ -74417,8 +74436,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "recaptcha": "",
-                "Recaptcha": ""
+                "Recaptcha": "",
+                "recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -77356,6 +77375,26 @@
             },
             "website": "https://www.rockrms.com"
         },
+        "Rofofk": {
+            "cats": [
+                1,
+                6
+            ],
+            "js": {
+                "Rofofk": ""
+            },
+            "headers": {
+                "x-powered-by": "rofofk"
+            },
+            "meta": {
+                "generator": [
+                    "rofofk"
+                ]
+            },
+            "description": "Rofofk is an Arabic multi-tenant e-commerce SaaS platform.",
+            "website": "https://rofofk.com",
+            "icon": "Rofofk.svg"
+        },
         "Roistat": {
             "cats": [
                 10,
@@ -79394,8 +79433,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "Scrivito": "",
-                "scrivito": ""
+                "scrivito": "",
+                "Scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -81208,8 +81247,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "SheerID": "",
-                "sheerid": ""
+                "sheerid": "",
+                "SheerID": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -82022,8 +82061,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "SHOPLAZZA": "",
-                "Shoplazza": ""
+                "Shoplazza": "",
+                "SHOPLAZZA": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -86394,6 +86433,20 @@
             ],
             "website": "https://sourcepoint.com"
         },
+        "Sourcey": {
+            "cats": [
+                4,
+                57
+            ],
+            "meta": {
+                "generator": [
+                    "sourcey(?: ([\\d.]+))?\\;version:\\1"
+                ]
+            },
+            "description": "Sourcey is an open-source documentation platform and static site generator.",
+            "website": "https://sourcey.com",
+            "icon": "default.svg"
+        },
         "Sovrn": {
             "cats": [
                 36
@@ -89206,8 +89259,8 @@
             },
             "icon": "Stylitics.svg",
             "js": {
-                "stylitics": "",
-                "Stylitics": ""
+                "Stylitics": "",
+                "stylitics": ""
             },
             "scriptSrc": [
                 "/stylitics/js/stylitics\\.js\\?ver=v([\\d.]+)\\;version:\\1",
@@ -89646,6 +89699,22 @@
                 "Notion"
             ],
             "website": "https://super.so"
+        },
+        "Super Page Cache": {
+            "cats": [
+                23,
+                87
+            ],
+            "headers": {
+                "x-wp-cf-super-cache-active": "",
+                "x-wp-spc-disk-cache": ""
+            },
+            "scriptSrc": [
+                "/wp-content/plugins/(?:wp-cloudflare-page-cache|wp-super-page-cache-pro)/"
+            ],
+            "description": "Super Page Cache is a static caching plugin for WordPress.",
+            "website": "https://themeisle.com/plugins/super-page-cache-pro/",
+            "icon": "super-page-cache.svg"
         },
         "Super Socializer": {
             "cats": [
@@ -93908,8 +93977,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "tiledesk": "",
                 "Tiledesk": "",
+                "tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -93926,6 +93995,17 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
+        },
         "timeago": {
             "cats": [
                 59
@@ -93938,17 +94018,6 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
-        },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -94850,8 +94919,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "TrackJs": "",
-                "trackJs": ""
+                "trackJs": "",
+                "TrackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -98522,8 +98591,8 @@
                 "Java"
             ],
             "js": {
-                "vaadin": "",
-                "Vaadin": ""
+                "Vaadin": "",
+                "vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -99689,8 +99758,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "VideoJS": "",
                 "videojs": "",
+                "VideoJS": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -102704,6 +102773,17 @@
             },
             "website": "https://www.websitebuilder.com"
         },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
+        },
         "WebSocket": {
             "cats": [
                 19
@@ -102728,17 +102808,6 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
-        },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [

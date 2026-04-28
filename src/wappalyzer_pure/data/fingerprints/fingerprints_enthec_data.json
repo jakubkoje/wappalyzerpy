@@ -45626,7 +45626,7 @@
                 "jQuery.prototype.jquery": "([\\d.]+)\\;version:\\1"
             },
             "scriptSrc": [
-                "/(\\d+\\.\\d+\\.\\d+)/jquery(?!\\.popupoverlay\\.js)[/.-][^u]\\;version:\\1",
+                "/(\\d+\\.\\d+\\.\\d+)/jquery(?!\\.popupoverlay\\.js|(?:\\.[\\w-]*)*fancybox)[/.-][^u]\\;version:\\1",
                 "/jquery(?:-(\\d+\\.\\d+\\.\\d+))[/.-]\\;version:\\1",
                 "jquery"
             ],
@@ -60525,6 +60525,22 @@
             "description": "Normi is a Compliance Management Platform designed to ensure adherence to Quebec's C-25 regulation.",
             "website": "https://normi.ca",
             "icon": "Normi.svg"
+        },
+        "Norse Env": {
+            "cats": [
+                1
+            ],
+            "headers": {
+                "x-powered-by": "norse env"
+            },
+            "meta": {
+                "generator": [
+                    "norse env"
+                ]
+            },
+            "description": "Norse Env is a lightweight PHP CMS for content-driven websites, featuring a visual editor, media library, and custom admin URL.",
+            "website": "https://esim.pe",
+            "icon": "NorseEnv.png"
         },
         "Northbeam": {
             "cats": [
@@ -77054,6 +77070,26 @@
             "website": "https://www.rockrms.com",
             "icon": "RockRMS.svg"
         },
+        "Rofofk": {
+            "cats": [
+                1,
+                6
+            ],
+            "js": {
+                "Rofofk": ""
+            },
+            "headers": {
+                "x-powered-by": "rofofk"
+            },
+            "meta": {
+                "generator": [
+                    "rofofk"
+                ]
+            },
+            "description": "Rofofk is an Arabic multi-tenant e-commerce SaaS platform.",
+            "website": "https://rofofk.com",
+            "icon": "Rofofk.svg"
+        },
         "Roistat": {
             "cats": [
                 10,
@@ -86048,6 +86084,20 @@
             "description": "Sourcepoint is the data privacy software company for the digital marketing ecosystem.",
             "website": "https://sourcepoint.com",
             "icon": "Sourcepoint.svg"
+        },
+        "Sourcey": {
+            "cats": [
+                4,
+                57
+            ],
+            "meta": {
+                "generator": [
+                    "sourcey(?: ([\\d.]+))?\\;version:\\1"
+                ]
+            },
+            "description": "Sourcey is an open-source documentation platform and static site generator.",
+            "website": "https://sourcey.com",
+            "icon": "default.svg"
         },
         "Sovrn": {
             "cats": [

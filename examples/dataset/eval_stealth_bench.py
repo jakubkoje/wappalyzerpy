@@ -6,6 +6,11 @@ import json
 import re
 from collections import defaultdict
 from pathlib import Path
+from typing import Any, TypeAlias, cast
+
+
+Signals: TypeAlias = dict[str, list[str] | str]
+EvalRow: TypeAlias = dict[str, bool | int | str]
 
 
 CATEGORY_ALIASES: dict[str, set[str]] = {
@@ -32,8 +37,8 @@ CSP_PATTERNS: dict[str, re.Pattern[str]] = {
 }
 
 
-def extract_all_signals(wappalyzer: dict | None) -> dict[str, object]:
-    out: dict[str, object] = {
+def extract_all_signals(wappalyzer: dict[str, Any] | None) -> Signals:
+    out: Signals = {
         "antibot_vendors": [],
         "tech_names": [],
         "header_mentions": [],
@@ -47,10 +52,11 @@ def extract_all_signals(wappalyzer: dict | None) -> dict[str, object]:
         if not isinstance(finding, dict):
             continue
         vendor = finding.get("vendor", "")
-        if vendor:
-            out["antibot_vendors"].append(vendor)
-        for product in finding.get("products", []):
-            out["antibot_vendors"].append(product)
+        antibot_vendors = _signal_list(out, "antibot_vendors")
+        if isinstance(vendor, str) and vendor:
+            antibot_vendors.append(vendor)
+        for product in _coerce_string_list(finding.get("products")):
+            antibot_vendors.append(product)
         confidence = finding.get("confidence", "")
         if confidence:
             confidences.append(confidence)
@@ -63,8 +69,8 @@ def extract_all_signals(wappalyzer: dict | None) -> dict[str, object]:
         if not isinstance(tech, dict):
             continue
         name = tech.get("name", "")
-        if name and name != "HSTS":
-            out["tech_names"].append(name)
+        if isinstance(name, str) and name and name != "HSTS":
+            _signal_list(out, "tech_names").append(name)
 
     for header in wappalyzer.get("security_headers", []) or []:
         if not isinstance(header, dict):
@@ -74,30 +80,30 @@ def extract_all_signals(wappalyzer: dict | None) -> dict[str, object]:
             continue
         for category, pattern in CSP_PATTERNS.items():
             if pattern.search(value):
-                out["header_mentions"].append(category)
-    out["header_mentions"] = sorted(set(out["header_mentions"]))
+                _signal_list(out, "header_mentions").append(category)
+    out["header_mentions"] = sorted(set(_signal_list(out, "header_mentions")))
     return out
 
 
-def category_detected(category: str, signals: dict[str, object]) -> tuple[bool, str]:
+def category_detected(category: str, signals: Signals) -> tuple[bool, str]:
     aliases = CATEGORY_ALIASES.get(category, set())
 
     if not aliases:
-        if signals["antibot_vendors"]:
+        if _signal_list(signals, "antibot_vendors"):
             return True, "antibot"
-        if any(_is_security_tech(name) for name in signals["tech_names"]):
+        if any(_is_security_tech(name) for name in _signal_list(signals, "tech_names")):
             return True, "tech"
         return False, ""
 
-    lower_ab = {value.lower() for value in signals["antibot_vendors"]}
+    lower_ab = {value.lower() for value in _signal_list(signals, "antibot_vendors")}
     if any(any(alias in value for value in lower_ab) for alias in aliases):
         return True, "antibot"
 
-    lower_techs = {value.lower() for value in signals["tech_names"]}
+    lower_techs = {value.lower() for value in _signal_list(signals, "tech_names")}
     if any(any(alias in value for value in lower_techs) for alias in aliases):
         return True, "tech"
 
-    if category in signals["header_mentions"]:
+    if category in _signal_list(signals, "header_mentions"):
         return True, "header"
 
     return False, ""
@@ -140,14 +146,14 @@ def main() -> int:
     site_rows = _load_csv(args.sites)
     results_by_source = _load_results_jsonl(args.results_jsonl)
 
-    rows: list[dict[str, object]] = []
+    rows: list[EvalRow] = []
     for row in site_rows:
         source = row["source"]
         website = row["website"]
         task_id = int(row["task_id"])
         expected = row["category"]
         payload = results_by_source.get(source)
-        wappalyzer = None if payload is None else payload.get("wappalyzer")
+        wappalyzer = _coerce_mapping(None if payload is None else payload.get("wappalyzer"))
         signals = extract_all_signals(wappalyzer)
         matched, match_source = category_detected(expected, signals)
         fetch_ok = bool(
@@ -155,15 +161,17 @@ def main() -> int:
         )
 
         parts: list[str] = []
-        antibot_vendors = signals["antibot_vendors"]
+        antibot_vendors = _signal_list(signals, "antibot_vendors")
         if antibot_vendors:
             parts.append(f'ab:[{", ".join(antibot_vendors)}]')
         security_techs = [
-            tech_name for tech_name in signals["tech_names"] if _is_security_tech(tech_name)
+            tech_name
+            for tech_name in _signal_list(signals, "tech_names")
+            if _is_security_tech(tech_name)
         ]
         if security_techs:
             parts.append(f'tech:[{", ".join(security_techs)}]')
-        header_mentions = signals["header_mentions"]
+        header_mentions = _signal_list(signals, "header_mentions")
         if header_mentions:
             parts.append(f'hdr:[{", ".join(header_mentions)}]')
 
@@ -174,7 +182,7 @@ def main() -> int:
         waf_detected = bool(
             not matched
             and fetch_ok
-            and signals["antibot_vendors"]
+            and bool(_signal_list(signals, "antibot_vendors"))
         )
 
         rows.append(
@@ -183,7 +191,7 @@ def main() -> int:
                 "website": website,
                 "expected": expected,
                 "detected": "  ".join(parts) if parts else "(none)",
-                "confidence": signals["confidence"],
+                "confidence": str(signals["confidence"]),
                 "match": matched,
                 "match_source": match_source,
                 "fetch_ok": fetch_ok,
@@ -202,8 +210,8 @@ def _load_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
-def _load_results_jsonl(path: Path) -> dict[str, dict[str, object]]:
-    rows: dict[str, dict[str, object]] = {}
+def _load_results_jsonl(path: Path) -> dict[str, dict[str, Any]]:
+    rows: dict[str, dict[str, Any]] = {}
     with path.open("r", encoding="utf-8") as handle:
         for line in handle:
             payload = json.loads(line)
@@ -213,7 +221,7 @@ def _load_results_jsonl(path: Path) -> dict[str, dict[str, object]]:
     return rows
 
 
-def _print_results(rows: list[dict[str, object]]) -> None:
+def _print_results(rows: list[EvalRow]) -> None:
     print(
         f"\n{'ID':>3}  {'Website':<28} {'Expected':<16} "
         f"{'Match':<6} {'Src':<8} {'Status':<6} Detected"
@@ -254,7 +262,7 @@ def _print_results(rows: list[dict[str, object]]) -> None:
     )
     print(f"  {'-' * 82}")
 
-    grouped: dict[str, list[dict[str, object]]] = defaultdict(list)
+    grouped: dict[str, list[EvalRow]] = defaultdict(list)
     for row in rows:
         grouped[str(row["expected"])].append(row)
 
@@ -324,6 +332,22 @@ def _print_results(rows: list[dict[str, object]]) -> None:
             f"  {row['website']:<28} expected={row['expected']:<16} "
             f"detected={row['detected']}"
         )
+
+
+def _signal_list(signals: Signals, key: str) -> list[str]:
+    return cast(list[str], signals[key])
+
+
+def _coerce_mapping(value: object) -> dict[str, Any] | None:
+    if isinstance(value, dict):
+        return cast(dict[str, Any], value)
+    return None
+
+
+def _coerce_string_list(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [item for item in value if isinstance(item, str)]
 
 
 if __name__ == "__main__":
