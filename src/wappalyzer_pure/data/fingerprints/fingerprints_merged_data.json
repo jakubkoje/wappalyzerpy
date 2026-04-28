@@ -1882,8 +1882,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "ADMITAD": "",
-                "admitad": ""
+                "admitad": "",
+                "ADMITAD": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -2776,8 +2776,8 @@
             },
             "icon": "afterpay.svg",
             "js": {
-                "Afterpay": "",
                 "AfterPay": "",
+                "Afterpay": "",
                 "Afterpay.version": "([\\d\\.]+)\\;version:\\1",
                 "afterpay_product": "",
                 "AfterpayAttractWidget": "",
@@ -5877,8 +5877,8 @@
             "icon": "Appian.svg",
             "js": {
                 "_APPIAN_PROXIES_INITIALIZED": "",
-                "Appian": "",
                 "APPIAN": "",
+                "Appian": "",
                 "webpackJsonpAppian": ""
             },
             "scriptSrc": [
@@ -49030,8 +49030,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "langify": "",
                 "Langify": "",
+                "langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -49097,8 +49097,8 @@
                 "Laravel"
             ],
             "js": {
-                "echo.connector": "",
-                "Echo.connector": ""
+                "Echo.connector": "",
+                "echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -58619,8 +58619,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "Myfoodlink": "",
-                "myfoodlink": ""
+                "myfoodlink": "",
+                "Myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -65851,8 +65851,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "paypal": "",
                 "PAYPAL": "",
+                "paypal": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -71562,19 +71562,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "PubLive": {
-            "cats": [
-                1
-            ],
-            "description": "PubLive is a headless CMS for online publishers.",
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "icon": "PubLive.svg",
-            "website": "https://thepublive.com"
-        },
         "Publive": {
             "cats": [
                 1
@@ -71587,6 +71574,19 @@
             "description": "Publive is a headless CMS for online publishers.",
             "website": "https://www.thepublive.com",
             "icon": "PubLive.svg"
+        },
+        "PubLive": {
+            "cats": [
+                1
+            ],
+            "description": "PubLive is a headless CMS for online publishers.",
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "icon": "PubLive.svg",
+            "website": "https://thepublive.com"
         },
         "Publy": {
             "cats": [
@@ -79433,8 +79433,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "scrivito": "",
-                "Scrivito": ""
+                "Scrivito": "",
+                "scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -80006,8 +80006,8 @@
                 "jQuery"
             ],
             "js": {
-                "Selectize": "",
-                "selectize": ""
+                "selectize": "",
+                "Selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -81247,8 +81247,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "sheerid": "",
-                "SheerID": ""
+                "SheerID": "",
+                "sheerid": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -82061,8 +82061,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "Shoplazza": "",
-                "SHOPLAZZA": ""
+                "SHOPLAZZA": "",
+                "Shoplazza": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -86886,17 +86886,6 @@
             ],
             "website": "https://spinasale.com"
         },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
-        },
         "Spin.js": {
             "cats": [
                 59
@@ -86910,6 +86899,17 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
+        },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -93977,8 +93977,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "Tiledesk": "",
                 "tiledesk": "",
+                "Tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -94919,8 +94919,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
