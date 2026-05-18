@@ -38,7 +38,7 @@
             "repo": "enthec/webappanalyzer",
             "ref": "main",
             "commit": "c2855b4652b4a205c55a7fa7cbf6f02d0d6dd82b",
-            "fetched_at_utc": "2026-05-11T05:22:32Z"
+            "fetched_at_utc": "2026-05-18T05:26:12Z"
         },
         "httparchive": {
             "counts": {
@@ -48,8 +48,8 @@
             },
             "repo": "HTTPArchive/wappalyzer",
             "ref": "main",
-            "commit": "492ff7b4f831f2850db1b3a3c3b6bb6f26987b41",
-            "fetched_at_utc": "2026-05-11T05:22:32Z"
+            "commit": "31181c5c762b75238449a64d5a352c6c6187942f",
+            "fetched_at_utc": "2026-05-18T05:26:12Z"
         },
         "merged": {
             "counts": {
@@ -61,7 +61,7 @@
                 "enthec",
                 "httparchive"
             ],
-            "fetched_at_utc": "2026-05-11T05:22:32Z"
+            "fetched_at_utc": "2026-05-18T05:26:12Z"
         }
     },
     "comparison": {

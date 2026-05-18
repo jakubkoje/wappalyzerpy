@@ -5877,8 +5877,8 @@
             "icon": "Appian.svg",
             "js": {
                 "_APPIAN_PROXIES_INITIALIZED": "",
-                "Appian": "",
                 "APPIAN": "",
+                "Appian": "",
                 "webpackJsonpAppian": ""
             },
             "scriptSrc": [
@@ -8342,8 +8342,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "Awesomplete": "",
-                "awesomplete": ""
+                "awesomplete": "",
+                "Awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -24979,8 +24979,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DONORBOX": "",
                 "DonorBox": "",
+                "DONORBOX": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -30874,17 +30874,6 @@
             ],
             "website": "https://fastpixel.io"
         },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
-        },
         "FastSpring": {
             "cats": [
                 6,
@@ -30906,6 +30895,17 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
+        },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -33829,6 +33829,17 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
+        },
         "framework7": {
             "cats": [
                 59,
@@ -33846,17 +33857,6 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
-        },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -49030,8 +49030,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "langify": "",
                 "Langify": "",
+                "langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -49097,8 +49097,8 @@
                 "Laravel"
             ],
             "js": {
-                "echo.connector": "",
-                "Echo.connector": ""
+                "Echo.connector": "",
+                "echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -55508,8 +55508,8 @@
                 "jQuery"
             ],
             "js": {
-                "MetisMenu": "",
-                "metisMenu": ""
+                "metisMenu": "",
+                "MetisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -58238,17 +58238,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "mOxie": {
-            "cats": [
-                59
-            ],
-            "js": {
-                "mOxie": "",
-                "moxie": ""
-            },
-            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "Moxie": {
             "cats": [
                 5,
@@ -58258,6 +58247,17 @@
                 "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
             ],
             "description": "Pollyfills for XHR2 and File API",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "mOxie": {
+            "cats": [
+                59
+            ],
+            "js": {
+                "mOxie": "",
+                "moxie": ""
+            },
+            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -58619,8 +58619,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -67163,8 +67163,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "phpdebugbar": "",
-                "PhpDebugBar": ""
+                "PhpDebugBar": "",
+                "phpdebugbar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -74436,8 +74436,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "Recaptcha": "",
-                "recaptcha": ""
+                "recaptcha": "",
+                "Recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -79433,8 +79433,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "Scrivito": "",
-                "scrivito": ""
+                "scrivito": "",
+                "Scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -89259,8 +89259,8 @@
             },
             "icon": "Stylitics.svg",
             "js": {
-                "Stylitics": "",
-                "stylitics": ""
+                "stylitics": "",
+                "Stylitics": ""
             },
             "scriptSrc": [
                 "/stylitics/js/stylitics\\.js\\?ver=v([\\d.]+)\\;version:\\1",
@@ -93977,8 +93977,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "tiledesk": "",
                 "Tiledesk": "",
+                "tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -94919,8 +94919,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -99758,8 +99758,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "videojs": "",
                 "VideoJS": "",
+                "videojs": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -108368,8 +108368,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "Zonos": "",
                 "zonos": "",
+                "Zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [
