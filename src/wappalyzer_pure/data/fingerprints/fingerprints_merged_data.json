@@ -1882,8 +1882,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "admitad": "",
-                "ADMITAD": ""
+                "ADMITAD": "",
+                "admitad": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -8342,8 +8342,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "awesomplete": "",
-                "Awesomplete": ""
+                "Awesomplete": "",
+                "awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -9773,7 +9773,7 @@
             ],
             "description": "BerqWP is a speed optimization plugin designed to help websites pass the core web vitals assessment and improve overall speed scores for better performance.",
             "dom": {
-                "style[data-berqwp],script[data-berqwp]": {
+                "html.berqwp-premium": {
                     "exists": ""
                 }
             },
@@ -24979,8 +24979,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DonorBox": "",
                 "DONORBOX": "",
+                "DonorBox": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -30874,6 +30874,17 @@
             ],
             "website": "https://fastpixel.io"
         },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
+        },
         "FastSpring": {
             "cats": [
                 6,
@@ -30895,17 +30906,6 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
-        },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -33829,17 +33829,6 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
-        },
         "framework7": {
             "cats": [
                 59,
@@ -33857,6 +33846,17 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
+        },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -42666,6 +42666,22 @@
             "icon": "ImageEngine.svg",
             "website": "https://imageengine.io"
         },
+        "Imagekit": {
+            "cats": [
+                7
+            ],
+            "dom": {
+                "link[href*='ik.imagekit.io/']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "x-server": "imagekit\\.io"
+            },
+            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
+            "website": "https://imagekit.io/",
+            "icon": "ImageKit.svg"
+        },
         "ImageKit": {
             "cats": [
                 31,
@@ -42680,22 +42696,6 @@
                 "x-server": "imagekit\\.io"
             },
             "description": "ImageKit is a real-time image and video transformation, optimization, and delivery service with built-in digital asset management, powered by a global CDN.",
-            "website": "https://imagekit.io/",
-            "icon": "ImageKit.svg"
-        },
-        "Imagekit": {
-            "cats": [
-                7
-            ],
-            "dom": {
-                "link[href*='ik.imagekit.io/']": {
-                    "exists": ""
-                }
-            },
-            "headers": {
-                "x-server": "imagekit\\.io"
-            },
-            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
             "website": "https://imagekit.io/",
             "icon": "ImageKit.svg"
         },
@@ -50996,19 +50996,6 @@
             "icon": "LiteSpeed.svg",
             "website": "https://litespeedtech.com"
         },
-        "Litespeed Cache": {
-            "cats": [
-                23,
-                87
-            ],
-            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
-            "headers": {
-                "x-litespeed-cache": "",
-                "x-turbo-charged-by": "litespeed"
-            },
-            "icon": "litespeed-cache.png",
-            "website": "https://wordpress.org/plugins/litespeed-cache/"
-        },
         "LiteSpeed Cache": {
             "cats": [
                 23,
@@ -51030,6 +51017,19 @@
             "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
             "website": "https://www.litespeedtech.com/products/cache-plugins/wordpress-acceleration",
             "icon": "LiteSpeed.svg"
+        },
+        "Litespeed Cache": {
+            "cats": [
+                23,
+                87
+            ],
+            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
+            "headers": {
+                "x-litespeed-cache": "",
+                "x-turbo-charged-by": "litespeed"
+            },
+            "icon": "litespeed-cache.png",
+            "website": "https://wordpress.org/plugins/litespeed-cache/"
         },
         "Lithium": {
             "cats": [
@@ -53702,8 +53702,8 @@
                 "webtrekkHeatmapObjects": "",
                 "webtrekkLinktrackObjects": "",
                 "webtrekkUnloadObjects": "",
-                "webtrekkV3": "",
                 "WebtrekkV3": "",
+                "webtrekkV3": "",
                 "wt_tt": "",
                 "wt_ttv2": "",
                 "wtSmart": ""
@@ -55508,8 +55508,8 @@
                 "jQuery"
             ],
             "js": {
-                "metisMenu": "",
-                "MetisMenu": ""
+                "MetisMenu": "",
+                "metisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -65851,8 +65851,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "PAYPAL": "",
                 "paypal": "",
+                "PAYPAL": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -67163,8 +67163,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "PhpDebugBar": "",
-                "phpdebugbar": ""
+                "phpdebugbar": "",
+                "PhpDebugBar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -71562,19 +71562,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "PubLive": {
-            "cats": [
-                1
-            ],
-            "description": "PubLive is a headless CMS for online publishers.",
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "icon": "PubLive.svg",
-            "website": "https://thepublive.com"
-        },
         "Publive": {
             "cats": [
                 1
@@ -71587,6 +71574,19 @@
             "description": "Publive is a headless CMS for online publishers.",
             "website": "https://www.thepublive.com",
             "icon": "PubLive.svg"
+        },
+        "PubLive": {
+            "cats": [
+                1
+            ],
+            "description": "PubLive is a headless CMS for online publishers.",
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "icon": "PubLive.svg",
+            "website": "https://thepublive.com"
         },
         "Publy": {
             "cats": [
@@ -74436,8 +74436,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "recaptcha": "",
-                "Recaptcha": ""
+                "Recaptcha": "",
+                "recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -79433,8 +79433,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "scrivito": "",
-                "Scrivito": ""
+                "Scrivito": "",
+                "scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -80006,8 +80006,8 @@
                 "jQuery"
             ],
             "js": {
-                "selectize": "",
-                "Selectize": ""
+                "Selectize": "",
+                "selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -82061,8 +82061,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "SHOPLAZZA": "",
-                "Shoplazza": ""
+                "Shoplazza": "",
+                "SHOPLAZZA": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -93977,8 +93977,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "Tiledesk": "",
                 "tiledesk": "",
+                "Tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -94919,8 +94919,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "TrackJs": "",
-                "trackJs": ""
+                "trackJs": "",
+                "TrackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -99758,8 +99758,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "VideoJS": "",
                 "videojs": "",
+                "VideoJS": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
