@@ -33829,6 +33829,17 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
+        },
         "framework7": {
             "cats": [
                 59,
@@ -33846,17 +33857,6 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
-        },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -49097,8 +49097,8 @@
                 "Laravel"
             ],
             "js": {
-                "Echo.connector": "",
-                "echo.connector": ""
+                "echo.connector": "",
+                "Echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -49192,8 +49192,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrignition": "\\;confidence:25",
                 "lrIgnition": "\\;confidence:25",
+                "lrignition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -58238,17 +58238,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "Moxie": {
-            "cats": [
-                5,
-                68
-            ],
-            "scriptSrc": [
-                "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Pollyfills for XHR2 and File API",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "mOxie": {
             "cats": [
                 59
@@ -58258,6 +58247,17 @@
                 "moxie": ""
             },
             "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "Moxie": {
+            "cats": [
+                5,
+                68
+            ],
+            "scriptSrc": [
+                "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Pollyfills for XHR2 and File API",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -58619,8 +58619,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "Myfoodlink": "",
-                "myfoodlink": ""
+                "myfoodlink": "",
+                "Myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -71562,19 +71562,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "Publive": {
-            "cats": [
-                1
-            ],
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "description": "Publive is a headless CMS for online publishers.",
-            "website": "https://www.thepublive.com",
-            "icon": "PubLive.svg"
-        },
         "PubLive": {
             "cats": [
                 1
@@ -71587,6 +71574,19 @@
             },
             "icon": "PubLive.svg",
             "website": "https://thepublive.com"
+        },
+        "Publive": {
+            "cats": [
+                1
+            ],
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "description": "Publive is a headless CMS for online publishers.",
+            "website": "https://www.thepublive.com",
+            "icon": "PubLive.svg"
         },
         "Publy": {
             "cats": [
@@ -79433,8 +79433,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "Scrivito": "",
-                "scrivito": ""
+                "scrivito": "",
+                "Scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -80006,8 +80006,8 @@
                 "jQuery"
             ],
             "js": {
-                "Selectize": "",
-                "selectize": ""
+                "selectize": "",
+                "Selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -81247,8 +81247,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "SheerID": "",
-                "sheerid": ""
+                "sheerid": "",
+                "SheerID": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -93977,8 +93977,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "tiledesk": "",
                 "Tiledesk": "",
+                "tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -93995,17 +93995,6 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
-        },
         "timeago": {
             "cats": [
                 59
@@ -94018,6 +94007,17 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
+        },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -94919,8 +94919,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -98591,8 +98591,8 @@
                 "Java"
             ],
             "js": {
-                "Vaadin": "",
-                "vaadin": ""
+                "vaadin": "",
+                "Vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -99758,8 +99758,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "videojs": "",
                 "VideoJS": "",
+                "videojs": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -102773,6 +102773,17 @@
             },
             "website": "https://www.websitebuilder.com"
         },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
+        },
         "WebSocket": {
             "cats": [
                 19
@@ -102797,17 +102808,6 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
-        },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [
@@ -108368,8 +108368,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "zonos": "",
                 "Zonos": "",
+                "zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [
