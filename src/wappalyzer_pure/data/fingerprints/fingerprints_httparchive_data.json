@@ -17743,6 +17743,29 @@
             "website": "https://flowplayer.com",
             "icon": "Flowplayer.svg"
         },
+        "Fluent Forms": {
+            "cats": [
+                87,
+                110
+            ],
+            "dom": {
+                "form.frm-fluent-form": {
+                    "exists": ""
+                },
+                "input[name='__fluent_form_embded_post_id']": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "fluentFormVars": ""
+            },
+            "scriptSrc": [
+                "/wp-content/plugins/fluentform/assets/.+\\.js(?:\\?ver=(\\d+(?:\\.\\d+)+))?\\;version:\\1"
+            ],
+            "description": "Fluent Forms is a drag-and-drop form builder plugin for WordPress.",
+            "website": "https://fluentforms.com",
+            "icon": "Fluent Forms.svg"
+        },
         "Flutter": {
             "cats": [
                 66
@@ -20573,6 +20596,18 @@
             "description": "Google analytics enhanced ecommerce is a plug-in which enables the measurement of user interactions with products on ecommerce websites.",
             "website": "https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce",
             "icon": "Google Analytics.svg"
+        },
+        "Google Analytics for WooCommerce": {
+            "cats": [
+                10,
+                87
+            ],
+            "scriptSrc": [
+                "/wp-content/plugins/woocommerce-google-analytics-integration/.+\\.js(?:\\?ver=(\\d+(?:\\.\\d+)+))?\\;version:\\1"
+            ],
+            "description": "Google Analytics for WooCommerce connects your store to your Google Analytics account for ecommerce and site analytics, providing valuable metrics on your store\u2019s performance.",
+            "website": "https://woocommerce.com/products/woocommerce-google-analytics/",
+            "icon": "WooCommerceGA.png"
         },
         "Google App Engine": {
             "cats": [
@@ -27173,6 +27208,22 @@
             ],
             "website": "https://koken.me",
             "icon": "Koken.png"
+        },
+        "KOMERO": {
+            "cats": [
+                6
+            ],
+            "js": {
+                "KOMERO": ""
+            },
+            "meta": {
+                "generator": [
+                    "^komero"
+                ]
+            },
+            "description": "Multi-tenant SaaS e-commerce platform.",
+            "website": "https://www.komero.ge",
+            "icon": "Komero.png"
         },
         "Komodo CMS": {
             "cats": [
@@ -46546,6 +46597,18 @@
             "website": "https://sky-shop.pl",
             "icon": "Sky-Shop.svg"
         },
+        "SkyCMS by Netkoncept": {
+            "cats": [
+                1
+            ],
+            "cookies": {
+                "skycms_languageid": "",
+                "skycms_pagecounter": ""
+            },
+            "description": "Polish SaaS content-management platform developed by NETKONCEPT, primarily used by public administration websites and Public Information Bulletin (BIP) portals.",
+            "website": "https://www.netkoncept.com/86/63/technologia-skycms.html",
+            "icon": "SkyCMS_by_netkoncept.svg"
+        },
         "Skyflow": {
             "cats": [
                 16
@@ -56375,6 +56438,16 @@
             ],
             "website": "https://web2py.com",
             "icon": "Web2py.png"
+        },
+        "WebAdministrator CMS": {
+            "cats": [
+                1
+            ],
+            "html": [
+                "<!-- [\\d\\.]+ / webadministrator \\(\\d{2}.\\d{2}\\.\\d{4} \\d{2}:\\d{2}\\) //-->"
+            ],
+            "description": "WebAdministrator CMS is a content management system used heavily by Polish public institutions.",
+            "website": "https://www.jskinternet.pl/jsk/oferta/webadministrator-cms/"
         },
         "WebAssembly": {
             "cats": [

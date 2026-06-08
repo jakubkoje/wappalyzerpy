@@ -5877,8 +5877,8 @@
             "icon": "Appian.svg",
             "js": {
                 "_APPIAN_PROXIES_INITIALIZED": "",
-                "APPIAN": "",
                 "Appian": "",
+                "APPIAN": "",
                 "webpackJsonpAppian": ""
             },
             "scriptSrc": [
@@ -8342,8 +8342,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "Awesomplete": "",
-                "awesomplete": ""
+                "awesomplete": "",
+                "Awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -24979,8 +24979,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DONORBOX": "",
                 "DonorBox": "",
+                "DONORBOX": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -30874,17 +30874,6 @@
             ],
             "website": "https://fastpixel.io"
         },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
-        },
         "FastSpring": {
             "cats": [
                 6,
@@ -30906,6 +30895,17 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
+        },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -32615,6 +32615,29 @@
             "website": "https://www.flowtrack.co",
             "icon": "FlowTrack.svg"
         },
+        "Fluent Forms": {
+            "cats": [
+                87,
+                110
+            ],
+            "dom": {
+                "form.frm-fluent-form": {
+                    "exists": ""
+                },
+                "input[name='__fluent_form_embded_post_id']": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "fluentFormVars": ""
+            },
+            "scriptSrc": [
+                "/wp-content/plugins/fluentform/assets/.+\\.js(?:\\?ver=(\\d+(?:\\.\\d+)+))?\\;version:\\1"
+            ],
+            "description": "Fluent Forms is a drag-and-drop form builder plugin for WordPress.",
+            "website": "https://fluentforms.com",
+            "icon": "Fluent Forms.svg"
+        },
         "Fluid Framework": {
             "cats": [
                 12
@@ -33829,17 +33852,6 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
-        },
         "framework7": {
             "cats": [
                 59,
@@ -33857,6 +33869,17 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
+        },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -37442,6 +37465,18 @@
                 "google-analytics\\.com\\/plugins\\/ua\\/(?:ec|ecommerce)\\.js"
             ],
             "website": "https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce"
+        },
+        "Google Analytics for WooCommerce": {
+            "cats": [
+                10,
+                87
+            ],
+            "scriptSrc": [
+                "/wp-content/plugins/woocommerce-google-analytics-integration/.+\\.js(?:\\?ver=(\\d+(?:\\.\\d+)+))?\\;version:\\1"
+            ],
+            "description": "Google Analytics for WooCommerce connects your store to your Google Analytics account for ecommerce and site analytics, providing valuable metrics on your store\u2019s performance.",
+            "website": "https://woocommerce.com/products/woocommerce-google-analytics/",
+            "icon": "WooCommerceGA.png"
         },
         "Google App Engine": {
             "cats": [
@@ -48354,6 +48389,22 @@
             ],
             "website": "https://koken.me"
         },
+        "KOMERO": {
+            "cats": [
+                6
+            ],
+            "js": {
+                "KOMERO": ""
+            },
+            "meta": {
+                "generator": [
+                    "^komero"
+                ]
+            },
+            "description": "Multi-tenant SaaS e-commerce platform.",
+            "website": "https://www.komero.ge",
+            "icon": "Komero.png"
+        },
         "Kommand": {
             "cats": [
                 1
@@ -49192,8 +49243,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrIgnition": "\\;confidence:25",
                 "lrignition": "\\;confidence:25",
+                "lrIgnition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -65851,8 +65902,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "paypal": "",
                 "PAYPAL": "",
+                "paypal": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -67163,8 +67214,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "phpdebugbar": "",
-                "PhpDebugBar": ""
+                "PhpDebugBar": "",
+                "phpdebugbar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -71562,19 +71613,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "PubLive": {
-            "cats": [
-                1
-            ],
-            "description": "PubLive is a headless CMS for online publishers.",
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "icon": "PubLive.svg",
-            "website": "https://thepublive.com"
-        },
         "Publive": {
             "cats": [
                 1
@@ -71587,6 +71625,19 @@
             "description": "Publive is a headless CMS for online publishers.",
             "website": "https://www.thepublive.com",
             "icon": "PubLive.svg"
+        },
+        "PubLive": {
+            "cats": [
+                1
+            ],
+            "description": "PubLive is a headless CMS for online publishers.",
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "icon": "PubLive.svg",
+            "website": "https://thepublive.com"
         },
         "Publy": {
             "cats": [
@@ -80006,8 +80057,8 @@
                 "jQuery"
             ],
             "js": {
-                "selectize": "",
-                "Selectize": ""
+                "Selectize": "",
+                "selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -81247,8 +81298,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "sheerid": "",
-                "SheerID": ""
+                "SheerID": "",
+                "sheerid": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -84422,6 +84473,18 @@
             },
             "website": "https://sky-shop.pl"
         },
+        "SkyCMS by Netkoncept": {
+            "cats": [
+                1
+            ],
+            "cookies": {
+                "skycms_languageid": "",
+                "skycms_pagecounter": ""
+            },
+            "description": "Polish SaaS content-management platform developed by NETKONCEPT, primarily used by public administration websites and Public Information Bulletin (BIP) portals.",
+            "website": "https://www.netkoncept.com/86/63/technologia-skycms.html",
+            "icon": "SkyCMS_by_netkoncept.svg"
+        },
         "Skyflow": {
             "cats": [
                 16
@@ -86886,6 +86949,17 @@
             ],
             "website": "https://spinasale.com"
         },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
+        },
         "Spin.js": {
             "cats": [
                 59
@@ -86899,17 +86973,6 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
-        },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -93995,6 +94058,17 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
+        },
         "timeago": {
             "cats": [
                 59
@@ -94007,17 +94081,6 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
-        },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -94919,8 +94982,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "TrackJs": "",
-                "trackJs": ""
+                "trackJs": "",
+                "TrackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -98591,8 +98654,8 @@
                 "Java"
             ],
             "js": {
-                "vaadin": "",
-                "Vaadin": ""
+                "Vaadin": "",
+                "vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -102005,6 +102068,16 @@
             "website": "https://web4realty.com",
             "icon": "Web4Realty.svg"
         },
+        "WebAdministrator CMS": {
+            "cats": [
+                1
+            ],
+            "html": [
+                "<!-- [\\d\\.]+ / webadministrator \\(\\d{2}.\\d{2}\\.\\d{4} \\d{2}:\\d{2}\\) //-->"
+            ],
+            "description": "WebAdministrator CMS is a content management system used heavily by Polish public institutions.",
+            "website": "https://www.jskinternet.pl/jsk/oferta/webadministrator-cms/"
+        },
         "Webareal": {
             "cats": [
                 6
@@ -102773,17 +102846,6 @@
             },
             "website": "https://www.websitebuilder.com"
         },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
-        },
         "WebSocket": {
             "cats": [
                 19
@@ -102808,6 +102870,17 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
+        },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [
@@ -108368,8 +108441,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "Zonos": "",
                 "zonos": "",
+                "Zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [
