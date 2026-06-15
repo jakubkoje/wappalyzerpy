@@ -79,6 +79,13 @@
                 "captcha"
             ]
         },
+        "cloudflare turnstile for woocommerce": {
+            "name": "Cloudflare Turnstile for WooCommerce",
+            "vendor": "Cloudflare Turnstile for WooCommerce",
+            "behaviors": [
+                "captcha"
+            ]
+        },
         "coinhive captcha": {
             "name": "CoinHive Captcha",
             "vendor": "CoinHive Captcha",
