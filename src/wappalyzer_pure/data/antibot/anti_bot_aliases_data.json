@@ -11,6 +11,7 @@
         "aws waf captcha": "AWS WAF Captcha",
         "canyon": "Canyon",
         "cloudflare": "Cloudflare",
+        "cloudflare turnstile for woocommerce": "Cloudflare Turnstile for WooCommerce",
         "coinhive captcha": "CoinHive Captcha",
         "contact form 7": "Contact Form 7",
         "datadome": "DataDome",
@@ -92,6 +93,10 @@
         "cloudflare turnstile": {
             "canonical_name": "Cloudflare Turnstile",
             "canonical_vendor": "Cloudflare"
+        },
+        "cloudflare turnstile for woocommerce": {
+            "canonical_name": "Cloudflare Turnstile for WooCommerce",
+            "canonical_vendor": "Cloudflare Turnstile for WooCommerce"
         },
         "coinhive captcha": {
             "canonical_name": "CoinHive Captcha",

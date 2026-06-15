@@ -1882,8 +1882,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "ADMITAD": "",
-                "admitad": ""
+                "admitad": "",
+                "ADMITAD": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -2564,6 +2564,33 @@
             "website": "https://www.advin.cz",
             "icon": "Advin.svg"
         },
+        "Adwos CMS": {
+            "cats": [
+                1,
+                6
+            ],
+            "html": [
+                "<meta[^>]+name=\"adwos:powered-by\"",
+                "<meta[^>]+property=\"og:site_name\"[^>]+content=\"adwos cms\""
+            ],
+            "meta": {
+                "application-name": [
+                    "^adwos cms$"
+                ],
+                "generator": [
+                    "^adwos cms"
+                ]
+            },
+            "implies": [
+                "Go",
+                "Next.js",
+                "PostgreSQL",
+                "Redis"
+            ],
+            "description": "Adwos CMS is a turnkey CMS for classified ads, marketplaces and rental services. Go 1.24 backend + Next.js 16 frontend, PostgreSQL 16, Redis. Self-hosted, one-time license per domain.",
+            "website": "https://adwos.org",
+            "icon": "Adwos CMS.svg"
+        },
         "Adyen": {
             "cats": [
                 41
@@ -2776,8 +2803,8 @@
             },
             "icon": "afterpay.svg",
             "js": {
-                "AfterPay": "",
                 "Afterpay": "",
+                "AfterPay": "",
                 "Afterpay.version": "([\\d\\.]+)\\;version:\\1",
                 "afterpay_product": "",
                 "AfterpayAttractWidget": "",
@@ -5048,6 +5075,21 @@
             ],
             "website": "https://material.angularjs.org"
         },
+        "Angular Notitia": {
+            "cats": [
+                59,
+                66
+            ],
+            "js": {
+                "ngxNotitia": "(.+)\\;version:\\1"
+            },
+            "implies": [
+                "Angular"
+            ],
+            "description": "Easy, flexible toast notification library for Angular applications.",
+            "website": "https://ngx-notitia.vercel.app",
+            "icon": "AngularNotitia.svg"
+        },
         "AngularDart": {
             "cats": [
                 18
@@ -5877,8 +5919,8 @@
             "icon": "Appian.svg",
             "js": {
                 "_APPIAN_PROXIES_INITIALIZED": "",
-                "Appian": "",
                 "APPIAN": "",
+                "Appian": "",
                 "webpackJsonpAppian": ""
             },
             "scriptSrc": [
@@ -8342,8 +8384,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "awesomplete": "",
-                "Awesomplete": ""
+                "Awesomplete": "",
+                "awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -13441,8 +13483,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "Bugsnag": "",
                 "bugsnag": "",
+                "Bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -18171,6 +18213,17 @@
                 "turnstile": ""
             },
             "website": "https://www.cloudflare.com/products/turnstile"
+        },
+        "Cloudflare Turnstile for WooCommerce": {
+            "cats": [
+                87
+            ],
+            "scriptSrc": [
+                "/wp-content/plugins/simple-cloudflare-turnstile/js/integrations/woocommerce\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Cloudflare Turnstile Integration Plugin for WooCommerce adds Cloudflare Turnstile support to WooCommerce forms.",
+            "website": "https://wordpress.org/plugins/simple-cloudflare-turnstile/",
+            "icon": "CloudFlare.svg"
         },
         "Cloudflare Workers": {
             "cats": [
@@ -30874,6 +30927,17 @@
             ],
             "website": "https://fastpixel.io"
         },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
+        },
         "FastSpring": {
             "cats": [
                 6,
@@ -30895,17 +30959,6 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
-        },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -33852,6 +33905,17 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
+        },
         "framework7": {
             "cats": [
                 59,
@@ -33869,17 +33933,6 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
-        },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -42701,22 +42754,6 @@
             "icon": "ImageEngine.svg",
             "website": "https://imageengine.io"
         },
-        "Imagekit": {
-            "cats": [
-                7
-            ],
-            "dom": {
-                "link[href*='ik.imagekit.io/']": {
-                    "exists": ""
-                }
-            },
-            "headers": {
-                "x-server": "imagekit\\.io"
-            },
-            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
-            "website": "https://imagekit.io/",
-            "icon": "ImageKit.svg"
-        },
         "ImageKit": {
             "cats": [
                 31,
@@ -42731,6 +42768,22 @@
                 "x-server": "imagekit\\.io"
             },
             "description": "ImageKit is a real-time image and video transformation, optimization, and delivery service with built-in digital asset management, powered by a global CDN.",
+            "website": "https://imagekit.io/",
+            "icon": "ImageKit.svg"
+        },
+        "Imagekit": {
+            "cats": [
+                7
+            ],
+            "dom": {
+                "link[href*='ik.imagekit.io/']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "x-server": "imagekit\\.io"
+            },
+            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
             "website": "https://imagekit.io/",
             "icon": "ImageKit.svg"
         },
@@ -49243,8 +49296,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrignition": "\\;confidence:25",
                 "lrIgnition": "\\;confidence:25",
+                "lrignition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -51838,6 +51891,14 @@
             },
             "website": "https://www.loglib.io"
         },
+        "LogMeIn": {
+            "cats": [
+                46
+            ],
+            "description": "LogMeIn (now part of GoTo) provides remote access, remote support, and identity and collaboration software for individuals and businesses.",
+            "website": "https://www.logmein.com",
+            "icon": "LogMeIn.svg"
+        },
         "LogoiX": {
             "cats": [
                 99
@@ -53753,8 +53814,8 @@
                 "webtrekkHeatmapObjects": "",
                 "webtrekkLinktrackObjects": "",
                 "webtrekkUnloadObjects": "",
-                "WebtrekkV3": "",
                 "webtrekkV3": "",
+                "WebtrekkV3": "",
                 "wt_tt": "",
                 "wt_ttv2": "",
                 "wtSmart": ""
@@ -58289,17 +58350,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "mOxie": {
-            "cats": [
-                59
-            ],
-            "js": {
-                "mOxie": "",
-                "moxie": ""
-            },
-            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "Moxie": {
             "cats": [
                 5,
@@ -58309,6 +58359,17 @@
                 "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
             ],
             "description": "Pollyfills for XHR2 and File API",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "mOxie": {
+            "cats": [
+                59
+            ],
+            "js": {
+                "mOxie": "",
+                "moxie": ""
+            },
+            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -58640,6 +58701,29 @@
             "website": "https://www.mux.com",
             "icon": "Mux.svg"
         },
+        "MVD Studio": {
+            "cats": [
+                1,
+                6
+            ],
+            "headers": {
+                "x-built-by": "mvd studio",
+                "x-generator": "mvd studio",
+                "x-powered-by": "mvd studio"
+            },
+            "meta": {
+                "generator": [
+                    "mvd studio"
+                ]
+            },
+            "implies": [
+                "Laravel",
+                "PHP"
+            ],
+            "description": "MVD Studio is a Laravel-based platform built by MVD Studio (Uruguay) for e-commerce stores and bespoke web applications.",
+            "website": "https://mvdstudio.com.uy",
+            "icon": "MVD Studio.svg"
+        },
         "My Agile Privacy": {
             "cats": [
                 67
@@ -58670,8 +58754,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -59053,6 +59137,28 @@
             "description": "N1ED is an editor for Bootstrap websites that enables block-by-block content building.",
             "website": "https://n1ed.com",
             "icon": "N1ED.svg"
+        },
+        "n8n": {
+            "cats": [
+                47
+            ],
+            "cookies": {
+                "n8n-auth": ""
+            },
+            "scripts": [
+                "n8n_debounce_multiplier",
+                "n8n_password_min_length"
+            ],
+            "meta": {
+                "n8n:config:rest-endpoint": [],
+                "n8n:config:sentry": []
+            },
+            "implies": [
+                "Node.js"
+            ],
+            "description": "n8n is a source-available workflow automation tool that allows you to connect various services and build automated workflows with a visual node-based editor.",
+            "website": "https://n8n.io",
+            "icon": "n8n.svg"
         },
         "Nabble": {
             "cats": [
@@ -65902,8 +66008,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "PAYPAL": "",
                 "paypal": "",
+                "PAYPAL": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -67214,8 +67320,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "PhpDebugBar": "",
-                "phpdebugbar": ""
+                "phpdebugbar": "",
+                "PhpDebugBar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -71613,19 +71719,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "Publive": {
-            "cats": [
-                1
-            ],
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "description": "Publive is a headless CMS for online publishers.",
-            "website": "https://www.thepublive.com",
-            "icon": "PubLive.svg"
-        },
         "PubLive": {
             "cats": [
                 1
@@ -71638,6 +71731,19 @@
             },
             "icon": "PubLive.svg",
             "website": "https://thepublive.com"
+        },
+        "Publive": {
+            "cats": [
+                1
+            ],
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "description": "Publive is a headless CMS for online publishers.",
+            "website": "https://www.thepublive.com",
+            "icon": "PubLive.svg"
         },
         "Publy": {
             "cats": [
@@ -80057,8 +80163,8 @@
                 "jQuery"
             ],
             "js": {
-                "Selectize": "",
-                "selectize": ""
+                "selectize": "",
+                "Selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -84482,8 +84588,8 @@
                 "skycms_pagecounter": ""
             },
             "description": "Polish SaaS content-management platform developed by NETKONCEPT, primarily used by public administration websites and Public Information Bulletin (BIP) portals.",
-            "website": "https://www.netkoncept.com/86/63/technologia-skycms.html",
-            "icon": "SkyCMS_by_netkoncept.svg"
+            "icon": "SkyCMS_by_netkoncept.svg",
+            "website": "https://www.netkoncept.com/86/63/technologia-skycms.html"
         },
         "Skyflow": {
             "cats": [
@@ -94058,17 +94164,6 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
-        },
         "timeago": {
             "cats": [
                 59
@@ -94081,6 +94176,17 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
+        },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -99553,6 +99659,50 @@
             "website": "https://www.verseone.com",
             "icon": "VerseOne.svg"
         },
+        "VertaFlow Analytics": {
+            "cats": [
+                10
+            ],
+            "scriptSrc": [
+                "vertaflow\\.io/v1/pixel\\.js"
+            ],
+            "description": "VertaFlow Analytics is a lightweight, cookie-free, first-party analytics pixel that tracks pageviews, clicks, scroll depth, and UTM campaigns, sending events to VertaFlow CRM.",
+            "website": "https://vertaflow.io",
+            "icon": "VertaFlow.svg"
+        },
+        "VertaFlow Booking": {
+            "cats": [
+                72
+            ],
+            "scriptSrc": [
+                "vertaflow\\.io/v1/book\\.js"
+            ],
+            "description": "VertaFlow Booking is an embeddable appointment-scheduling widget that syncs bookings to VertaFlow CRM.",
+            "website": "https://vertaflow.io",
+            "icon": "VertaFlow.svg"
+        },
+        "VertaFlow Chat": {
+            "cats": [
+                52
+            ],
+            "scriptSrc": [
+                "vertaflow\\.io/v1/chat\\.js"
+            ],
+            "description": "VertaFlow Chat is a lightweight embeddable chat widget that routes messages to VertaFlow CRM tickets.",
+            "website": "https://vertaflow.io",
+            "icon": "VertaFlow.svg"
+        },
+        "VertaFlow Forms": {
+            "cats": [
+                110
+            ],
+            "scriptSrc": [
+                "vertaflow\\.io/v1/form\\.js"
+            ],
+            "description": "VertaFlow Forms is an embeddable lead-capture form widget that routes submissions to VertaFlow CRM.",
+            "website": "https://vertaflow.io",
+            "icon": "VertaFlow.svg"
+        },
         "Vertex": {
             "cats": [
                 80
@@ -102072,10 +102222,10 @@
             "cats": [
                 1
             ],
+            "description": "WebAdministrator CMS is a content management system used heavily by Polish public institutions.",
             "html": [
                 "<!-- [\\d\\.]+ / webadministrator \\(\\d{2}.\\d{2}\\.\\d{4} \\d{2}:\\d{2}\\) //-->"
             ],
-            "description": "WebAdministrator CMS is a content management system used heavily by Polish public institutions.",
             "website": "https://www.jskinternet.pl/jsk/oferta/webadministrator-cms/"
         },
         "Webareal": {
@@ -102846,6 +102996,17 @@
             },
             "website": "https://www.websitebuilder.com"
         },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
+        },
         "WebSocket": {
             "cats": [
                 19
@@ -102870,17 +103031,6 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
-        },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [
@@ -104273,6 +104423,8 @@
                 ]
             },
             "scriptSrc": [
+                "^(?!.*?/wp-content/plugins/[^/]+/js/integrations/woocommerce\\.js(?:\\?ver=[\\d.]+)?$).*/woocommerce(?:\\.min)?\\.js(?:\\?ver=([0-9.]+))?\\;version:\\1",
+                "^(?!.*?/wp-content/plugins/[^/]+/js/integrations/woocommerce\\.js(?:\\?ver=[\\d.]+)?$).*woocommerce",
                 "/woocommerce(?:\\.min)?\\.js(?:\\?ver=([0-9.]+))?\\;version:\\1",
                 "woocommerce"
             ],
@@ -104823,6 +104975,14 @@
             "description": "WORKetc is an all-in-one cloud computing platform offering web-based CRM, project management, and collaboration tools.",
             "website": "https://www.worketc.com",
             "icon": "WORKetc.svg"
+        },
+        "Workplace by Meta": {
+            "cats": [
+                19
+            ],
+            "description": "Workplace was an enterprise collaboration and communication platform developed by Meta (formerly Facebook), used for messaging, news feeds, and groups within organisations.",
+            "website": "https://www.workplace.com",
+            "icon": "Workplace.svg"
         },
         "Workstand": {
             "cats": [
