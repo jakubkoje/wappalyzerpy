@@ -5385,6 +5385,14 @@
             "icon": "Anthology.svg",
             "website": "https://www.anthology.com/products/lifecycle-engagement/alumni-and-advancement/anthology-encompass"
         },
+        "Anthropic": {
+            "cats": [
+                112
+            ],
+            "description": "Anthropic is an AI safety company that develops Claude, a family of large language models, and provides an API for building AI-powered applications. The anthropic-domain-verification TXT record confirms domain ownership for Anthropic services.",
+            "website": "https://www.anthropic.com",
+            "icon": "Anthropic.svg"
+        },
         "AntiBot.Cloud": {
             "cats": [
                 16
@@ -5919,8 +5927,8 @@
             "icon": "Appian.svg",
             "js": {
                 "_APPIAN_PROXIES_INITIALIZED": "",
-                "APPIAN": "",
                 "Appian": "",
+                "APPIAN": "",
                 "webpackJsonpAppian": ""
             },
             "scriptSrc": [
@@ -22241,6 +22249,14 @@
             "website": "https://www.curaytor.com",
             "icon": "Curaytor.svg"
         },
+        "Cursor": {
+            "cats": [
+                112
+            ],
+            "description": "Cursor is an AI-powered code editor (IDE) that uses large language models to generate, edit, and explain code. The cursor-domain-verification TXT record confirms domain ownership for Cursor services.",
+            "website": "https://www.cursor.com",
+            "icon": "Cursor.svg"
+        },
         "Custobar": {
             "cats": [
                 97
@@ -25032,8 +25048,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DONORBOX": "",
                 "DonorBox": "",
+                "DONORBOX": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -46719,6 +46735,20 @@
             ],
             "website": "https://developers.kakao.com/product"
         },
+        "KaliCart Bridge": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<link[^>]+rel=[\"']kalicart-agent[\"'][^>]*>",
+                "wp-json\\/kalicart\\/v1\\/discovery"
+            ],
+            "implies": [
+                "WooCommerce"
+            ],
+            "description": "KaliCart Bridge is a WooCommerce plugin that exposes a structured REST API and MCP server, making the store catalog readable by AI agents and MCP clients.",
+            "website": "https://bridge.kalicart.com"
+        },
         "Kalio": {
             "cats": [
                 6
@@ -48775,6 +48805,25 @@
             "website": "https://www.krossbooking.com",
             "icon": "KrossBooking.svg"
         },
+        "KRT CDN": {
+            "cats": [
+                31
+            ],
+            "dom": {
+                "img[src*='cdn.krajtilak.in']": {
+                    "exists": ""
+                },
+                "link[href*='cdn.krajtilak.in']": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "cdn\\.krajtilak\\.in"
+            ],
+            "description": "KRT CDN is a Content Delivery Network used for delivering assets securely and quickly.",
+            "website": "https://krajtilak.in",
+            "icon": "KRT CDN.svg"
+        },
         "Kssib": {
             "cats": [
                 6
@@ -49201,8 +49250,8 @@
                 "Laravel"
             ],
             "js": {
-                "Echo.connector": "",
-                "echo.connector": ""
+                "echo.connector": "",
+                "Echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -52228,6 +52277,7 @@
         "Lovable": {
             "cats": [
                 51,
+                112,
                 1
             ],
             "cookies": {
@@ -53814,8 +53864,8 @@
                 "webtrekkHeatmapObjects": "",
                 "webtrekkLinktrackObjects": "",
                 "webtrekkUnloadObjects": "",
-                "WebtrekkV3": "",
                 "webtrekkV3": "",
+                "WebtrekkV3": "",
                 "wt_tt": "",
                 "wt_ttv2": "",
                 "wtSmart": ""
@@ -55620,8 +55670,8 @@
                 "jQuery"
             ],
             "js": {
-                "MetisMenu": "",
-                "metisMenu": ""
+                "metisMenu": "",
+                "MetisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -58350,17 +58400,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "mOxie": {
-            "cats": [
-                59
-            ],
-            "js": {
-                "mOxie": "",
-                "moxie": ""
-            },
-            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "Moxie": {
             "cats": [
                 5,
@@ -58370,6 +58409,17 @@
                 "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
             ],
             "description": "Pollyfills for XHR2 and File API",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "mOxie": {
+            "cats": [
+                59
+            ],
+            "js": {
+                "mOxie": "",
+                "moxie": ""
+            },
+            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -66008,8 +66058,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "paypal": "",
                 "PAYPAL": "",
+                "paypal": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -67320,8 +67370,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "PhpDebugBar": "",
-                "phpdebugbar": ""
+                "phpdebugbar": "",
+                "PhpDebugBar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -71719,19 +71769,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "Publive": {
-            "cats": [
-                1
-            ],
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "description": "Publive is a headless CMS for online publishers.",
-            "website": "https://www.thepublive.com",
-            "icon": "PubLive.svg"
-        },
         "PubLive": {
             "cats": [
                 1
@@ -71744,6 +71781,19 @@
             },
             "icon": "PubLive.svg",
             "website": "https://thepublive.com"
+        },
+        "Publive": {
+            "cats": [
+                1
+            ],
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "description": "Publive is a headless CMS for online publishers.",
+            "website": "https://www.thepublive.com",
+            "icon": "PubLive.svg"
         },
         "Publy": {
             "cats": [
@@ -79590,8 +79640,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "scrivito": "",
-                "Scrivito": ""
+                "Scrivito": "",
+                "scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -80163,8 +80213,8 @@
                 "jQuery"
             ],
             "js": {
-                "selectize": "",
-                "Selectize": ""
+                "Selectize": "",
+                "selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -81404,8 +81454,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "sheerid": "",
-                "SheerID": ""
+                "SheerID": "",
+                "sheerid": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -82218,8 +82268,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "Shoplazza": "",
-                "SHOPLAZZA": ""
+                "SHOPLAZZA": "",
+                "Shoplazza": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -87055,6 +87105,17 @@
             ],
             "website": "https://spinasale.com"
         },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
+        },
         "Spin.js": {
             "cats": [
                 59
@@ -87068,17 +87129,6 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
-        },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -94146,8 +94196,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "tiledesk": "",
                 "Tiledesk": "",
+                "tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -95088,8 +95138,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -98760,8 +98810,8 @@
                 "Java"
             ],
             "js": {
-                "Vaadin": "",
-                "vaadin": ""
+                "vaadin": "",
+                "Vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -103854,6 +103904,14 @@
             "icon": "WindowsServer.png",
             "website": "https://microsoft.com/windowsserver"
         },
+        "Windsurf": {
+            "cats": [
+                112
+            ],
+            "description": "Windsurf (formerly Codeium) is an AI-powered code editor (IDE) that uses large language models for code generation, completion, and agentic workflows. The windsurf-verification TXT record confirms domain ownership for Windsurf services.",
+            "website": "https://windsurf.com",
+            "icon": "Windsurf.svg"
+        },
         "WINEAROUND": {
             "cats": [
                 93
@@ -107601,6 +107659,14 @@
             ],
             "website": "https://zanox.com"
         },
+        "Zapier": {
+            "cats": [
+                47
+            ],
+            "description": "Zapier is a workflow automation platform that connects apps and services to build automated workflows (Zaps) without code. The zapier-domain-verification-challenge TXT record confirms domain ownership for Zapier services.",
+            "website": "https://zapier.com",
+            "icon": "Zapier.svg"
+        },
         "Zapiet": {
             "cats": [
                 6
@@ -108601,8 +108667,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "Zonos": "",
                 "zonos": "",
+                "Zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [

@@ -274,6 +274,13 @@
             "behaviors": [
                 "captcha"
             ]
+        },
+        "zapier": {
+            "name": "Zapier",
+            "vendor": "Zapier",
+            "behaviors": [
+                "challenge"
+            ]
         }
     }
 }

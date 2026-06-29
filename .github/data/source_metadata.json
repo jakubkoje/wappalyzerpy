@@ -1,12 +1,12 @@
 {
     "default_source": "merged",
     "anti_bot_technologies": {
-        "count": 39,
+        "count": 40,
         "derived_from": "merged"
     },
     "anti_bot_aliases": {
-        "vendor_aliases": 48,
-        "product_aliases": 41
+        "vendor_aliases": 49,
+        "product_aliases": 42
     },
     "anti_bot_rule_set": {
         "path": "src/wappalyzer_pure/data/antibot",
@@ -31,14 +31,14 @@
     "sources": {
         "enthec": {
             "counts": {
-                "technologies": 7531,
-                "categories": 108,
+                "technologies": 7537,
+                "categories": 109,
                 "technology_files": 27
             },
             "repo": "enthec/webappanalyzer",
             "ref": "main",
-            "commit": "5418d2a5808d96171e729ef2226c6249fbfb7939",
-            "fetched_at_utc": "2026-06-22T05:52:55Z"
+            "commit": "04faf243aaa5a2bb44b81520231c9be3b306cd0e",
+            "fetched_at_utc": "2026-06-29T05:37:59Z"
         },
         "httparchive": {
             "counts": {
@@ -48,33 +48,33 @@
             },
             "repo": "HTTPArchive/wappalyzer",
             "ref": "main",
-            "commit": "6067fe5da1af4d79060351e4d010d2c035c42dbc",
-            "fetched_at_utc": "2026-06-22T05:52:55Z"
+            "commit": "d7224bea4994e9313a52687cf68a2c8433aea5ec",
+            "fetched_at_utc": "2026-06-29T05:37:59Z"
         },
         "merged": {
             "counts": {
-                "technologies": 7540,
-                "categories": 108,
+                "technologies": 7546,
+                "categories": 109,
                 "technology_files": 27
             },
             "generated_from": [
                 "enthec",
                 "httparchive"
             ],
-            "fetched_at_utc": "2026-06-22T05:52:55Z"
+            "fetched_at_utc": "2026-06-29T05:37:59Z"
         }
     },
     "comparison": {
         "technologies": {
             "shared": 3989,
-            "only_enthec": 3542,
+            "only_enthec": 3548,
             "only_httparchive": 9,
             "identical_shared": 2504,
             "different_shared": 1485
         },
         "categories": {
             "shared": 108,
-            "only_enthec": 0,
+            "only_enthec": 1,
             "only_httparchive": 0,
             "identical_shared": 0,
             "different_shared": 108
