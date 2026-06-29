@@ -47,7 +47,8 @@
         "v4guard checkpoint": "v4Guard Checkpoint",
         "variti": "Variti",
         "wordfence login security": "Wordfence Login Security",
-        "yandex smartcaptcha": "Yandex SmartCaptcha"
+        "yandex smartcaptcha": "Yandex SmartCaptcha",
+        "zapier": "Zapier"
     },
     "products": {
         "33across": {
@@ -213,6 +214,10 @@
         "yandex smartcaptcha": {
             "canonical_name": "Yandex SmartCaptcha",
             "canonical_vendor": "Yandex SmartCaptcha"
+        },
+        "zapier": {
+            "canonical_name": "Zapier",
+            "canonical_vendor": "Zapier"
         }
     }
 }
