@@ -12213,7 +12213,7 @@
                 "<style>\\s+/\\*!\\s+\\* bootstrap v(\\d\\.\\d\\.\\d)\\;version:\\1"
             ],
             "scriptSrc": [
-                "bootstrap(?:[^>]*?([0-9a-fa-f]{7,40}|[\\d]+(?:.[\\d]+(?:.[\\d]+)?)?)|)[^>]*?(?:\\.min)?\\.js\\;version:\\1"
+                "(?:/|-)bootstrap(?:[^/]*?([0-9a-fa-f]{7,40}|[\\d]+(?:\\.[\\d]+(?:\\.[\\d]+)?)?)|)[^/]*?(?:\\.min)?\\.js\\;version:\\1"
             ],
             "description": "Bootstrap is a free and open-source CSS framework directed at responsive, mobile-first front-end web development. It contains CSS and JavaScript-based design templates for typography, forms, buttons, navigation, and other interface components.",
             "website": "https://getbootstrap.com",
@@ -23150,7 +23150,7 @@
                 "dcAPIKey": ""
             },
             "scriptSrc": [
-                "(?:((?:\\d+\\.)+\\d+)\\/(?:dc\\/)?)?dc(?:\\.leaflet)?\\.js\\;version:\\1"
+                "(?:((?:\\d+\\.)+\\d+)\\/(?:dc\\/)?)?(?:/|-)dc(?:\\.leaflet)?\\.js\\;version:\\1"
             ],
             "description": "A multi-dimensional charting library built to work natively with crossfilter and rendered using d3.js",
             "website": "https://dc-js.github.io/dc.js/",
