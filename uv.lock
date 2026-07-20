@@ -211,7 +211,7 @@ wheels = [
 
 [[package]]
 name = "wappalyzer-pure"
-version = "0.2.12"
+version = "0.2.13"
 source = { editable = "." }
 
 [package.optional-dependencies]
