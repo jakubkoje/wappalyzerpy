@@ -17412,9 +17412,6 @@
             "js": {
                 "cbtb": ""
             },
-            "scriptSrc": [
-                "r\\.wdfl\\.co"
-            ],
             "website": "https://www.clickbank.com/",
             "icon": "Clickbank.svg"
         },
@@ -19366,6 +19363,22 @@
             "description": "Commercio is a platform that allows promotional product distributors to set up fully branded company stores.",
             "website": "https://commercio.com",
             "icon": "Commercio.svg"
+        },
+        "Commercy": {
+            "cats": [
+                6
+            ],
+            "meta": {
+                "generator": [
+                    "^commercy$"
+                ]
+            },
+            "implies": [
+                "Next.js"
+            ],
+            "description": "Commercy is an Argentine commerce platform that combines an online store, point of sale, inventory and ARCA/AFIP electronic invoicing in a single system.",
+            "website": "https://commercy.com.ar",
+            "icon": "Commercy.svg"
         },
         "Common Ground": {
             "cats": [
