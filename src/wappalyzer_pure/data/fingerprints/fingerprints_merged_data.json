@@ -1882,8 +1882,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "ADMITAD": "",
-                "admitad": ""
+                "admitad": "",
+                "ADMITAD": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -5927,8 +5927,8 @@
             "icon": "Appian.svg",
             "js": {
                 "_APPIAN_PROXIES_INITIALIZED": "",
-                "APPIAN": "",
                 "Appian": "",
+                "APPIAN": "",
                 "webpackJsonpAppian": ""
             },
             "scriptSrc": [
@@ -13492,8 +13492,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "Bugsnag": "",
                 "bugsnag": "",
+                "Bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -19442,6 +19442,22 @@
             "website": "https://commercio.com",
             "icon": "Commercio.svg"
         },
+        "Commercy": {
+            "cats": [
+                6
+            ],
+            "meta": {
+                "generator": [
+                    "^commercy$"
+                ]
+            },
+            "implies": [
+                "Next.js"
+            ],
+            "description": "Commercy is an Argentine commerce platform that combines an online store, point of sale, inventory and ARCA/AFIP electronic invoicing in a single system.",
+            "website": "https://commercy.com.ar",
+            "icon": "Commercy.svg"
+        },
         "Common Ground": {
             "cats": [
                 6
@@ -25071,8 +25087,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DONORBOX": "",
                 "DonorBox": "",
+                "DONORBOX": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -33944,6 +33960,17 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
+        },
         "framework7": {
             "cats": [
                 59,
@@ -33961,17 +33988,6 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
-        },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -49206,8 +49222,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "langify": "",
                 "Langify": "",
+                "langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -49273,8 +49289,8 @@
                 "Laravel"
             ],
             "js": {
-                "Echo.connector": "",
-                "echo.connector": ""
+                "echo.connector": "",
+                "Echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -49368,8 +49384,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrignition": "\\;confidence:25",
                 "lrIgnition": "\\;confidence:25",
+                "lrignition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -53887,8 +53903,8 @@
                 "webtrekkHeatmapObjects": "",
                 "webtrekkLinktrackObjects": "",
                 "webtrekkUnloadObjects": "",
-                "webtrekkV3": "",
                 "WebtrekkV3": "",
+                "webtrekkV3": "",
                 "wt_tt": "",
                 "wt_ttv2": "",
                 "wtSmart": ""
@@ -58827,8 +58843,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "Myfoodlink": "",
-                "myfoodlink": ""
+                "myfoodlink": "",
+                "Myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -66081,8 +66097,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "paypal": "",
                 "PAYPAL": "",
+                "paypal": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -67393,8 +67409,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "PhpDebugBar": "",
-                "phpdebugbar": ""
+                "phpdebugbar": "",
+                "PhpDebugBar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -79663,8 +79679,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "scrivito": "",
-                "Scrivito": ""
+                "Scrivito": "",
+                "scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -80236,8 +80252,8 @@
                 "jQuery"
             ],
             "js": {
-                "selectize": "",
-                "Selectize": ""
+                "Selectize": "",
+                "selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -87128,17 +87144,6 @@
             ],
             "website": "https://spinasale.com"
         },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
-        },
         "Spin.js": {
             "cats": [
                 59
@@ -87152,6 +87157,17 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
+        },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -91784,6 +91800,18 @@
             "website": "https://tanstack.com",
             "icon": "TanStack.svg"
         },
+        "TanStack Start": {
+            "cats": [
+                12,
+                18
+            ],
+            "js": {
+                "__TSS_START_OPTIONS__": ""
+            },
+            "description": "TanStack Start takes TanStack Router's typed route tree, URL state, loaders, and prefetching, then adds the server pieces: full-document SSR, streaming, server functions, server routes, and build output for the runtime you choose.",
+            "website": "https://tanstack.com/start",
+            "icon": "TanStack.svg"
+        },
         "Tanx": {
             "cats": [
                 95
@@ -95161,8 +95189,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -100069,8 +100097,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "videojs": "",
                 "VideoJS": "",
+                "videojs": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -108715,8 +108743,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "Zonos": "",
                 "zonos": "",
+                "Zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [
