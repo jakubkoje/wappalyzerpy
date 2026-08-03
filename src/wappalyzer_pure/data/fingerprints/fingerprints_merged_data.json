@@ -1882,8 +1882,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "admitad": "",
-                "ADMITAD": ""
+                "ADMITAD": "",
+                "admitad": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -8392,8 +8392,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "Awesomplete": "",
-                "awesomplete": ""
+                "awesomplete": "",
+                "Awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -13492,8 +13492,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "bugsnag": "",
                 "Bugsnag": "",
+                "bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -33960,17 +33960,6 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
-        },
         "framework7": {
             "cats": [
                 59,
@@ -33988,6 +33977,17 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
+        },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -51188,6 +51188,19 @@
             "icon": "LiteSpeed.svg",
             "website": "https://litespeedtech.com"
         },
+        "Litespeed Cache": {
+            "cats": [
+                23,
+                87
+            ],
+            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
+            "headers": {
+                "x-litespeed-cache": "",
+                "x-turbo-charged-by": "litespeed"
+            },
+            "icon": "litespeed-cache.png",
+            "website": "https://wordpress.org/plugins/litespeed-cache/"
+        },
         "LiteSpeed Cache": {
             "cats": [
                 23,
@@ -51209,19 +51222,6 @@
             "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
             "website": "https://www.litespeedtech.com/products/cache-plugins/wordpress-acceleration",
             "icon": "LiteSpeed.svg"
-        },
-        "Litespeed Cache": {
-            "cats": [
-                23,
-                87
-            ],
-            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
-            "headers": {
-                "x-litespeed-cache": "",
-                "x-turbo-charged-by": "litespeed"
-            },
-            "icon": "litespeed-cache.png",
-            "website": "https://wordpress.org/plugins/litespeed-cache/"
         },
         "Lithium": {
             "cats": [
@@ -53903,8 +53903,8 @@
                 "webtrekkHeatmapObjects": "",
                 "webtrekkLinktrackObjects": "",
                 "webtrekkUnloadObjects": "",
-                "WebtrekkV3": "",
                 "webtrekkV3": "",
+                "WebtrekkV3": "",
                 "wt_tt": "",
                 "wt_ttv2": "",
                 "wtSmart": ""
@@ -55709,8 +55709,8 @@
                 "jQuery"
             ],
             "js": {
-                "MetisMenu": "",
-                "metisMenu": ""
+                "metisMenu": "",
+                "MetisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -58843,8 +58843,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -66097,8 +66097,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "PAYPAL": "",
                 "paypal": "",
+                "PAYPAL": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -67409,8 +67409,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "phpdebugbar": "",
-                "PhpDebugBar": ""
+                "PhpDebugBar": "",
+                "phpdebugbar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -74682,8 +74682,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "recaptcha": "",
-                "Recaptcha": ""
+                "Recaptcha": "",
+                "recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -87144,6 +87144,17 @@
             ],
             "website": "https://spinasale.com"
         },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
+        },
         "Spin.js": {
             "cats": [
                 59
@@ -87157,17 +87168,6 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
-        },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -89517,8 +89517,8 @@
             },
             "icon": "Stylitics.svg",
             "js": {
-                "Stylitics": "",
-                "stylitics": ""
+                "stylitics": "",
+                "Stylitics": ""
             },
             "scriptSrc": [
                 "/stylitics/js/stylitics\\.js\\?ver=v([\\d.]+)\\;version:\\1",
@@ -94247,8 +94247,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "Tiledesk": "",
                 "tiledesk": "",
+                "Tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -94265,6 +94265,17 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
+        },
         "timeago": {
             "cats": [
                 59
@@ -94277,17 +94288,6 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
-        },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -95189,8 +95189,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "TrackJs": "",
-                "trackJs": ""
+                "trackJs": "",
+                "TrackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -98861,8 +98861,8 @@
                 "Java"
             ],
             "js": {
-                "vaadin": "",
-                "Vaadin": ""
+                "Vaadin": "",
+                "vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -101950,6 +101950,26 @@
                 "Haskell"
             ],
             "website": "https://www.stackage.org/package/warp"
+        },
+        "WARP Performance": {
+            "cats": [
+                87,
+                92
+            ],
+            "dom": {
+                "script[data-src*='/wp-content/plugins/warp-performance/']": {
+                    "exists": ""
+                },
+                "script[src*='/wp-content/plugins/warp-performance/']": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "/wp-content/plugins/warp-performance/"
+            ],
+            "description": "WARP Performance is a WordPress plugin that improves website performance through page caching, asset optimisation, lazy loading, and other speed-focused features.",
+            "website": "https://warpperformance.com",
+            "icon": "warp-performance.svg"
         },
         "Warp Store": {
             "cats": [
@@ -108743,8 +108763,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "zonos": "",
                 "Zonos": "",
+                "zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [

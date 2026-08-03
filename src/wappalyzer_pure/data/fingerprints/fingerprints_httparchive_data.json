@@ -56234,6 +56234,26 @@
             "website": "https://www.stackage.org/package/warp",
             "icon": "Warp.png"
         },
+        "WARP Performance": {
+            "cats": [
+                87,
+                92
+            ],
+            "dom": {
+                "script[data-src*='/wp-content/plugins/warp-performance/']": {
+                    "exists": ""
+                },
+                "script[src*='/wp-content/plugins/warp-performance/']": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "/wp-content/plugins/warp-performance/"
+            ],
+            "description": "WARP Performance is a WordPress plugin that improves website performance through page caching, asset optimisation, lazy loading, and other speed-focused features.",
+            "website": "https://warpperformance.com",
+            "icon": "warp-performance.svg"
+        },
         "Wask": {
             "cats": [
                 10
