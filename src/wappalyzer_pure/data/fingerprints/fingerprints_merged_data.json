@@ -787,6 +787,9 @@
             "cats": [
                 68
             ],
+            "js": {
+                "accessWidget.config.footerHtml": ""
+            },
             "scripts": [
                 "www\\.accessiway\\.at"
             ],
@@ -1974,6 +1977,14 @@
             "description": "Adnymics is a platform that enables personalization in ecommerce by tailoring content, recommendations, and experiences to individual users based on their behavior and preferences.",
             "website": "https://adnymics.com",
             "icon": "Adnymics.svg"
+        },
+        "Adobe": {
+            "cats": [
+                19
+            ],
+            "description": "Adobe enterprise domain claim, used by the Adobe Admin Console to verify ownership of a domain for Adobe identity management.",
+            "website": "https://www.adobe.com",
+            "icon": "Adobe.svg"
         },
         "Adobe Analytics": {
             "cats": [
@@ -7466,6 +7477,14 @@
             ],
             "website": "https://www.atlassian.com/software/bitbucket/overview/"
         },
+        "Atlassian Cloud": {
+            "cats": [
+                47
+            ],
+            "description": "Atlassian Cloud is the hosted platform behind Atlassian products such as Jira, Confluence and Bitbucket.",
+            "website": "https://www.atlassian.com",
+            "icon": "Atlassian.svg"
+        },
         "Atlassian Confluence": {
             "cats": [
                 8
@@ -7951,6 +7970,14 @@
             "website": "https://autoconf.com.br",
             "icon": "Autoconf.svg"
         },
+        "Autodesk": {
+            "cats": [
+                19
+            ],
+            "description": "Autodesk provides design, engineering and construction software.",
+            "website": "https://www.autodesk.com",
+            "icon": "Autodesk.svg"
+        },
         "Autoketing": {
             "cats": [
                 32
@@ -8392,8 +8419,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "awesomplete": "",
-                "Awesomplete": ""
+                "Awesomplete": "",
+                "awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -12668,6 +12695,14 @@
             "website": "https://www.bowtie.ai",
             "icon": "Bowtie.png"
         },
+        "Box": {
+            "cats": [
+                95
+            ],
+            "description": "Box is a cloud content management and file sharing platform.",
+            "website": "https://www.box.com",
+            "icon": "Box.png"
+        },
         "Boxmode": {
             "cats": [
                 51
@@ -16814,6 +16849,14 @@
             "description": "Circie is an all-in-one community platform for businesses that brings together engaging courses, discussions, members, live streams, chat, events, and memberships.",
             "website": "https://circle.so",
             "icon": "Circle.svg"
+        },
+        "Cisco": {
+            "cats": [
+                37
+            ],
+            "description": "Cisco networking, collaboration and security services domain verification.",
+            "website": "https://www.cisco.com",
+            "icon": "Cisco.svg"
         },
         "Citizen Space": {
             "cats": [
@@ -27768,6 +27811,14 @@
             },
             "website": "https://www.getelevar.com"
         },
+        "ElevenLabs": {
+            "cats": [
+                112
+            ],
+            "description": "ElevenLabs provides AI speech synthesis and voice cloning services.",
+            "website": "https://elevenlabs.io",
+            "icon": "ElevenLabs.svg"
+        },
         "Eleventy": {
             "cats": [
                 57
@@ -30982,6 +31033,17 @@
             ],
             "website": "https://fastpixel.io"
         },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
+        },
         "FastSpring": {
             "cats": [
                 6,
@@ -31003,17 +31065,6 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
-        },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -31490,6 +31541,14 @@
             "description": "Fieldstack Omni is a unified commerce platform that supports web store, third-party channel, and click-to-brick sales in a single system.",
             "website": "https://www.fieldstack.com/platform/omnichannel-ecommerce-software",
             "icon": "FieldStack.svg"
+        },
+        "Figma": {
+            "cats": [
+                19
+            ],
+            "description": "Figma is a collaborative interface design and prototyping platform.",
+            "website": "https://www.figma.com",
+            "icon": "Figma.png"
         },
         "Filamentphp": {
             "cats": [
@@ -32266,6 +32325,14 @@
                 ]
             },
             "website": "https://www.flexcmp.com/cms/home"
+        },
+        "Flexera": {
+            "cats": [
+                19
+            ],
+            "description": "Flexera provides IT asset management and software spend optimisation.",
+            "website": "https://www.flexera.com",
+            "icon": "Flexera.png"
         },
         "FlexiFunnels": {
             "cats": [
@@ -33960,6 +34027,17 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
+        },
         "framework7": {
             "cats": [
                 59,
@@ -33977,17 +34055,6 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
-        },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -36709,6 +36776,14 @@
             ],
             "website": "https://www.globalshopex.com"
         },
+        "GlobalSign": {
+            "cats": [
+                70
+            ],
+            "description": "GlobalSign is a certificate authority providing TLS, code signing and identity certificates.",
+            "website": "https://www.globalsign.com",
+            "icon": "GlobalSign.svg"
+        },
         "Globo Also Bought": {
             "cats": [
                 100
@@ -39295,6 +39370,14 @@
             ],
             "website": "https://github.com/lrsjng/h5ai"
         },
+        "HackerOne": {
+            "cats": [
+                16
+            ],
+            "description": "HackerOne is a vulnerability disclosure and bug bounty platform.",
+            "website": "https://www.hackerone.com",
+            "icon": "HackerOne.svg"
+        },
         "Haddock": {
             "cats": [
                 4
@@ -39656,6 +39739,14 @@
             "description": "Harness is a fundraising solution designed to streamline the process of raising funds for various causes and initiatives.",
             "website": "https://www.goharness.com/nonprofits",
             "icon": "Harness.svg"
+        },
+        "HashiCorp Cloud Platform": {
+            "cats": [
+                62
+            ],
+            "description": "HashiCorp Cloud Platform is the managed service offering for HashiCorp products such as Terraform, Vault, Consul and Boundary.",
+            "website": "https://www.hashicorp.com/cloud",
+            "icon": "HashiCorp.svg"
         },
         "Hashnode": {
             "cats": [
@@ -41382,6 +41473,14 @@
             "icon": "HP.svg",
             "website": "https://hp.com"
         },
+        "HPE GreenLake": {
+            "cats": [
+                63
+            ],
+            "description": "HPE GreenLake is Hewlett Packard Enterprise's hybrid cloud platform delivering infrastructure as a service.",
+            "website": "https://www.hpe.com/us/en/greenlake.html",
+            "icon": "HPE GreenLake.svg"
+        },
         "HrFlow.ai": {
             "cats": [
                 101
@@ -42260,6 +42359,14 @@
             "description": "Ibexa DXP is an open-source enterprise PHP content management system (CMS) and Digital Experience Platform (DXP) developed by the company Ibexa (known previously as eZ Systems).",
             "website": "https://www.ibexa.co",
             "icon": "Ibexa.svg"
+        },
+        "IBM": {
+            "cats": [
+                19
+            ],
+            "description": "IBM enterprise domain claim, used by IBMid to verify ownership of a domain for IBM Cloud and IBM account management.",
+            "website": "https://www.ibm.com",
+            "icon": "IBM.svg"
         },
         "IBM Carbon Design System": {
             "cats": [
@@ -45139,6 +45246,14 @@
             "website": "https://www.jameda.de",
             "icon": "Jameda.svg"
         },
+        "Jamf": {
+            "cats": [
+                16
+            ],
+            "description": "Jamf is an Apple device management (MDM) and endpoint security platform.",
+            "website": "https://www.jamf.com",
+            "icon": "Jamf.svg"
+        },
         "JamFeed": {
             "cats": [
                 1
@@ -45425,6 +45540,14 @@
             "description": "Jetboost is a tool that enables real-time search, dynamic filtering, and other features for Webflow sites without requiring code.",
             "website": "https://www.jetboost.io",
             "icon": "Jetboost.svg"
+        },
+        "JetBrains": {
+            "cats": [
+                47
+            ],
+            "description": "JetBrains develops IDEs and developer tools including IntelliJ IDEA and TeamCity.",
+            "website": "https://www.jetbrains.com",
+            "icon": "JetBrains.png"
         },
         "JetEngine": {
             "cats": [
@@ -49384,8 +49507,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrIgnition": "\\;confidence:25",
                 "lrignition": "\\;confidence:25",
+                "lrIgnition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -51476,6 +51599,14 @@
             ],
             "website": "https://www.liveperson.com"
         },
+        "LiveRamp": {
+            "cats": [
+                97
+            ],
+            "description": "LiveRamp is an identity resolution and data collaboration platform.",
+            "website": "https://liveramp.com",
+            "icon": "LiveRamp.svg"
+        },
         "LiveRamp DPM": {
             "cats": [
                 36
@@ -51901,6 +52032,23 @@
             "description": "Logaholic is a web analytics software that processes website traffic data to generate reports on visits, user behavior, and referrers.",
             "website": "https://www.logaholic.com",
             "icon": "Logaholic.svg"
+        },
+        "LogaTech": {
+            "cats": [
+                1,
+                51
+            ],
+            "headers": {
+                "x-powered-by": "^logatech$"
+            },
+            "meta": {
+                "generator": [
+                    "^logatech$"
+                ]
+            },
+            "description": "LogaTech is a web development company offering a platform used to build and manage multi-tenant CMS, CRM and e-commerce websites.",
+            "website": "https://logatech.net",
+            "icon": "LogaTech.png"
         },
         "Loggly": {
             "cats": [
@@ -53903,8 +54051,8 @@
                 "webtrekkHeatmapObjects": "",
                 "webtrekkLinktrackObjects": "",
                 "webtrekkUnloadObjects": "",
-                "webtrekkV3": "",
                 "WebtrekkV3": "",
+                "webtrekkV3": "",
                 "wt_tt": "",
                 "wt_ttv2": "",
                 "wtSmart": ""
@@ -55612,6 +55760,14 @@
             "website": "https://messagemedia.com",
             "icon": "MessageMedia.svg"
         },
+        "Meta": {
+            "cats": [
+                19
+            ],
+            "description": "Meta domain verification, used by Meta Business to prove ownership of a domain for Facebook and Instagram business assets.",
+            "website": "https://about.meta.com",
+            "icon": "Meta.svg"
+        },
         "MetaMap": {
             "cats": [
                 69
@@ -55709,8 +55865,8 @@
                 "jQuery"
             ],
             "js": {
-                "metisMenu": "",
-                "MetisMenu": ""
+                "MetisMenu": "",
+                "metisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -56774,6 +56930,14 @@
             "description": "Mirakl is a marketplace SaaS platform designed to support both B2B and B2C commerce operations.",
             "website": "https://www.mirakl.com",
             "icon": "Mirakl.svg"
+        },
+        "Miro": {
+            "cats": [
+                19
+            ],
+            "description": "Miro is a collaborative online whiteboard and visual workspace platform.",
+            "website": "https://miro.com",
+            "icon": "Miro.png"
         },
         "mirrAR": {
             "cats": [
@@ -57858,6 +58022,14 @@
             "icon": "MongoDB.svg",
             "website": "https://www.mongodb.org"
         },
+        "MongoDB Atlas": {
+            "cats": [
+                34
+            ],
+            "description": "MongoDB Atlas is MongoDB's managed multi-cloud database service.",
+            "website": "https://www.mongodb.com/atlas",
+            "icon": "MongoDB.svg"
+        },
         "Mongrel": {
             "cats": [
                 22
@@ -58439,17 +58611,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "Moxie": {
-            "cats": [
-                5,
-                68
-            ],
-            "scriptSrc": [
-                "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Pollyfills for XHR2 and File API",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "mOxie": {
             "cats": [
                 59
@@ -58459,6 +58620,17 @@
                 "moxie": ""
             },
             "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "Moxie": {
+            "cats": [
+                5,
+                68
+            ],
+            "scriptSrc": [
+                "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Pollyfills for XHR2 and File API",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -58843,8 +59015,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "Myfoodlink": "",
-                "myfoodlink": ""
+                "myfoodlink": "",
+                "Myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -62907,6 +63079,14 @@
             },
             "website": "https://www.open-xchange.com/"
         },
+        "OpenAI": {
+            "cats": [
+                112
+            ],
+            "description": "OpenAI provides the GPT family of models and the ChatGPT product line.",
+            "website": "https://openai.com",
+            "icon": "OpenAI.svg"
+        },
         "OpenBSD httpd": {
             "cats": [
                 22
@@ -65100,6 +65280,14 @@
             "website": "https://www.palbin.com",
             "icon": "Palbin.svg"
         },
+        "Palo Alto Networks": {
+            "cats": [
+                16
+            ],
+            "description": "Palo Alto Networks is a network and cloud security vendor.",
+            "website": "https://www.paloaltonetworks.com",
+            "icon": "Palo Alto Networks.svg"
+        },
         "Palo Alto Networks - GlobalProtect": {
             "cats": [
                 46
@@ -65372,6 +65560,14 @@
             ],
             "description": "Simple parallax scrolling effect.",
             "website": "https://github.com/pixelcog/parallax.js"
+        },
+        "Parallels": {
+            "cats": [
+                46
+            ],
+            "description": "Parallels provides virtualization and remote application delivery software, including Parallels Desktop and Parallels RAS.",
+            "website": "https://www.parallels.com",
+            "icon": "Parallels.png"
         },
         "parcel": {
             "cats": [
@@ -66097,8 +66293,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "paypal": "",
                 "PAYPAL": "",
+                "paypal": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -67409,8 +67605,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "PhpDebugBar": "",
-                "phpdebugbar": ""
+                "phpdebugbar": "",
+                "PhpDebugBar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -69165,6 +69361,22 @@
             "website": "https://www.pocus.com",
             "icon": "Pocus.svg"
         },
+        "Podbean": {
+            "cats": [
+                88
+            ],
+            "dom": {
+                "iframe[src*='podbean.com']": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "\\.podbean\\.com/"
+            ],
+            "description": "Podbean is a podcast hosting platform whose players and media are embedded on sites via podbean.com domains.",
+            "website": "https://podbean.com",
+            "icon": "Podbean.png"
+        },
         "Podia": {
             "cats": [
                 21,
@@ -69839,6 +70051,14 @@
             "description": "Postie is an all-in-one platform facilitating audience building, A/B testing, and campaign deployment.",
             "website": "https://postie.com",
             "icon": "Postie.svg"
+        },
+        "Postman": {
+            "cats": [
+                47
+            ],
+            "description": "Postman is an API development and testing platform.",
+            "website": "https://www.postman.com",
+            "icon": "PostmanAPIDocumentation.svg"
         },
         "Postman API Documentation": {
             "cats": [
@@ -80252,8 +80472,8 @@
                 "jQuery"
             ],
             "js": {
-                "Selectize": "",
-                "selectize": ""
+                "selectize": "",
+                "Selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -81493,8 +81713,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "SheerID": "",
-                "sheerid": ""
+                "sheerid": "",
+                "SheerID": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -82307,8 +82527,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "SHOPLAZZA": "",
-                "Shoplazza": ""
+                "Shoplazza": "",
+                "SHOPLAZZA": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -84735,6 +84955,14 @@
             "website": "https://get.slaask.com",
             "icon": "Slaask.svg"
         },
+        "Slack": {
+            "cats": [
+                19
+            ],
+            "description": "Slack is a team messaging and collaboration platform.",
+            "website": "https://slack.com",
+            "icon": "Slack.svg"
+        },
         "Slapform": {
             "cats": [
                 110
@@ -85155,6 +85383,34 @@
             ],
             "website": "https://smarterclick.com"
         },
+        "SmartFront": {
+            "cats": [
+                108,
+                6
+            ],
+            "dom": {
+                "[data-sf-shell-page-head]": {
+                    "exists": ""
+                },
+                "div#sf-tenant-css": {
+                    "exists": ""
+                },
+                "style#sf-theme-vars": {
+                    "exists": ""
+                }
+            },
+            "meta": {
+                "generator": [
+                    "^smartfront(?: ([\\d.]+))?$\\;version:\\1"
+                ]
+            },
+            "implies": [
+                "Next.js"
+            ],
+            "description": "SmartFront is a multi-tenant headless storefront and admin platform that runs on top of an existing commerce backend such as Magento, Shopify, WooCommerce, Shopware, BigCommerce, PrestaShop, OpenCart, Sylius or Medusa, or on its own native commerce.",
+            "website": "https://smartfront.io",
+            "icon": "SmartFront.svg"
+        },
         "SmartHint": {
             "cats": [
                 76
@@ -85236,6 +85492,14 @@
                 "\\.smartrecruiters\\.com/"
             ],
             "website": "https://www.smartrecruiters.com"
+        },
+        "Smartsheet": {
+            "cats": [
+                19
+            ],
+            "description": "Smartsheet is a work management and collaborative spreadsheet platform.",
+            "website": "https://www.smartsheet.com",
+            "icon": "Smartsheet.png"
         },
         "SmartSite": {
             "cats": [
@@ -87144,17 +87408,6 @@
             ],
             "website": "https://spinasale.com"
         },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
-        },
         "Spin.js": {
             "cats": [
                 59
@@ -87168,6 +87421,17 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
+        },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -94247,8 +94511,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "tiledesk": "",
                 "Tiledesk": "",
+                "tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -96736,6 +97000,14 @@
             "icon": "Twilight CMS.png",
             "website": "https://www.twilightcms.com"
         },
+        "Twilio": {
+            "cats": [
+                47
+            ],
+            "description": "Twilio is a cloud communications platform providing SMS, voice, email and messaging APIs.",
+            "website": "https://www.twilio.com",
+            "icon": "Twilio.svg"
+        },
         "Twilio Authy": {
             "cats": [
                 69
@@ -97137,6 +97409,14 @@
                 "ukomiInstaLikeStep01": ""
             },
             "website": "https://u-komi.com/en/"
+        },
+        "Uber": {
+            "cats": [
+                19
+            ],
+            "description": "Uber domain verification, used by Uber for Business to prove ownership of a company domain.",
+            "website": "https://www.uber.com",
+            "icon": "Uber.svg"
         },
         "Ubercart": {
             "cats": [
@@ -98861,8 +99141,8 @@
                 "Java"
             ],
             "js": {
-                "Vaadin": "",
-                "vaadin": ""
+                "vaadin": "",
+                "Vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -99610,6 +99890,35 @@
             "website": "https://www.vergic.com",
             "icon": "Vergic.svg"
         },
+        "Verificado": {
+            "cats": [
+                90,
+                5
+            ],
+            "dom": {
+                "#verificadoAIwidget": {
+                    "exists": ""
+                },
+                ".verificadoai-plp-rating": {
+                    "exists": ""
+                },
+                "html[data-verificado]": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "VerificadoAI.version": "^(.+)$\\;version:\\1",
+                "verificadoAIKeyId": "",
+                "verificadoAIUriBaseCdn": ""
+            },
+            "scriptSrc": [
+                "app\\.verificado\\.ai/js/widget/onsite-feedback-widget\\.js",
+                "cdn-mz-gj-vai\\.verificado\\.ai/(?:js/)?widget/"
+            ],
+            "description": "Verificado is a SaaS platform for collecting, moderating and publishing verified product and seller reviews on ecommerce sites.",
+            "website": "https://verificado.ai",
+            "icon": "Verificado.svg"
+        },
         "Verifone 2Checkout": {
             "cats": [
                 41
@@ -100097,8 +100406,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "VideoJS": "",
                 "videojs": "",
+                "VideoJS": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -100927,6 +101236,14 @@
             },
             "icon": "vk.svg",
             "website": "https://vkcom.github.io/VKUI"
+        },
+        "VMware CloudHealth": {
+            "cats": [
+                19
+            ],
+            "description": "CloudHealth by VMware is a multi-cloud cost management and governance platform.",
+            "website": "https://www.vmware.com",
+            "icon": "VMware.png"
         },
         "Vnda": {
             "cats": [
@@ -103142,17 +103459,6 @@
             },
             "website": "https://www.websitebuilder.com"
         },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
-        },
         "WebSocket": {
             "cats": [
                 19
@@ -103177,6 +103483,17 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
+        },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [
@@ -104374,6 +104691,14 @@
                 "static\\.wixstatic\\.com"
             ],
             "website": "https://www.wix.com/freesitebuilder/tae-store"
+        },
+        "Wiz": {
+            "cats": [
+                16
+            ],
+            "description": "Wiz is a cloud-native application protection platform (CNAPP).",
+            "website": "https://www.wiz.io",
+            "icon": "Wiz.png"
         },
         "Wized": {
             "cats": [
@@ -106462,6 +106787,14 @@
             "description": "YachtSys is a booking management system.",
             "website": "https://www.yachtsys.com",
             "icon": "YachtSys.svg"
+        },
+        "Yahoo": {
+            "cats": [
+                19
+            ],
+            "description": "Yahoo domain verification, used to prove ownership of a domain to Yahoo services.",
+            "website": "https://www.yahoo.com",
+            "icon": "Yahoo.svg"
         },
         "Yahoo Advertising": {
             "cats": [
@@ -108787,6 +109120,14 @@
                 "wp-content/plugins/zoodpay/(?:.+\\?ver=([\\d\\.]+))?\\;version:\\1"
             ],
             "website": "https://www.zoodpay.com"
+        },
+        "Zoom": {
+            "cats": [
+                19
+            ],
+            "description": "Zoom is a video conferencing and collaboration platform.",
+            "website": "https://www.zoom.com",
+            "icon": "Zoom.png"
         },
         "Zoominfo": {
             "cats": [
