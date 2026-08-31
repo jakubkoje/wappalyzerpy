@@ -1,5 +1,15 @@
 {
     "apps": {
+        "10to8": {
+            "cats": [
+                72
+            ],
+            "html": [
+                "<a [^>]*id=\"tte[^\"]"
+            ],
+            "website": "https://10to8.com/",
+            "icon": "10to8.png"
+        },
         "11Sight": {
             "cats": [
                 52,
@@ -133,6 +143,16 @@
             "website": "https://www.34sp.com",
             "icon": "34SP.com.svg"
         },
+        "3Q": {
+            "cats": [
+                14
+            ],
+            "scripts": [
+                "3qsdn\\.com"
+            ],
+            "website": "https://3q.video",
+            "icon": "3Q.png"
+        },
         "4-Tell": {
             "cats": [
                 76
@@ -199,6 +219,16 @@
             "description": "4Partners CMS is a cloud-based solution designed for ecommerce shops.",
             "website": "https://4partners.io/en/4p-cms",
             "icon": "4Partners.svg"
+        },
+        "4w MarketPlace for Publishers": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "cdn\\.feed\\.4wnet\\.com"
+            ],
+            "website": "http://www.4wmarketplace.com/",
+            "icon": "4wmarketplace.png"
         },
         "51.LA": {
             "cats": [
@@ -1261,6 +1291,16 @@
             "website": "https://www.activengage.com",
             "icon": "ActivEngage.svg"
         },
+        "ACTV8": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "a8MpParams": ""
+            },
+            "website": "https://www.actv8me.com/",
+            "icon": "ACTV8.svg"
+        },
         "Acuity Scheduling": {
             "cats": [
                 72
@@ -1550,6 +1590,16 @@
             "description": "Addi is a service that allows users to make purchases and pay for them in installments over time.",
             "website": "https://co.addi.com/",
             "icon": "addi.svg"
+        },
+        "Addingwell SST": {
+            "cats": [
+                42
+            ],
+            "html": [
+                "\\.js\\?aw='.*?\\+.*?dl;"
+            ],
+            "website": "https://www.addingwell.com",
+            "icon": "Addingwell SST.png"
         },
         "Addsearch": {
             "cats": [
@@ -1947,6 +1997,16 @@
             "description": "Adnegah is a digital marketing and internet advertising agency.",
             "website": "https://adnegah.net",
             "icon": "Adnegah.png"
+        },
+        "Adnuntius": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "cdn\\.adnuntius\\.com/adn\\.js"
+            ],
+            "website": "https://adnuntius.com",
+            "icon": "Adnuntius.png"
         },
         "Adnymics": {
             "cats": [
@@ -2577,6 +2637,16 @@
             "website": "https://www.advin.cz",
             "icon": "Advin.svg"
         },
+        "Advisible": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "//cdn\\.advisible\\.com"
+            ],
+            "website": "https://www.advisible.com",
+            "icon": "Advisible.png"
+        },
         "Adwos CMS": {
             "cats": [
                 1,
@@ -3050,6 +3120,17 @@
             "description": "Aidbase is an AI-driven support ecosystem designed to enhance user experiences.",
             "website": "https://www.aidbase.ai",
             "icon": "Aidbase.svg"
+        },
+        "AIDEM Technologies": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "//zero\\.aidemsrv\\.com/dist/prebid\\.js",
+                "stream\\.aidemsrv\\.com/lib/stream\\.js"
+            ],
+            "website": "https://www.aidem.com/",
+            "icon": "AIDEM Technologies.png"
         },
         "Aiden": {
             "cats": [
@@ -4207,6 +4288,17 @@
             "website": "https://alternc.com",
             "cpe": "cpe:2.3:a:alternc:alternc:*:*:*:*:*:*:*:*",
             "icon": "AlternC.png"
+        },
+        "Altervista Platform": {
+            "cats": [
+                11,
+                88
+            ],
+            "html": [
+                "<a href=\"http://www.altervista.org\">altervista</a>"
+            ],
+            "website": "https://altervista.com",
+            "icon": "Altervista Platform.png"
         },
         "Altis": {
             "cats": [
@@ -108985,6 +109077,16 @@
             "description": "Zyratalk is a tool for handling customer conversations and managing reviews to support organized feedback tracking.",
             "website": "https://www.zyratalk.com",
             "icon": "Zyratalk.svg"
+        },
+        "|related| Nat\u00edv Hirdet\u00e9s Kft": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "//related\\.hu"
+            ],
+            "website": "https://related.hu",
+            "icon": "related.png"
         }
     }
 }

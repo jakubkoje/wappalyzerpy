@@ -1,5 +1,15 @@
 {
     "apps": {
+        "10to8": {
+            "cats": [
+                72
+            ],
+            "html": [
+                "<a [^>]*id=\"tte[^\"]"
+            ],
+            "website": "https://10to8.com/",
+            "icon": "10to8.png"
+        },
         "11Sight": {
             "cats": [
                 52,
@@ -133,6 +143,16 @@
             "icon": "34SP.com.svg",
             "website": "https://www.34sp.com"
         },
+        "3Q": {
+            "cats": [
+                14
+            ],
+            "scripts": [
+                "3qsdn\\.com"
+            ],
+            "website": "https://3q.video",
+            "icon": "3Q.png"
+        },
         "4-Tell": {
             "cats": [
                 76
@@ -199,6 +219,16 @@
             "description": "4Partners CMS is a cloud-based solution designed for ecommerce shops.",
             "website": "https://4partners.io/en/4p-cms",
             "icon": "4Partners.svg"
+        },
+        "4w MarketPlace for Publishers": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "cdn\\.feed\\.4wnet\\.com"
+            ],
+            "website": "http://www.4wmarketplace.com/",
+            "icon": "4wmarketplace.png"
         },
         "51.LA": {
             "cats": [
@@ -1276,6 +1306,16 @@
             "website": "https://www.activengage.com",
             "icon": "ActivEngage.svg"
         },
+        "ACTV8": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "a8MpParams": ""
+            },
+            "website": "https://www.actv8me.com/",
+            "icon": "ACTV8.svg"
+        },
         "Acuity Scheduling": {
             "cats": [
                 72
@@ -1569,6 +1609,16 @@
                 "s3\\.amazonaws\\.com/widgets\\.addi\\.com/bundle\\.min\\.js"
             ],
             "website": "https://co.addi.com/"
+        },
+        "Addingwell SST": {
+            "cats": [
+                42
+            ],
+            "html": [
+                "\\.js\\?aw='.*?\\+.*?dl;"
+            ],
+            "website": "https://www.addingwell.com",
+            "icon": "Addingwell SST.png"
         },
         "Addsearch": {
             "cats": [
@@ -1885,8 +1935,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "admitad": "",
-                "ADMITAD": ""
+                "ADMITAD": "",
+                "admitad": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -1966,6 +2016,16 @@
                 "\\.adnegah\\.net/"
             ],
             "website": "https://adnegah.net"
+        },
+        "Adnuntius": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "cdn\\.adnuntius\\.com/adn\\.js"
+            ],
+            "website": "https://adnuntius.com",
+            "icon": "Adnuntius.png"
         },
         "Adnymics": {
             "cats": [
@@ -2597,6 +2657,16 @@
             "website": "https://www.advin.cz",
             "icon": "Advin.svg"
         },
+        "Advisible": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "//cdn\\.advisible\\.com"
+            ],
+            "website": "https://www.advisible.com",
+            "icon": "Advisible.png"
+        },
         "Adwos CMS": {
             "cats": [
                 1,
@@ -3070,6 +3140,17 @@
             "description": "Aidbase is an AI-driven support ecosystem designed to enhance user experiences.",
             "website": "https://www.aidbase.ai",
             "icon": "Aidbase.svg"
+        },
+        "AIDEM Technologies": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "//zero\\.aidemsrv\\.com/dist/prebid\\.js",
+                "stream\\.aidemsrv\\.com/lib/stream\\.js"
+            ],
+            "website": "https://www.aidem.com/",
+            "icon": "AIDEM Technologies.png"
         },
         "Aiden": {
             "cats": [
@@ -4229,6 +4310,17 @@
                 "js/alternc\\.js"
             ],
             "website": "https://alternc.com"
+        },
+        "Altervista Platform": {
+            "cats": [
+                11,
+                88
+            ],
+            "html": [
+                "<a href=\"http://www.altervista.org\">altervista</a>"
+            ],
+            "website": "https://altervista.com",
+            "icon": "Altervista Platform.png"
         },
         "Altis": {
             "cats": [
@@ -42981,6 +43073,22 @@
             "icon": "ImageEngine.svg",
             "website": "https://imageengine.io"
         },
+        "Imagekit": {
+            "cats": [
+                7
+            ],
+            "dom": {
+                "link[href*='ik.imagekit.io/']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "x-server": "imagekit\\.io"
+            },
+            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
+            "website": "https://imagekit.io/",
+            "icon": "ImageKit.svg"
+        },
         "ImageKit": {
             "cats": [
                 31,
@@ -42995,22 +43103,6 @@
                 "x-server": "imagekit\\.io"
             },
             "description": "ImageKit is a real-time image and video transformation, optimization, and delivery service with built-in digital asset management, powered by a global CDN.",
-            "website": "https://imagekit.io/",
-            "icon": "ImageKit.svg"
-        },
-        "Imagekit": {
-            "cats": [
-                7
-            ],
-            "dom": {
-                "link[href*='ik.imagekit.io/']": {
-                    "exists": ""
-                }
-            },
-            "headers": {
-                "x-server": "imagekit\\.io"
-            },
-            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
             "website": "https://imagekit.io/",
             "icon": "ImageKit.svg"
         },
@@ -49477,8 +49569,8 @@
                 "Laravel"
             ],
             "js": {
-                "echo.connector": "",
-                "Echo.connector": ""
+                "Echo.connector": "",
+                "echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -49572,8 +49664,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrignition": "\\;confidence:25",
                 "lrIgnition": "\\;confidence:25",
+                "lrignition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -55930,8 +56022,8 @@
                 "jQuery"
             ],
             "js": {
-                "metisMenu": "",
-                "MetisMenu": ""
+                "MetisMenu": "",
+                "metisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -59099,8 +59191,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -75032,8 +75124,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "Recaptcha": "",
-                "recaptcha": ""
+                "recaptcha": "",
+                "Recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -80602,8 +80694,8 @@
                 "jQuery"
             ],
             "js": {
-                "Selectize": "",
-                "selectize": ""
+                "selectize": "",
+                "Selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -81843,8 +81935,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "SheerID": "",
-                "sheerid": ""
+                "sheerid": "",
+                "SheerID": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -82657,8 +82749,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "SHOPLAZZA": "",
-                "Shoplazza": ""
+                "Shoplazza": "",
+                "SHOPLAZZA": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -87538,6 +87630,17 @@
             ],
             "website": "https://spinasale.com"
         },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
+        },
         "Spin.js": {
             "cats": [
                 59
@@ -87551,17 +87654,6 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
-        },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -99282,8 +99374,8 @@
                 "Java"
             ],
             "js": {
-                "Vaadin": "",
-                "vaadin": ""
+                "vaadin": "",
+                "Vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -109523,6 +109615,16 @@
             "description": "Zyratalk is a tool for handling customer conversations and managing reviews to support organized feedback tracking.",
             "website": "https://www.zyratalk.com",
             "icon": "Zyratalk.svg"
+        },
+        "|related| Nat\u00edv Hirdet\u00e9s Kft": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "//related\\.hu"
+            ],
+            "website": "https://related.hu",
+            "icon": "related.png"
         }
     }
 }
