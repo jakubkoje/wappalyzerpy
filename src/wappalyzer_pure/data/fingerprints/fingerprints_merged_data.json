@@ -2906,8 +2906,8 @@
             },
             "icon": "afterpay.svg",
             "js": {
-                "AfterPay": "",
                 "Afterpay": "",
+                "AfterPay": "",
                 "Afterpay.version": "([\\d\\.]+)\\;version:\\1",
                 "afterpay_product": "",
                 "AfterpayAttractWidget": "",
@@ -8017,6 +8017,10 @@
             "headers": {
                 "content-security-policy": "\\.authorize\\.net\\s"
             },
+            "html": [
+                "authorizenet\\\\?/directpost_payment",
+                "js\\.authorize\\.net"
+            ],
             "icon": "authorize.net.svg",
             "js": {
                 "config.authorizenet_public_client_key": ""
@@ -8541,8 +8545,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "awesomplete": "",
-                "Awesomplete": ""
+                "Awesomplete": "",
+                "awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -17038,6 +17042,28 @@
             ],
             "website": "https://consumers.citruspay.com/"
         },
+        "cituro": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "iframe[src*='cituro.com']": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "buildCituroOptions": "",
+                "cituroLoader": "",
+                "cituroOptions": "",
+                "cituroWidget": ""
+            },
+            "scriptSrc": [
+                "app\\.cituro\\.com/"
+            ],
+            "description": "cituro is a German online appointment-scheduling tool whose booking widget can be embedded on customer websites.",
+            "website": "https://www.cituro.com",
+            "icon": "cituro.png"
+        },
         "City Hive": {
             "cats": [
                 6
@@ -17442,6 +17468,25 @@
             "description": "Clearout is a bulk email validation service designed to clean email lists and improve deliverability.",
             "website": "https://clearout.io",
             "icon": "Clearout.svg"
+        },
+        "Clearpay": {
+            "cats": [
+                41,
+                91
+            ],
+            "js": {
+                "Clearpay": "",
+                "clearpay_js_snippet_version": "",
+                "clearpay_product": "",
+                "clearpay_shop_currency": ""
+            },
+            "scriptSrc": [
+                "\\.clearpay\\.co\\.uk/",
+                "static\\.afterpay\\.com/shopify-clearpay-javascript\\.js"
+            ],
+            "description": "Clearpay is the UK and EU brand of Afterpay, a buy-now-pay-later payment service that lets shoppers split purchases into interest-free instalments.",
+            "website": "https://www.clearpay.co.uk",
+            "icon": "Clearpay.png"
         },
         "ClearSale": {
             "cats": [
@@ -22959,6 +23004,22 @@
             "website": "https://dandomain.dk",
             "icon": "DanDomain.svg"
         },
+        "DanDomain email": {
+            "cats": [
+                75
+            ],
+            "description": "DanDomain email is the email hosting service provided by DanDomain, including webmail and Microsoft 365 plans.",
+            "website": "https://dandomain.dk/e-mail",
+            "icon": "DanDomain email.png"
+        },
+        "DanDomain hosting": {
+            "cats": [
+                88
+            ],
+            "description": "DanDomain hosting is a Danish web hosting and domain registration service, part of the team.blue group.",
+            "website": "https://dandomain.dk",
+            "icon": "DanDomain hosting.png"
+        },
         "DanDomain Webshop": {
             "cats": [
                 6
@@ -28278,6 +28339,21 @@
             ],
             "website": "https://www.emailjs.com"
         },
+        "EmailOctopus": {
+            "cats": [
+                75
+            ],
+            "js": {
+                "emailOctopus": "",
+                "emailoctopus": ""
+            },
+            "scriptSrc": [
+                "emailoctopus\\.com/bundles"
+            ],
+            "description": "EmailOctopus is an email marketing and newsletter service whose signup forms are embedded on customer websites.",
+            "website": "https://emailoctopus.com",
+            "icon": "EmailOctopus.png"
+        },
         "Emanda": {
             "cats": [
                 32
@@ -31163,6 +31239,17 @@
             ],
             "website": "https://fastpixel.io"
         },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
+        },
         "FastSpring": {
             "cats": [
                 6,
@@ -31184,17 +31271,6 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
-        },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -34157,17 +34233,6 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
-        },
         "framework7": {
             "cats": [
                 59,
@@ -34185,6 +34250,17 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
+        },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -36384,6 +36460,7 @@
                 "giosgWebpackJsonp": ""
             },
             "scripts": [
+                "giosg\\.com",
                 "service\\.giosg\\.com"
             ],
             "description": "Giosg is a live chat solution designed to support ecommerce platforms by enabling real-time customer communication and engagement.",
@@ -37994,6 +38071,22 @@
                 "ajax\\.googleapis\\.com/ajax/libs/"
             ],
             "website": "https://developers.google.com/speed/libraries"
+        },
+        "Google Looker Studio": {
+            "cats": [
+                10
+            ],
+            "dom": {
+                "iframe[src*='lookerstudio.google.com'], iframe[src*='datastudio.google.com']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "content-security-policy": "(?:lookerstudio|datastudio)\\.google\\.com"
+            },
+            "description": "Google Looker Studio (formerly Google Data Studio) is a free tool for creating and embedding interactive dashboards and reports.",
+            "website": "https://cloud.google.com/looker-studio",
+            "icon": "Google Looker Studio.png"
         },
         "Google Maps": {
             "cats": [
@@ -39722,6 +39815,21 @@
             "description": "Hapana is a gym and fitness studio management platform designed to streamline operations.",
             "website": "https://www.hapana.com",
             "icon": "Hapana.svg"
+        },
+        "Happierleads": {
+            "cats": [
+                10
+            ],
+            "js": {
+                "Happierleads": "",
+                "hlRunning": ""
+            },
+            "scriptSrc": [
+                "rest\\.happierleads\\.com"
+            ],
+            "description": "Happierleads is a B2B visitor-identification and lead-generation platform that reveals the companies visiting a website.",
+            "website": "https://www.happierleads.com",
+            "icon": "Happierleads.png"
         },
         "Happy Meal Prep": {
             "cats": [
@@ -42308,6 +42416,14 @@
             "description": "Hyperlane is a hosting platform for WordPress and Craft CMS websites.",
             "website": "https://hyperlane.co",
             "icon": "Hyperlane.svg"
+        },
+        "Hypernode": {
+            "cats": [
+                88
+            ],
+            "description": "Hypernode is a managed ecommerce hosting platform by Byte (Netherlands); hosted domains use ns*.hypernode.com nameservers or point at *.hypernode.io via CNAME.",
+            "website": "https://www.hypernode.com",
+            "icon": "Hypernode.png"
         },
         "Hyperspeed": {
             "cats": [
@@ -45951,6 +46067,20 @@
             "website": "https://www.jobboardfire.com",
             "icon": "JobBoardFire.svg"
         },
+        "Job Boardly": {
+            "cats": [
+                101
+            ],
+            "cookies": {
+                "_job_boardly_session": ""
+            },
+            "scriptSrc": [
+                "assets\\.jobboardly\\.com/"
+            ],
+            "description": "Job Boardly is a SaaS platform for creating and running hosted job boards without code.",
+            "website": "https://www.jobboardly.com",
+            "icon": "Job Boardly.png"
+        },
         "JobAdder": {
             "cats": [
                 101
@@ -49502,8 +49632,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "Langify": "",
                 "langify": "",
+                "Langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -49569,8 +49699,8 @@
                 "Laravel"
             ],
             "js": {
-                "Echo.connector": "",
-                "echo.connector": ""
+                "echo.connector": "",
+                "Echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -49664,8 +49794,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrIgnition": "\\;confidence:25",
                 "lrignition": "\\;confidence:25",
+                "lrIgnition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -51468,19 +51598,6 @@
             "icon": "LiteSpeed.svg",
             "website": "https://litespeedtech.com"
         },
-        "Litespeed Cache": {
-            "cats": [
-                23,
-                87
-            ],
-            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
-            "headers": {
-                "x-litespeed-cache": "",
-                "x-turbo-charged-by": "litespeed"
-            },
-            "icon": "litespeed-cache.png",
-            "website": "https://wordpress.org/plugins/litespeed-cache/"
-        },
         "LiteSpeed Cache": {
             "cats": [
                 23,
@@ -51502,6 +51619,19 @@
             "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
             "website": "https://www.litespeedtech.com/products/cache-plugins/wordpress-acceleration",
             "icon": "LiteSpeed.svg"
+        },
+        "Litespeed Cache": {
+            "cats": [
+                23,
+                87
+            ],
+            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
+            "headers": {
+                "x-litespeed-cache": "",
+                "x-turbo-charged-by": "litespeed"
+            },
+            "icon": "litespeed-cache.png",
+            "website": "https://wordpress.org/plugins/litespeed-cache/"
         },
         "Lithium": {
             "cats": [
@@ -58787,17 +58917,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "Moxie": {
-            "cats": [
-                5,
-                68
-            ],
-            "scriptSrc": [
-                "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Pollyfills for XHR2 and File API",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "mOxie": {
             "cats": [
                 59
@@ -58807,6 +58926,17 @@
                 "moxie": ""
             },
             "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "Moxie": {
+            "cats": [
+                5,
+                68
+            ],
+            "scriptSrc": [
+                "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Pollyfills for XHR2 and File API",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -59191,8 +59321,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "Myfoodlink": "",
-                "myfoodlink": ""
+                "myfoodlink": "",
+                "Myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -59831,6 +59961,13 @@
                 "\\.postrelease\\.com/"
             ],
             "website": "https://www.nativo.com"
+        },
+        "Natro": {
+            "cats": [
+                88
+            ],
+            "description": "Natro is a Turkish web hosting and domain registration provider; hosted domains use natrohost.com nameservers.",
+            "website": "https://www.natro.com"
         },
         "Natural Intelligence": {
             "cats": [
@@ -67800,8 +67937,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "PhpDebugBar": "",
-                "phpdebugbar": ""
+                "phpdebugbar": "",
+                "PhpDebugBar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -69657,6 +69794,25 @@
             "description": "Podpage is a podcast site builder that automatically creates professional websites for podcasts using RSS feeds.",
             "website": "https://www.podpage.com",
             "icon": "Podpage.svg"
+        },
+        "Podscribe": {
+            "cats": [
+                36
+            ],
+            "dom": {
+                "a[href*=\"app.podscribe.ai/\"]": {
+                    "exists": ""
+                },
+                "img[src*=\"podscribe.com/\"]": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "podscribe\\.(?:ai|com)/"
+            ],
+            "description": "Podscribe is an IAB-certified podcast and audio ad measurement platform; podcast sites link to their transcripts on app.podscribe.ai and advertiser sites load its attribution tags from podscribe hosts.",
+            "website": "https://podscribe.com",
+            "icon": "Podscribe.png"
         },
         "Podsights": {
             "cats": [
@@ -72250,19 +72406,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "Publive": {
-            "cats": [
-                1
-            ],
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "description": "Publive is a headless CMS for online publishers.",
-            "website": "https://www.thepublive.com",
-            "icon": "PubLive.svg"
-        },
         "PubLive": {
             "cats": [
                 1
@@ -72275,6 +72418,19 @@
             },
             "icon": "PubLive.svg",
             "website": "https://thepublive.com"
+        },
+        "Publive": {
+            "cats": [
+                1
+            ],
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "description": "Publive is a headless CMS for online publishers.",
+            "website": "https://www.thepublive.com",
+            "icon": "PubLive.svg"
         },
         "Publy": {
             "cats": [
@@ -73402,6 +73558,16 @@
                 "cdn\\.quantummetric\\.com"
             ],
             "website": "https://www.quantummetric.com/"
+        },
+        "Quantyoo": {
+            "cats": [
+                76
+            ],
+            "html": [
+                "https://quantyoo\\.de"
+            ],
+            "website": "https://quantyoo.de",
+            "icon": "Quantyoo.png"
         },
         "Quarto": {
             "cats": [
@@ -75342,6 +75508,20 @@
             "description": "Recop is a recruitment optimization system from Japan.",
             "website": "https://recop.jp",
             "icon": "Recop.svg"
+        },
+        "Recova": {
+            "cats": [
+                10
+            ],
+            "js": {
+                "recovaOrderTracking": ""
+            },
+            "scriptSrc": [
+                "api\\.recova\\.ai/recova_client(?:\\.min)?\\.js"
+            ],
+            "description": "Recova is an e-commerce conversion and cart-recovery tool that tracks shopper behavior to recover abandoned carts.",
+            "website": "https://recova.ai",
+            "icon": "Recova.png"
         },
         "RecoverMyCart": {
             "cats": [
@@ -80078,6 +80258,26 @@
             ],
             "website": "https://www.scorpion.co/"
         },
+        "Scrapive": {
+            "cats": [
+                32,
+                90,
+                5
+            ],
+            "js": {
+                "__SCRAPIVE_EMBED__": "",
+                "__SCRAPIVE_LOADED__": ""
+            },
+            "scripts": [
+                "window\\.__scrapive_loaded__"
+            ],
+            "scriptSrc": [
+                "scrapive\\.com/scrapive-[a-z-]+\\.iife\\.js"
+            ],
+            "description": "Scrapive is an on-site and WhatsApp marketing platform that provides sales and conversion optimization solutions for ecommerce websites.",
+            "website": "https://scrapive.com",
+            "icon": "Scrapive.png"
+        },
         "Screenfull.js": {
             "cats": [
                 59
@@ -80121,8 +80321,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "scrivito": "",
-                "Scrivito": ""
+                "Scrivito": "",
+                "scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -80694,8 +80894,8 @@
                 "jQuery"
             ],
             "js": {
-                "selectize": "",
-                "Selectize": ""
+                "Selectize": "",
+                "selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -82749,8 +82949,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "Shoplazza": "",
-                "SHOPLAZZA": ""
+                "SHOPLAZZA": "",
+                "Shoplazza": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -83994,16 +84194,19 @@
             ],
             "dom": {
                 "a[href*='.simplybook.'][target='_blank']": {
-                    "attributes": {
-                        "href": "\\.simplybook\\.(?:asia|it|me)"
-                    }
+                    "exists": ""
+                },
+                "iframe[src*='.simplybook.it']": {
+                    "exists": ""
                 }
             },
             "js": {
-                "configSoinSimplyPush": ""
+                "configSoinSimplyPush": "",
+                "SimplybookWidget": ""
             },
             "scriptSrc": [
-                "\\.simplybook\\.(?:asia|it|me)"
+                "\\.simplybook\\.(?:asia|it|me)",
+                "widget\\.simplybook\\.it"
             ],
             "description": "SimplyBook.me is an online appointment scheduling and booking software.",
             "website": "https://simplybook.me",
@@ -87630,17 +87833,6 @@
             ],
             "website": "https://spinasale.com"
         },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
-        },
         "Spin.js": {
             "cats": [
                 59
@@ -87654,6 +87846,17 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
+        },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -90003,8 +90206,8 @@
             },
             "icon": "Stylitics.svg",
             "js": {
-                "stylitics": "",
-                "Stylitics": ""
+                "Stylitics": "",
+                "stylitics": ""
             },
             "scriptSrc": [
                 "/stylitics/js/stylitics\\.js\\?ver=v([\\d.]+)\\;version:\\1",
@@ -90418,7 +90621,9 @@
                 "supabase.storageKey": ""
             },
             "scripts": [
-                "\\.supabase\\.co/"
+                "\\.supabase\\.co/",
+                "cdn\\.jsdelivr.net/npm/@supabase",
+                "unpkg\\.com/@supabase"
             ],
             "scriptSrc": [
                 "cdn\\.supabase\\.com"
@@ -94744,8 +94949,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "Tiledesk": "",
                 "tiledesk": "",
+                "Tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -94762,6 +94967,17 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
+        },
         "timeago": {
             "cats": [
                 59
@@ -94774,17 +94990,6 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
-        },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -99374,8 +99579,8 @@
                 "Java"
             ],
             "js": {
-                "vaadin": "",
-                "Vaadin": ""
+                "Vaadin": "",
+                "vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -100639,8 +100844,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "videojs": "",
                 "VideoJS": "",
+                "videojs": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -103070,6 +103275,14 @@
             },
             "website": "https://webedition.de/en"
         },
+        "Webempresa": {
+            "cats": [
+                88
+            ],
+            "description": "Webempresa is a Spanish web hosting provider specialised in WordPress, WooCommerce and Joomla hosting.",
+            "website": "https://www.webempresa.com",
+            "icon": "Webempresa.png"
+        },
         "WebEngage": {
             "cats": [
                 32,
@@ -103287,6 +103500,26 @@
             "description": "Webim is a platform offering live chat service for website visitors, facilitating real-time communication between businesses and their online audience.",
             "website": "https://webim.ru",
             "icon": "Webim.svg"
+        },
+        "WebinarGeek": {
+            "cats": [
+                103
+            ],
+            "dom": {
+                "iframe[src*='webinargeek.com'], script[src*='embed.webinargeek.com']": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "GeekEmbedLoaded": "",
+                "GeekEmbedStart": ""
+            },
+            "scriptSrc": [
+                "embed\\.webinargeek\\.com"
+            ],
+            "description": "WebinarGeek is a Dutch webinar platform for hosting, embedding and marketing live and automated webinars.",
+            "website": "https://www.webinargeek.com",
+            "icon": "WebinarGeek.svg"
         },
         "Webinaris": {
             "cats": [
@@ -105235,10 +105468,19 @@
             ],
             "description": "WooCommerce Subscriptions primarily allows you to create and sell subscription products from your WooCommerce shop.",
             "dom": {
+                "link[href*=\"/plugins/woocommerce-subscriptions/\"]": {
+                    "exists": ""
+                },
                 "link[href*='/wp-content/plugins/woocommerce-subscriptions/']": {
+                    "exists": ""
+                },
+                "script[src*=\"/plugins/woocommerce-subscriptions/\"]": {
                     "exists": ""
                 }
             },
+            "html": [
+                "/plugins/woocommerce-subscriptions/vendor/woocommerce/subscriptions-core/build"
+            ],
             "icon": "WooCommerce.svg",
             "implies": [
                 "WooCommerce"
@@ -106441,6 +106683,25 @@
             ],
             "website": "https://wysibb.com"
         },
+        "Wysistat": {
+            "cats": [
+                10
+            ],
+            "cookies": {
+                "wysistat": ""
+            },
+            "js": {
+                "_wsq": "",
+                "_wysistat": "",
+                "wysistat": ""
+            },
+            "scriptSrc": [
+                "www\\.wysistat\\.(?:com|net)/"
+            ],
+            "description": "Wysistat is a French web analytics and audience measurement service.",
+            "website": "https://www.wysistat.net",
+            "icon": "Wysistat.png"
+        },
         "X-Cart": {
             "cats": [
                 6
@@ -107245,8 +107506,9 @@
                 "yandex_metrika": ""
             },
             "scriptSrc": [
-                "cdn\\.jsdelivr\\.net/npm/yandex\\-metrica\\-watch/watch\\.js",
-                "mc\\.yandex\\.ru/metrika/(?:tag|watch)\\.js"
+                "cdn\\.jsdelivr\\.net/npm/yandex\\-metrica\\-watch/(?:tag|watch)\\.js",
+                "mc\\.yandex\\.ru/metrika/(?:tag|watch)\\.js",
+                "cdn\\.jsdelivr\\.net/npm/yandex\\-metrica\\-watch/watch\\.js"
             ],
             "website": "https://metrika.yandex.com"
         },
@@ -109343,8 +109605,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "zonos": "",
                 "Zonos": "",
+                "zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [
