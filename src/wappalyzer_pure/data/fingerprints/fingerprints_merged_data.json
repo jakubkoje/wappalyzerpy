@@ -8545,8 +8545,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "Awesomplete": "",
-                "awesomplete": ""
+                "awesomplete": "",
+                "Awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -25321,8 +25321,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DonorBox": "",
                 "DONORBOX": "",
+                "DonorBox": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -34233,6 +34233,17 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
+        },
         "framework7": {
             "cats": [
                 59,
@@ -34250,17 +34261,6 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
-        },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -49632,8 +49632,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "langify": "",
                 "Langify": "",
+                "langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -49794,8 +49794,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrignition": "\\;confidence:25",
                 "lrIgnition": "\\;confidence:25",
+                "lrignition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -59321,8 +59321,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -66625,8 +66625,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "paypal": "",
                 "PAYPAL": "",
+                "paypal": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -67937,8 +67937,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "phpdebugbar": "",
-                "PhpDebugBar": ""
+                "PhpDebugBar": "",
+                "phpdebugbar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -80321,8 +80321,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "Scrivito": "",
-                "scrivito": ""
+                "scrivito": "",
+                "Scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -80894,8 +80894,8 @@
                 "jQuery"
             ],
             "js": {
-                "Selectize": "",
-                "selectize": ""
+                "selectize": "",
+                "Selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -82949,8 +82949,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "SHOPLAZZA": "",
-                "Shoplazza": ""
+                "Shoplazza": "",
+                "SHOPLAZZA": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -83840,6 +83840,8 @@
             "cats": [
                 51
             ],
+            "description": "Silex is an open-source web-based website builder that allows users to create websites without writing code.",
+            "icon": "Silex.svg",
             "js": {
                 "silex.getCurrentPage": ""
             },
@@ -83848,9 +83850,7 @@
                     "^silex v([\\d.]+)\\;version:\\1"
                 ]
             },
-            "description": "Silex is an open-source web-based website builder that allows users to create websites without writing code.",
-            "website": "https://www.silex.me",
-            "icon": "Silex.svg"
+            "website": "https://www.silex.me"
         },
         "Silktide": {
             "cats": [
@@ -90206,8 +90206,8 @@
             },
             "icon": "Stylitics.svg",
             "js": {
-                "Stylitics": "",
-                "stylitics": ""
+                "stylitics": "",
+                "Stylitics": ""
             },
             "scriptSrc": [
                 "/stylitics/js/stylitics\\.js\\?ver=v([\\d.]+)\\;version:\\1",
@@ -94949,8 +94949,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "tiledesk": "",
                 "Tiledesk": "",
+                "tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -94967,17 +94967,6 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
-        },
         "timeago": {
             "cats": [
                 59
@@ -94990,6 +94979,17 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
+        },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -95891,8 +95891,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -99579,8 +99579,8 @@
                 "Java"
             ],
             "js": {
-                "Vaadin": "",
-                "vaadin": ""
+                "vaadin": "",
+                "Vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -103925,17 +103925,6 @@
             },
             "website": "https://www.websitebuilder.com"
         },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
-        },
         "WebSocket": {
             "cats": [
                 19
@@ -103960,6 +103949,17 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
+        },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [

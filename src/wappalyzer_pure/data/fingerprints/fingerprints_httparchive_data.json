@@ -45739,6 +45739,19 @@
             "website": "https://siimple.xyz",
             "icon": "siimple.svg"
         },
+        "Silex": {
+            "cats": [
+                51
+            ],
+            "meta": {
+                "generator": [
+                    "^silex v([\\d.]+)\\;version:\\1"
+                ]
+            },
+            "description": "Silex is a free and open source no-code website builder. It exports static websites and is also available as a desktop application.",
+            "website": "https://www.silex.me",
+            "icon": "Silex.png"
+        },
         "Silverstripe": {
             "cats": [
                 1

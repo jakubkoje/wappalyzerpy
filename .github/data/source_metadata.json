@@ -38,18 +38,18 @@
             "repo": "enthec/webappanalyzer",
             "ref": "main",
             "commit": "2b5eed3a5eede8b2415fcd0b27c003d625ad88d3",
-            "fetched_at_utc": "2026-09-07T08:55:34Z"
+            "fetched_at_utc": "2026-09-14T09:33:57Z"
         },
         "httparchive": {
             "counts": {
-                "technologies": 4000,
+                "technologies": 4001,
                 "categories": 108,
                 "technology_files": 27
             },
             "repo": "HTTPArchive/wappalyzer",
             "ref": "main",
-            "commit": "36e28a384db4b3d3418c23bdd0cbe0a7bccd471b",
-            "fetched_at_utc": "2026-09-07T08:55:34Z"
+            "commit": "648ab9da731ee18c1958be29a8e03a4dbe0994d4",
+            "fetched_at_utc": "2026-09-14T09:33:57Z"
         },
         "merged": {
             "counts": {
@@ -61,16 +61,16 @@
                 "enthec",
                 "httparchive"
             ],
-            "fetched_at_utc": "2026-09-07T08:55:34Z"
+            "fetched_at_utc": "2026-09-14T09:33:57Z"
         }
     },
     "comparison": {
         "technologies": {
-            "shared": 3989,
-            "only_enthec": 3624,
+            "shared": 3990,
+            "only_enthec": 3623,
             "only_httparchive": 11,
             "identical_shared": 2501,
-            "different_shared": 1488
+            "different_shared": 1489
         },
         "categories": {
             "shared": 108,
