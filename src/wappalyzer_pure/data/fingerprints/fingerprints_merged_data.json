@@ -1878,6 +1878,17 @@
             ],
             "website": "https://www.adloox.com"
         },
+        "Admatic": {
+            "cats": [
+                36
+            ],
+            "scriptSrc": [
+                "\\.admatic\\.com\\.tr/"
+            ],
+            "description": "Admatic is a Turkish advertising and supply-side platform (SSP) that serves ads via header bidding and programmatic exchanges.",
+            "website": "https://www.admatic.com.tr",
+            "icon": "Admatic.png"
+        },
         "AdminBuy": {
             "cats": [
                 1
@@ -1935,8 +1946,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "ADMITAD": "",
-                "admitad": ""
+                "admitad": "",
+                "ADMITAD": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -2906,8 +2917,8 @@
             },
             "icon": "afterpay.svg",
             "js": {
-                "Afterpay": "",
                 "AfterPay": "",
+                "Afterpay": "",
                 "Afterpay.version": "([\\d\\.]+)\\;version:\\1",
                 "afterpay_product": "",
                 "AfterpayAttractWidget": "",
@@ -5158,7 +5169,7 @@
             "cats": [
                 12
             ],
-            "cpe": "cpe:2.3:a:angularjs:angular:*:*:*:*:*:*:*:*",
+            "cpe": "cpe:2.3:a:angular:angular:*:*:*:*:*:*:*:*",
             "description": "Angular is a TypeScript-based open-source web application framework led by the Angular Team at Google.",
             "dom": {
                 "[ng-version]": {
@@ -6929,6 +6940,22 @@
             "description": "Artplayer.js is an HTML5 video player that supports customizable UI, subtitles, and plugins, offering a flexible and modern video playback solution.",
             "website": "https://artplayer.org",
             "icon": "Artplayer.js.svg"
+        },
+        "ArtsAI": {
+            "cats": [
+                36
+            ],
+            "dom": {
+                "img[src*=\"arttrk.com/pixel\"]": {
+                    "exists": ""
+                }
+            },
+            "html": [
+                "arttrk\\.com/pixel"
+            ],
+            "description": "ArtsAI is an AI-driven advertising attribution and measurement platform that tracks campaign performance via its arttrk.com pixel.",
+            "website": "https://artsai.com",
+            "icon": "ArtsAI.png"
         },
         "Aruba.it": {
             "cats": [
@@ -13538,7 +13565,7 @@
                 "BSmartConfirmWindow": "",
                 "bsmartPriceList": ""
             },
-            "website": "https://www.bsmart.co.il/?utm_source=wappalyzer&utm_medium=referral"
+            "website": "https://www.bsmart.co.il/"
         },
         "Bsport": {
             "cats": [
@@ -15100,7 +15127,7 @@
             "scriptSrc": [
                 "googlecommerce\\.com/trustedstores/api/js"
             ],
-            "website": "https://www.wappalyzer.com/technologies/ecommerce/cart-functionality"
+            "website": "https://en.wikipedia.org/wiki/Shopping_cart_software"
         },
         "Cart.com": {
             "cats": [
@@ -24881,6 +24908,7 @@
                 80,
                 87
             ],
+            "cpe": "cpe:2.3:a:elegantthemes:divi:*:*:*:*:*:wordpress:*:*",
             "description": "Divi is a WordPress Theme and standalone WordPress plugin from Elegant themes that allows users to build websites using the visual drag-and-drop Divi page builder.",
             "dom": {
                 "style#divi-style-parent-inline-inline-css": {
@@ -28726,6 +28754,25 @@
             },
             "website": "https://enamad.ir/"
         },
+        "Encharge": {
+            "cats": [
+                32,
+                75
+            ],
+            "cookies": {
+                "encheventsnippet": ""
+            },
+            "js": {
+                "EnchargeTracking": "",
+                "EncTracking": ""
+            },
+            "scriptSrc": [
+                "resources-app\\.encharge\\.io/(?:encharge-tracking|embed-production)"
+            ],
+            "description": "Encharge is a marketing automation platform that sends behavior-based emails and tracks website visitor activity.",
+            "website": "https://encharge.io",
+            "icon": "Encharge.png"
+        },
         "Endurance Page Cache": {
             "cats": [
                 87,
@@ -29540,6 +29587,22 @@
             ],
             "icon": "Syncfusion.svg",
             "website": "https://www.syncfusion.com/javascript-ui-controls"
+        },
+        "eStat Streaming": {
+            "cats": [
+                10
+            ],
+            "js": {
+                "_eStat_Whap_loaded": "",
+                "_eStat_Whap_loaded_func": "",
+                "eStat_PJS": ""
+            },
+            "scriptSrc": [
+                "(?:prof|w{1,2}|perso|playtime)\\.estat\\.com/"
+            ],
+            "description": "eStat Streaming is M\u00e9diam\u00e9trie's streaming audio/video audience measurement tag used by French radio, TV and media websites.",
+            "website": "https://www.mediametrie.fr",
+            "icon": "eStat Streaming.png"
         },
         "Estate Track": {
             "cats": [
@@ -31239,17 +31302,6 @@
             ],
             "website": "https://fastpixel.io"
         },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
-        },
         "FastSpring": {
             "cats": [
                 6,
@@ -31271,6 +31323,17 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
+        },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -32551,6 +32614,29 @@
             "website": "https://flexifunnels.com",
             "icon": "FlexiFunnels.svg"
         },
+        "Flexmail": {
+            "cats": [
+                75,
+                32
+            ],
+            "dom": {
+                "form[action*=\"flexmail.eu\"]": {
+                    "exists": ""
+                },
+                "iframe[src*=\"flexmail.eu\"]": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "content-security-policy": "(?:^|[^a-z])flexmail\\.eu"
+            },
+            "scriptSrc": [
+                "\\.flexmail\\.eu/"
+            ],
+            "description": "Flexmail is a Belgian email marketing platform offering campaign management, embeddable forms and surveys.",
+            "website": "https://flexmail.be",
+            "icon": "Flexmail.png"
+        },
         "Flexmls": {
             "cats": [
                 1
@@ -33125,6 +33211,16 @@
             },
             "icon": "Fly.io.svg",
             "website": "https://fly.io"
+        },
+        "Flyads": {
+            "cats": [
+                36
+            ],
+            "cookies": {
+                "flyid": ""
+            },
+            "description": "Flyads is an ad network serving from fly.codes and displayfly.com hosts and setting the flyid cookie.",
+            "website": "https://displayfly.com"
         },
         "Flybook": {
             "cats": [
@@ -43349,14 +43445,22 @@
             "cats": [
                 71
             ],
+            "cookies": {
+                "ir_gbd": "",
+                "ir_pi": ""
+            },
             "description": "Impact helps businesses contract and pay partners.",
             "icon": "Impact.svg",
             "js": {
+                "impactDataLayer": "",
                 "ImpactRadiusEvent": "",
+                "ire": "",
+                "ire_o": "",
                 "irEvent": ""
             },
             "scriptSrc": [
-                "d\\.impactradius-event\\.com"
+                "d\\.impactradius-event\\.com",
+                "utt\\.impactcdn\\.com"
             ],
             "website": "https://impact.com/"
         },
@@ -46513,7 +46617,7 @@
             "cats": [
                 59
             ],
-            "cpe": "cpe:2.3:a:jquery:jquery_ui:*:*:*:*:*:*:*:*",
+            "cpe": "cpe:2.3:a:jqueryui:jquery_ui:*:*:*:*:*:*:*:*",
             "description": "jQuery UI is a collection of GUI widgets, animated visual effects, and themes implemented with jQuery, Cascading Style Sheets, and HTML.",
             "icon": "jQuery UI.svg",
             "implies": [
@@ -47723,7 +47827,7 @@
                 "cmscookielevel": "",
                 "cmspreferredculture": ""
             },
-            "cpe": "cpe:2.3:a:kentico:kentico_cms:*:*:*:*:*:*:*:*",
+            "cpe": "cpe:2.3:a:kentico:xperience:*:*:*:*:*:*:*:*",
             "description": "Kentico CMS is a web content management system for building websites, online stores, intranets, and Web 2.0 community sites.",
             "dom": {
                 "link[href*='/kentico/bundles/pageComponents/']": {
@@ -49632,8 +49736,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "Langify": "",
                 "langify": "",
+                "Langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -49699,8 +49803,8 @@
                 "Laravel"
             ],
             "js": {
-                "echo.connector": "",
-                "Echo.connector": ""
+                "Echo.connector": "",
+                "echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -52701,6 +52805,17 @@
             },
             "website": "https://www.loqate.com"
         },
+        "Lotame": {
+            "cats": [
+                97,
+                36
+            ],
+            "scriptSrc": [
+                "\\.crwdcntrl\\.net/"
+            ],
+            "description": "Lotame is a data management platform (DMP) providing audience data collection, segmentation and identity solutions via its Crowd Control tag.",
+            "website": "https://www.lotame.com"
+        },
         "LotLinx": {
             "cats": [
                 32
@@ -53696,6 +53811,7 @@
                 87,
                 32
             ],
+            "cpe": "cpe:2.3:a:ibericode:mailchimp:*:*:*:*:*:wordpress:*:*",
             "description": "MailChimp for WordPress is an email marketing plugin that enables you to build subscriber lists.",
             "dom": {
                 "link[href*='/wp-content/plugins/mailchimp-for-wp/']": {
@@ -56152,8 +56268,8 @@
                 "jQuery"
             ],
             "js": {
-                "MetisMenu": "",
-                "metisMenu": ""
+                "metisMenu": "",
+                "MetisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -58917,17 +59033,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "mOxie": {
-            "cats": [
-                59
-            ],
-            "js": {
-                "mOxie": "",
-                "moxie": ""
-            },
-            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "Moxie": {
             "cats": [
                 5,
@@ -58937,6 +59042,17 @@
                 "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
             ],
             "description": "Pollyfills for XHR2 and File API",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "mOxie": {
+            "cats": [
+                59
+            ],
+            "js": {
+                "mOxie": "",
+                "moxie": ""
+            },
+            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -64248,6 +64364,7 @@
             },
             "icon": "Oracle.svg",
             "implies": [
+                "Weblogic Server",
                 "Oracle WebLogic Server"
             ],
             "website": "https://oracle.com"
@@ -64327,13 +64444,13 @@
             "cats": [
                 22
             ],
-            "cpe": "cpe:2.3:a:bea:weblogic_server:*:*:*:*:*:*:*:*",
-            "description": "Oracle WebLogic Server is a Java-based application server that provides a platform for developing, deploying, and running enterprise-level Java applications.",
-            "icon": "Oracle.svg",
             "implies": [
                 "Java"
             ],
-            "website": "https://www.oracle.com/java/weblogic/"
+            "description": "Oracle WebLogic Server is a Java-based application server that provides a platform for developing, deploying, and running enterprise-level Java applications.",
+            "website": "https://www.oracle.com/java/weblogic/",
+            "cpe": "cpe:2.3:a:bea:weblogic_server:*:*:*:*:*:*:*:*",
+            "icon": "Oracle.svg"
         },
         "Orama": {
             "cats": [
@@ -64362,6 +64479,28 @@
                 "www\\.orankl\\.com/"
             ],
             "website": "https://www.orankl.com"
+        },
+        "Orbit Commerce": {
+            "cats": [
+                6
+            ],
+            "js": {
+                "OrbitCommerce.platform": "^Orbit Commerce$"
+            },
+            "headers": {
+                "x-powered-by": "^orbit commerce$"
+            },
+            "meta": {
+                "generator": [
+                    "^orbit commerce$"
+                ]
+            },
+            "implies": [
+                "Next.js"
+            ],
+            "description": "Orbit Commerce is a hosted ecommerce platform from the UK with a drag-and-drop page builder, themes, payments, B2B selling and marketing tools.",
+            "website": "https://orbitcommerce.net",
+            "icon": "Orbit Commerce.svg"
         },
         "Orbit Slider": {
             "cats": [
@@ -66625,8 +66764,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "PAYPAL": "",
                 "paypal": "",
+                "PAYPAL": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -66965,6 +67104,19 @@
             "description": "Peel is an open source shopping cart system.",
             "website": "https://www.peel.fr",
             "icon": "Peel.svg"
+        },
+        "Peer39": {
+            "cats": [
+                36
+            ],
+            "html": [
+                "tags\\.peer39\\.com"
+            ],
+            "scriptSrc": [
+                "\\.peer39\\.(?:com|net)/"
+            ],
+            "description": "Peer39 is a contextual page-quality and ad-intelligence service used pre-bid in programmatic advertising.",
+            "website": "https://www.peer39.com"
         },
         "PeerBoard": {
             "cats": [
@@ -67937,8 +68089,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "PhpDebugBar": "",
-                "phpdebugbar": ""
+                "phpdebugbar": "",
+                "PhpDebugBar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -69289,6 +69441,17 @@
             "website": "https://www.plentyone.com/product/online-shop",
             "icon": "PlentyONE.svg"
         },
+        "PlentyONE Shop": {
+            "cats": [
+                6
+            ],
+            "headers": {
+                "x-plenty-shop": "plentyone shop"
+            },
+            "description": "The official shop solution developed by PlentyONE. PlentyONE Shop is the new default Shop solution for PlentyONE online stores.",
+            "website": "https://www.plentyone.com/product/online-shop",
+            "icon": "PlentyONE.svg"
+        },
         "plentyShop LTS": {
             "cats": [
                 6
@@ -69335,7 +69498,7 @@
             "cats": [
                 9
             ],
-            "cpe": "cpe:2.3:a:parallels:parallels_plesk_panel:*:*:*:*:*:*:*:*",
+            "cpe": "cpe:2.3:a:plesk:plesk:*:*:*:*:*:*:*:*",
             "description": "Plesk is a web hosting and server data centre automation software with a control panel developed for Linux and Windows-based retail hosting service providers.",
             "headers": {
                 "x-powered-by": "^plesk(?:l|w)in",
@@ -71599,7 +71762,7 @@
             "cookies": {
                 "ppwp_wp_session": ""
             },
-            "cpe": "cpe:2.3:a:profilepress:profilepress:*:*:*:*:*:wordpress:*:*",
+            "cpe": "cpe:2.3:a:properfraction:profilepress:*:*:*:*:*:wordpress:*:*",
             "description": "ProfilePress is a WordPress registration plugin that lets you create login forms, registration forms, user profiles, and more.",
             "dom": {
                 "link[href*='/wp-content/plugins/wp-user-avatar/']": {
@@ -71691,6 +71854,7 @@
             "cats": [
                 19
             ],
+            "cpe": "cpe:2.3:a:progress:moveit_transfer:*:*:*:*:*:*:*:*",
             "description": "Progress MOVEit is a managed file transfer solution that enables secure and compliant transfer of sensitive files while providing automation, central management, and auditing capabilities.",
             "headers": {
                 "x-moveitisapi-version": "^(.+)$\\;version:\\1"
@@ -71748,8 +71912,9 @@
                 59
             ],
             "scriptSrc": [
-                "(?:((?:\\d+\\.)+\\d+)\\/)?progressbar(?:\\.min)?\\.js\\;version:\\1",
-                "progressbar(?:\\.min)?\\.js(?:\\?v(?:er)?=((?:\\d+\\.)+\\d+))?\\;version:\\1"
+                "\\/progressbar\\.js@([\\d\\.]+)\\/dist\\/progressbar(?:\\.min)?\\.js\\;version:\\1",
+                "\\/progressbar\\.js\\/dist\\/progressbar(?:\\.min)?\\.js",
+                "cdnjs\\.cloudflare\\.com\\/ajax\\/libs\\/progressbar\\.js\\/([\\d\\.]+)\\/progressbar(?:\\.min)?\\.js\\;version:\\1"
             ],
             "description": "Responsive progress bars with animated SVG paths.",
             "website": "https://kimmobrunfeldt.github.io/progressbar.js/",
@@ -72287,6 +72452,13 @@
             ],
             "website": "https://pterodactyl.io"
         },
+        "PTisp": {
+            "cats": [
+                88
+            ],
+            "description": "PTisp is a Portuguese hosting provider; hosted domains use mydnspt.net nameservers.",
+            "website": "https://ptisp.pt"
+        },
         "PTminder": {
             "cats": [
                 53
@@ -72406,19 +72578,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "PubLive": {
-            "cats": [
-                1
-            ],
-            "description": "PubLive is a headless CMS for online publishers.",
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "icon": "PubLive.svg",
-            "website": "https://thepublive.com"
-        },
         "Publive": {
             "cats": [
                 1
@@ -72431,6 +72590,19 @@
             "description": "Publive is a headless CMS for online publishers.",
             "website": "https://www.thepublive.com",
             "icon": "PubLive.svg"
+        },
+        "PubLive": {
+            "cats": [
+                1
+            ],
+            "description": "PubLive is a headless CMS for online publishers.",
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "icon": "PubLive.svg",
+            "website": "https://thepublive.com"
         },
         "Publy": {
             "cats": [
@@ -80321,8 +80493,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "scrivito": "",
-                "Scrivito": ""
+                "Scrivito": "",
+                "scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -81879,6 +82051,14 @@
             ],
             "website": "https://sezzle.com/"
         },
+        "Sfera Networks": {
+            "cats": [
+                88
+            ],
+            "description": "Sfera Networks is an Italian hosting provider; hosted domains use sfera.net nameservers.",
+            "website": "https://www.sfera.net",
+            "icon": "Sfera Networks.png"
+        },
         "shadcn-svelte": {
             "cats": [
                 66
@@ -82135,8 +82315,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "sheerid": "",
-                "SheerID": ""
+                "SheerID": "",
+                "sheerid": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -82949,8 +83129,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "Shoplazza": "",
-                "SHOPLAZZA": ""
+                "SHOPLAZZA": "",
+                "Shoplazza": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -83410,6 +83590,35 @@
                 "\\.amazonaws\\.com/shopwired-theme-assets/"
             ],
             "website": "https://www.shopwired.co.uk"
+        },
+        "ShopWise": {
+            "cats": [
+                6
+            ],
+            "dom": {
+                "link[href*='.myshopwise.now']": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "__SHOPWISE__.name": "ShopWise",
+                "__SHOPWISE__.version": ""
+            },
+            "headers": {
+                "x-powered-by": "shopwise"
+            },
+            "meta": {
+                "generator": [
+                    "shopwise"
+                ]
+            },
+            "implies": [
+                "Node.js",
+                "Nuxt.js"
+            ],
+            "description": "ShopWise is a multi-tenant e-commerce platform for building online stores and marketplaces, with a hosted admin, theme editor, dropshipping and a built-in checkout.",
+            "website": "https://shopwise.now",
+            "icon": "ShopWise.svg"
         },
         "ShopX": {
             "cats": [
@@ -87833,6 +88042,17 @@
             ],
             "website": "https://spinasale.com"
         },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
+        },
         "Spin.js": {
             "cats": [
                 59
@@ -87846,17 +88066,6 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
-        },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -89979,6 +90188,23 @@
             "description": "Streamoid is a fashion AI optimization and personalization solution, enhancing user experiences through tailored recommendations.",
             "website": "https://www.streamoid.com",
             "icon": "Streamoid.svg"
+        },
+        "streaMonkey": {
+            "cats": [
+                103
+            ],
+            "js": {
+                "StreamPlayer": ""
+            },
+            "html": [
+                "\\.streamonkey\\.net/"
+            ],
+            "scriptSrc": [
+                "player\\.streamonkey\\.net/"
+            ],
+            "description": "streaMonkey is a German audio-streaming provider; sites embed its player from player.streamonkey.net and stream from frontend/edge streamonkey.net hosts.",
+            "website": "https://streamonkey.de",
+            "icon": "streaMonkey.png"
         },
         "Streamroll": {
             "cats": [
@@ -92828,6 +93054,18 @@
             ],
             "website": "https://teachable.com"
         },
+        "teachworks": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "[id='teachworks-booking-button']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://teachworks.com",
+            "icon": "teachworks.png"
+        },
         "Teads": {
             "cats": [
                 36
@@ -93648,6 +93886,17 @@
                 "the-dotcom-public-cdn\\.s3\\.amazonaws\\.com/"
             ],
             "website": "https://www.the.com"
+        },
+        "THEADX": {
+            "cats": [
+                36
+            ],
+            "scriptSrc": [
+                "app\\.theadx\\.com/"
+            ],
+            "description": "THEADX is a Turkish advertising network and ad exchange that serves ad tags and tracking pixels via theadx.com.",
+            "website": "https://www.theadx.com",
+            "icon": "THEADX.png"
         },
         "Theasys": {
             "cats": [
@@ -95891,8 +96140,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "TrackJs": "",
-                "trackJs": ""
+                "trackJs": "",
+                "TrackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -96105,7 +96354,6 @@
             "cats": [
                 12
             ],
-            "cpe": "cpe:2.3:a:transifex:transifex:*:*:*:*:*:*:*:*",
             "description": "Transifex is a cloud-based platform for managing the translation and localization of digital content.",
             "icon": "transifex.svg",
             "js": {
@@ -97031,6 +97279,14 @@
                 "(turf@[\\d.]+)?/?turf\\.min\\.js"
             ],
             "website": "https://turfjs.org/"
+        },
+        "Turhost": {
+            "cats": [
+                88
+            ],
+            "description": "Turhost is a Turkish hosting provider; hosted domains use turhost.com nameservers.",
+            "website": "https://www.turhost.com",
+            "icon": "Turhost.png"
         },
         "TuriTop": {
             "cats": [
@@ -98472,6 +98728,7 @@
             "cats": [
                 28
             ],
+            "cpe": "cpe:2.3:a:ui:unifi_network_application:*:*:*:*:*:*:*:*",
             "description": "UniFi OS is the operating system for UniFi products, which provides a user interface.",
             "icon": "UniFi_OS.svg",
             "js": {
@@ -103636,6 +103893,7 @@
             "cats": [
                 22
             ],
+            "cpe": "cpe:2.3:a:oracle:weblogic_server:*:*:*:*:*:*:*:*",
             "description": "WebLogic Server is an Application Server that runs on a middle tier, between back-end databases and related applications and browser-based thin clients.",
             "headers": {
                 "server": "^weblogic\\sserver\\s([\\d\\.]+)?\\;version:\\1"
@@ -107505,6 +107763,10 @@
             "js": {
                 "yandex_metrika": ""
             },
+            "scripts": [
+                "cdn\\.jsdelivr\\.net/npm/yandex\\-metrica\\-watch/(?:tag|watch)\\.js",
+                "mc\\.yandex\\.ru/metrika/(?:tag|watch)\\.js"
+            ],
             "scriptSrc": [
                 "cdn\\.jsdelivr\\.net/npm/yandex\\-metrica\\-watch/(?:tag|watch)\\.js",
                 "mc\\.yandex\\.ru/metrika/(?:tag|watch)\\.js",
@@ -109605,8 +109867,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "Zonos": "",
                 "zonos": "",
+                "Zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [
