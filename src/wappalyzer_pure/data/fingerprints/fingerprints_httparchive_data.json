@@ -38392,8 +38392,19 @@
                 ]
             },
             "description": "plentymarkets is a cloud-based all-in-one ecommerce ERP solution.",
-            "website": "https://www.plentymarkets.com/",
+            "website": "https://www.plentyone.com",
             "icon": "plentymarkets.svg"
+        },
+        "PlentyONE Shop": {
+            "cats": [
+                6
+            ],
+            "headers": {
+                "x-plenty-shop": "plentyone shop"
+            },
+            "description": "The official shop solution developed by PlentyONE. PlentyONE Shop is the new default Shop solution for PlentyONE online stores.",
+            "website": "https://www.plentyone.com/product/online-shop",
+            "icon": "PlentyONE.svg"
         },
         "plentyShop LTS": {
             "cats": [
@@ -38402,8 +38413,8 @@
             "headers": {
                 "x-plenty-shop": "ceres"
             },
-            "description": "The official template plugin developed by plentymarkets. plentyShop LTS is the default template for plentymarkets online stores.",
-            "website": "https://www.plentymarkets.com/product/modules/online-shop/",
+            "description": "The plentyShop LTS plugin developed by PlentyONE. plentyShop LTS is the plugin based shop solution for PlentyONE. The predecessor to PlentyONE Shop",
+            "website": "https://www.plentyone.com/product/online-shop",
             "icon": "plentyShop LTS.svg"
         },
         "Pleroma": {
