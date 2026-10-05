@@ -6071,8 +6071,8 @@
             "icon": "Appian.svg",
             "js": {
                 "_APPIAN_PROXIES_INITIALIZED": "",
-                "Appian": "",
                 "APPIAN": "",
+                "Appian": "",
                 "webpackJsonpAppian": ""
             },
             "scriptSrc": [
@@ -13680,8 +13680,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "bugsnag": "",
                 "Bugsnag": "",
+                "bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -25349,8 +25349,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DonorBox": "",
                 "DONORBOX": "",
+                "DonorBox": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -31302,17 +31302,6 @@
             ],
             "website": "https://fastpixel.io"
         },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
-        },
         "FastSpring": {
             "cats": [
                 6,
@@ -31334,6 +31323,17 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
+        },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -34329,6 +34329,17 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
+        },
         "framework7": {
             "cats": [
                 59,
@@ -34346,17 +34357,6 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
-        },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -51717,6 +51717,19 @@
             "icon": "LiteSpeed.svg",
             "website": "https://litespeedtech.com"
         },
+        "Litespeed Cache": {
+            "cats": [
+                23,
+                87
+            ],
+            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
+            "headers": {
+                "x-litespeed-cache": "",
+                "x-turbo-charged-by": "litespeed"
+            },
+            "icon": "litespeed-cache.png",
+            "website": "https://wordpress.org/plugins/litespeed-cache/"
+        },
         "LiteSpeed Cache": {
             "cats": [
                 23,
@@ -51738,19 +51751,6 @@
             "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
             "website": "https://www.litespeedtech.com/products/cache-plugins/wordpress-acceleration",
             "icon": "LiteSpeed.svg"
-        },
-        "Litespeed Cache": {
-            "cats": [
-                23,
-                87
-            ],
-            "description": "LiteSpeed Cache is an all-in-one site acceleration plugin for WordPress.",
-            "headers": {
-                "x-litespeed-cache": "",
-                "x-turbo-charged-by": "litespeed"
-            },
-            "icon": "litespeed-cache.png",
-            "website": "https://wordpress.org/plugins/litespeed-cache/"
         },
         "Lithium": {
             "cats": [
@@ -56283,8 +56283,8 @@
                 "jQuery"
             ],
             "js": {
-                "MetisMenu": "",
-                "metisMenu": ""
+                "metisMenu": "",
+                "MetisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -59452,8 +59452,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -68107,8 +68107,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "phpdebugbar": "",
-                "PhpDebugBar": ""
+                "PhpDebugBar": "",
+                "phpdebugbar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -75480,8 +75480,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "recaptcha": "",
-                "Recaptcha": ""
+                "Recaptcha": "",
+                "recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -80511,8 +80511,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "Scrivito": "",
-                "scrivito": ""
+                "scrivito": "",
+                "Scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -81084,8 +81084,8 @@
                 "jQuery"
             ],
             "js": {
-                "Selectize": "",
-                "selectize": ""
+                "selectize": "",
+                "Selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -90450,8 +90450,8 @@
             },
             "icon": "Stylitics.svg",
             "js": {
-                "Stylitics": "",
-                "stylitics": ""
+                "stylitics": "",
+                "Stylitics": ""
             },
             "scriptSrc": [
                 "/stylitics/js/stylitics\\.js\\?ver=v([\\d.]+)\\;version:\\1",
@@ -96158,8 +96158,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -101119,8 +101119,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "VideoJS": "",
                 "videojs": "",
+                "VideoJS": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -104201,6 +104201,17 @@
             },
             "website": "https://www.websitebuilder.com"
         },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
+        },
         "WebSocket": {
             "cats": [
                 19
@@ -104225,17 +104236,6 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
-        },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [
