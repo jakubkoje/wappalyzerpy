@@ -7834,6 +7834,16 @@
             "website": "https://www.webmandesign.eu/portfolio/auberge-wordpress-theme/",
             "icon": "Auberge.svg"
         },
+        "audienzz": {
+            "cats": [
+                1
+            ],
+            "js": {
+                "audienzz": ""
+            },
+            "website": "https://audienzz.ch",
+            "icon": "audienzz.png"
+        },
         "AudioEye": {
             "cats": [
                 68
@@ -7866,6 +7876,22 @@
             "description": "Audiohook specializes in programmatic audio advertising.",
             "website": "https://www.audiohook.com",
             "icon": "Audiohook.svg"
+        },
+        "Audion": {
+            "cats": [
+                36
+            ],
+            "dom": {
+                "#audion360-podcast-player-init, .audion-reader": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "\\.360\\.audion\\.fm/"
+            ],
+            "description": "Audion is a digital audio advertising company; its Audion360 podcast player is embedded on publisher pages and loads from 360.audion.fm.",
+            "website": "https://www.audion.fm",
+            "icon": "Audion.png"
         },
         "Auglio": {
             "cats": [
@@ -8424,6 +8450,19 @@
             "description": "Avanser allow you to track every call and enable your business to make better-informed decisions based on your phone calls.",
             "website": "https://www.avanser.com",
             "icon": "Avanser.svg"
+        },
+        "AvantisVideo": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "avantisJS": ""
+            },
+            "scripts": [
+                "//cdn\\.avantisvideo\\.com"
+            ],
+            "website": "https://www.avantisvideo.com",
+            "icon": "AvantisVideo.png"
         },
         "Avasam": {
             "cats": [
@@ -9984,6 +10023,16 @@
             "description": "Bestie is a platform that provides AI-powered post-purchase surveys for Shopify brands, automating the survey creation process.",
             "website": "https://www.bestie.ai",
             "icon": "Bestie.svg"
+        },
+        "bet365": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<a [^>]*href=['\"]http[s]?://www\\.bet365"
+            ],
+            "website": "https://www.bet365affiliates.com",
+            "icon": "bet365.png"
         },
         "BeTheme": {
             "cats": [
@@ -11865,6 +11914,18 @@
             "description": "Bontii is a subscription module facilitating integration between webshop and payment solutions.",
             "website": "https://bontii.dk",
             "icon": "Bontii.svg"
+        },
+        "Book Like A Boss": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='bookme.name']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://www.booklikeaboss.com/",
+            "icon": "Book Like A Boss.png"
         },
         "Book N Pay": {
             "cats": [
@@ -18232,6 +18293,23 @@
             "description": "CloudGuard is a cybersecurity solutions provider focused on cloud security.",
             "website": "https://cloudguard.ir",
             "icon": "Cloud Guard.svg"
+        },
+        "Cloudbac": {
+            "cats": [
+                1,
+                51
+            ],
+            "headers": {
+                "x-powered-by": "^cloudbac$"
+            },
+            "meta": {
+                "generator": [
+                    "^cloudbac$"
+                ]
+            },
+            "description": "Cloudbac is a SaaS website builder and hosting platform for businesses.",
+            "website": "https://www.cloudbac.com",
+            "icon": "Cloudbac.svg"
         },
         "Cloudbeds": {
             "cats": [
@@ -30658,6 +30736,32 @@
             "website": "https://fabric.inc",
             "icon": "Fabric.svg"
         },
+        "Face Age": {
+            "cats": [
+                59,
+                112
+            ],
+            "dom": {
+                ".faceAge-main-module": {
+                    "exists": ""
+                },
+                "iframe#FaceAge-module-iframe": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "FaceAge.prototype.render": ""
+            },
+            "scriptSrc": [
+                "cdn\\.jsdelivr\\.net/npm/face-age(?:/|$)",
+                "cdn\\.jsdelivr\\.net/npm/face-age@([\\d.]+)\\;version:\\1",
+                "unpkg\\.com/face-age(?:/|$)",
+                "unpkg\\.com/face-age@([\\d.]+)\\;version:\\1"
+            ],
+            "description": "Face Age is an AI-powered JavaScript SDK for facial skin analysis.",
+            "website": "https://getfaceage.com",
+            "icon": "FaceAge.svg"
+        },
         "Facebook Ads": {
             "cats": [
                 36
@@ -39554,6 +39658,34 @@
             "description": "HackerOne is a vulnerability disclosure and bug bounty platform.",
             "website": "https://www.hackerone.com",
             "icon": "HackerOne.svg"
+        },
+        "Hackle": {
+            "cats": [
+                74,
+                85,
+                10,
+                32,
+                53
+            ],
+            "js": {
+                "_hackle": "",
+                "_hackleCafe24App": "",
+                "Hackle": "",
+                "HACKLE_PRELOAD_CLIENT": "",
+                "hackleClient": "",
+                "HacklePlugin": ""
+            },
+            "html": [
+                "hackle_sdk_key"
+            ],
+            "scriptSrc": [
+                "@hackler/javascript-sdk",
+                "@hackler/javascript-sdk@([\\d.]+)/\\;version:\\1",
+                "\\.hackle\\.io/"
+            ],
+            "description": "Hackle is an experimentation and growth platform providing A/B testing, feature flags, product analytics, and behavioral messaging.",
+            "website": "https://hackle.io",
+            "icon": "Hackle.png"
         },
         "Haddock": {
             "cats": [
@@ -93015,6 +93147,11 @@
             "cats": [
                 1
             ],
+            "html": [
+                "<[^>]+/terminalfour/page/(?:section|content|directedit)",
+                "<[^>]+t4edit-page",
+                "<[^>]+terminalfour\\.net/"
+            ],
             "meta": {
                 "generator": [
                     "terminalfour"
@@ -99357,6 +99494,18 @@
             "website": "https://www.vagaro.com/pro/schedulicity",
             "icon": "Vagaro.svg"
         },
+        "Valorsic Studio": {
+            "cats": [
+                59
+            ],
+            "dom": {
+                "[data-valorsic-studio]": {
+                    "exists": ""
+                }
+            },
+            "website": "https://valorsic.studio",
+            "icon": "Valorsic Studio.png"
+        },
         "Valuad": {
             "cats": [
                 36
@@ -105391,9 +105540,6 @@
                 "<link rel=[\"']stylesheet[\"'] [^>]+/wp-(?:content|includes)/",
                 "<link[^>]+s\\d+\\.wp\\.com"
             ],
-            "scripts": [
-                "/wp-content"
-            ],
             "scriptSrc": [
                 "/wp-(?:content|includes)/",
                 "wp-embed\\.min\\.js",
@@ -107929,6 +108075,22 @@
             "website": "https://www.youcms.eu",
             "icon": "youCMS.svg"
         },
+        "YouDraw": {
+            "cats": [
+                6
+            ],
+            "headers": {
+                "x-generator": "^youdraw"
+            },
+            "meta": {
+                "generator": [
+                    "^youdraw"
+                ]
+            },
+            "description": "YouDraw is a Brazilian ecommerce and print-on-demand platform with hosted storefronts (YD Store).",
+            "website": "https://youdraw.com.br",
+            "icon": "YouDraw.png"
+        },
         "Youform": {
             "cats": [
                 110
@@ -109336,6 +109498,19 @@
             "description": "Zoom is a video conferencing and collaboration platform.",
             "website": "https://www.zoom.com",
             "icon": "Zoom.png"
+        },
+        "Zoomd": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "Zoomd": ""
+            },
+            "scripts": [
+                "sphereup\\.com/zoomd"
+            ],
+            "website": "https://zoomd.com",
+            "icon": "Zoomd.png"
         },
         "Zoominfo": {
             "cats": [
