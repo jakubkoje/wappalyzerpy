@@ -20532,7 +20532,8 @@
                 "gtag\\([^)]+'(aw-)"
             ],
             "scriptSrc": [
-                "\\.googleadservices\\.com/pagead/conversion_async\\.js"
+                "\\.googleadservices\\.com/pagead/conversion_async\\.js",
+                "googletagmanager\\.com/gtag/js\\?id=aw-"
             ],
             "implies": [
                 "Google Ads"

@@ -2917,8 +2917,8 @@
             },
             "icon": "afterpay.svg",
             "js": {
-                "AfterPay": "",
                 "Afterpay": "",
+                "AfterPay": "",
                 "Afterpay.version": "([\\d\\.]+)\\;version:\\1",
                 "afterpay_product": "",
                 "AfterpayAttractWidget": "",
@@ -8611,8 +8611,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "Awesomplete": "",
-                "awesomplete": ""
+                "awesomplete": "",
+                "Awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -25446,8 +25446,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DonorBox": "",
                 "DONORBOX": "",
+                "DonorBox": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -31425,6 +31425,17 @@
             ],
             "website": "https://fastpixel.io"
         },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
+        },
         "FastSpring": {
             "cats": [
                 6,
@@ -31446,17 +31457,6 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
-        },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -38016,7 +38016,8 @@
                 "gtag\\([^)]+'(aw-)"
             ],
             "scriptSrc": [
-                "\\.googleadservices\\.com/pagead/conversion_async\\.js"
+                "\\.googleadservices\\.com/pagead/conversion_async\\.js",
+                "googletagmanager\\.com/gtag/js\\?id=aw-"
             ],
             "website": "https://support.google.com/google-ads/answer/1722022"
         },
@@ -43436,22 +43437,6 @@
             "icon": "ImageEngine.svg",
             "website": "https://imageengine.io"
         },
-        "Imagekit": {
-            "cats": [
-                7
-            ],
-            "dom": {
-                "link[href*='ik.imagekit.io/']": {
-                    "exists": ""
-                }
-            },
-            "headers": {
-                "x-server": "imagekit\\.io"
-            },
-            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
-            "website": "https://imagekit.io/",
-            "icon": "ImageKit.svg"
-        },
         "ImageKit": {
             "cats": [
                 31,
@@ -43466,6 +43451,22 @@
                 "x-server": "imagekit\\.io"
             },
             "description": "ImageKit is a real-time image and video transformation, optimization, and delivery service with built-in digital asset management, powered by a global CDN.",
+            "website": "https://imagekit.io/",
+            "icon": "ImageKit.svg"
+        },
+        "Imagekit": {
+            "cats": [
+                7
+            ],
+            "dom": {
+                "link[href*='ik.imagekit.io/']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "x-server": "imagekit\\.io"
+            },
+            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
             "website": "https://imagekit.io/",
             "icon": "ImageKit.svg"
         },
@@ -49902,8 +49903,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "Langify": "",
                 "langify": "",
+                "Langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -50064,8 +50065,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrIgnition": "\\;confidence:25",
                 "lrignition": "\\;confidence:25",
+                "lrIgnition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -56434,8 +56435,8 @@
                 "jQuery"
             ],
             "js": {
-                "MetisMenu": "",
-                "metisMenu": ""
+                "metisMenu": "",
+                "MetisMenu": ""
             },
             "scriptSrc": [
                 "(?:/|\\.)metismenu(?:js)?(?:\\.min)?\\.js(?:\\?([\\d\\.]+))?\\;version:\\1"
@@ -59199,17 +59200,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "Moxie": {
-            "cats": [
-                5,
-                68
-            ],
-            "scriptSrc": [
-                "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Pollyfills for XHR2 and File API",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "mOxie": {
             "cats": [
                 59
@@ -59219,6 +59209,17 @@
                 "moxie": ""
             },
             "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "Moxie": {
+            "cats": [
+                5,
+                68
+            ],
+            "scriptSrc": [
+                "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Pollyfills for XHR2 and File API",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -59603,8 +59604,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -68258,8 +68259,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "PhpDebugBar": "",
-                "phpdebugbar": ""
+                "phpdebugbar": "",
+                "PhpDebugBar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -72747,19 +72748,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "PubLive": {
-            "cats": [
-                1
-            ],
-            "description": "PubLive is a headless CMS for online publishers.",
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "icon": "PubLive.svg",
-            "website": "https://thepublive.com"
-        },
         "Publive": {
             "cats": [
                 1
@@ -72772,6 +72760,19 @@
             "description": "Publive is a headless CMS for online publishers.",
             "website": "https://www.thepublive.com",
             "icon": "PubLive.svg"
+        },
+        "PubLive": {
+            "cats": [
+                1
+            ],
+            "description": "PubLive is a headless CMS for online publishers.",
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "icon": "PubLive.svg",
+            "website": "https://thepublive.com"
         },
         "Publy": {
             "cats": [
@@ -75631,8 +75632,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "recaptcha": "",
-                "Recaptcha": ""
+                "Recaptcha": "",
+                "recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -80662,8 +80663,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "Scrivito": "",
-                "scrivito": ""
+                "scrivito": "",
+                "Scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -82484,8 +82485,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "SheerID": "",
-                "sheerid": ""
+                "sheerid": "",
+                "SheerID": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -83298,8 +83299,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "Shoplazza": "",
-                "SHOPLAZZA": ""
+                "SHOPLAZZA": "",
+                "Shoplazza": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -86186,6 +86187,16 @@
             ],
             "website": "https://smarterclick.com"
         },
+        "SmartFrame": {
+            "cats": [
+                95
+            ],
+            "html": [
+                "<link rel=\"dns-prefetch\" href=\"//static\\.smartframe\\.io\""
+            ],
+            "website": "https://smartframe.io",
+            "icon": "SmartFrame.png"
+        },
         "SmartFront": {
             "cats": [
                 108,
@@ -86949,6 +86960,21 @@
             "website": "https://www.soci.ai",
             "icon": "SOCi.svg"
         },
+        "SociableKIT": {
+            "cats": [
+                5
+            ],
+            "html": [
+                "<iframe[^>]*src=[^>]*widgets\\.sociablekit\\.com",
+                "<img[^>]*src=[^>]*images\\.sociablekit\\.com"
+            ],
+            "scriptSrc": [
+                "widgets\\.sociablekit\\.com"
+            ],
+            "description": "Sociable kit",
+            "website": "https://www.sociablekit.com/",
+            "icon": "SociableKIT.png"
+        },
         "Social Pinpoint": {
             "cats": [
                 1
@@ -87459,6 +87485,16 @@
             "description": "Sonar is a fully integrated system offering loan origination and point-of-sale solutions, combined with customer relationship management capabilities.",
             "website": "https://sendsonar.com",
             "icon": "Sonar.svg"
+        },
+        "Sonares": {
+            "cats": [
+                5
+            ],
+            "html": [
+                "<iframe [^>]*src=[^>]*content\\.sonares\\.org/[^\"/]+"
+            ],
+            "website": "https://sonares.org/",
+            "icon": "Sonares.png"
         },
         "SonarQube": {
             "cats": [
@@ -88211,17 +88247,6 @@
             ],
             "website": "https://spinasale.com"
         },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
-        },
         "Spin.js": {
             "cats": [
                 59
@@ -88235,6 +88260,17 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
+        },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -88830,6 +88866,18 @@
             "description": "Sprocket is an analytics and tracking system from Japan.",
             "website": "https://www.sprocket.bz",
             "icon": "Sprocket.svg"
+        },
+        "SproutStudio": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "iframe[src*='.sproutstudio.com']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://getsproutstudio.com",
+            "icon": "SproutStudio.png"
         },
         "Spruce": {
             "cats": [
@@ -93131,6 +93179,18 @@
             "website": "https://www.taurosmedia.com",
             "icon": "TaurosMedia.svg"
         },
+        "Tave": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "iframe[src*='tave.com']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://tave.com",
+            "icon": "Tave.png"
+        },
         "Tawk.to": {
             "cats": [
                 52
@@ -95372,8 +95432,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "tiledesk": "",
                 "Tiledesk": "",
+                "tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -95390,6 +95450,17 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
+        },
         "timeago": {
             "cats": [
                 59
@@ -95402,17 +95473,6 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
-        },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -96314,8 +96374,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "trackJs": "",
-                "TrackJs": ""
+                "TrackJs": "",
+                "trackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -96427,6 +96487,16 @@
                 "Traek": ""
             },
             "website": "https://www.traek.io"
+        },
+        "Traffective": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "traffectiveLib": ""
+            },
+            "website": "https://www.traffective.com",
+            "icon": "Traffective.png"
         },
         "TrafficGuard": {
             "cats": [
@@ -97488,6 +97558,21 @@
             "description": "Tutor LMS is an all-in-one learning management system.",
             "website": "https://tutorlms.com",
             "icon": "TutorLMS.svg"
+        },
+        "Tutorbird": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='.tutorbird.com']": {
+                    "exists": ""
+                },
+                "iframe[src*='.tutorbird.com']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://tutorbird.com",
+            "icon": "Tutorbird.png"
         },
         "TutorCruncher": {
             "cats": [
@@ -101287,8 +101372,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "videojs": "",
                 "VideoJS": "",
+                "videojs": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -109324,6 +109409,25 @@
             ],
             "website": "https://www.zendesk.com/platform/conversations"
         },
+        "Zendesk Widget": {
+            "cats": [
+                5
+            ],
+            "dom": {
+                "script#ze-snippet": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "zEACLoaded": "",
+                "zEmbed": ""
+            },
+            "scriptSrc": [
+                "static\\.zdassets\\.com/ekr/snippet\\.js"
+            ],
+            "website": "https://developer.zendesk.com",
+            "icon": "Zendesk Widget.png"
+        },
         "Zenfolio": {
             "cats": [
                 7
@@ -110066,8 +110170,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "zonos": "",
                 "Zonos": "",
+                "zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [

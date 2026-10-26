@@ -85734,6 +85734,16 @@
             "website": "https://smarterclick.com",
             "icon": "Smarter Click.png"
         },
+        "SmartFrame": {
+            "cats": [
+                95
+            ],
+            "html": [
+                "<link rel=\"dns-prefetch\" href=\"//static\\.smartframe\\.io\""
+            ],
+            "website": "https://smartframe.io",
+            "icon": "SmartFrame.png"
+        },
         "SmartFront": {
             "cats": [
                 108,
@@ -86490,6 +86500,21 @@
             "website": "https://www.soci.ai",
             "icon": "SOCi.svg"
         },
+        "SociableKIT": {
+            "cats": [
+                5
+            ],
+            "html": [
+                "<iframe[^>]*src=[^>]*widgets\\.sociablekit\\.com",
+                "<img[^>]*src=[^>]*images\\.sociablekit\\.com"
+            ],
+            "scriptSrc": [
+                "widgets\\.sociablekit\\.com"
+            ],
+            "description": "Sociable kit",
+            "website": "https://www.sociablekit.com/",
+            "icon": "SociableKIT.png"
+        },
         "Social Pinpoint": {
             "cats": [
                 1
@@ -86999,6 +87024,16 @@
             "description": "Sonar is a fully integrated system offering loan origination and point-of-sale solutions, combined with customer relationship management capabilities.",
             "website": "https://sendsonar.com",
             "icon": "Sonar.svg"
+        },
+        "Sonares": {
+            "cats": [
+                5
+            ],
+            "html": [
+                "<iframe [^>]*src=[^>]*content\\.sonares\\.org/[^\"/]+"
+            ],
+            "website": "https://sonares.org/",
+            "icon": "Sonares.png"
         },
         "SonarQube": {
             "cats": [
@@ -88364,6 +88399,18 @@
             "description": "Sprocket is an analytics and tracking system from Japan.",
             "website": "https://www.sprocket.bz",
             "icon": "Sprocket.svg"
+        },
+        "SproutStudio": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "iframe[src*='.sproutstudio.com']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://getsproutstudio.com",
+            "icon": "SproutStudio.png"
         },
         "Spruce": {
             "cats": [
@@ -92601,6 +92648,18 @@
             "website": "https://www.taurosmedia.com",
             "icon": "TaurosMedia.svg"
         },
+        "Tave": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "iframe[src*='tave.com']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://tave.com",
+            "icon": "Tave.png"
+        },
         "Tawk.to": {
             "cats": [
                 52
@@ -95897,6 +95956,16 @@
             "website": "https://www.traek.io",
             "icon": "Traek.svg"
         },
+        "Traffective": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "traffectiveLib": ""
+            },
+            "website": "https://www.traffective.com",
+            "icon": "Traffective.png"
+        },
         "TrafficGuard": {
             "cats": [
                 36
@@ -96945,6 +97014,21 @@
             "description": "Tutor LMS is an all-in-one learning management system.",
             "website": "https://tutorlms.com",
             "icon": "TutorLMS.svg"
+        },
+        "Tutorbird": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='.tutorbird.com']": {
+                    "exists": ""
+                },
+                "iframe[src*='.tutorbird.com']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://tutorbird.com",
+            "icon": "Tutorbird.png"
         },
         "TutorCruncher": {
             "cats": [
@@ -108723,6 +108807,25 @@
             "description": "Zendesk Sunshine Conversations lets you share a single, continuous conversation with every team in your business. With a unified API and native connectors to popular business applications like Zendesk and Slack, everyone in your organization can get access to a single view of the customer conversation.",
             "website": "https://www.zendesk.com/platform/conversations",
             "icon": "Zendesk.svg"
+        },
+        "Zendesk Widget": {
+            "cats": [
+                5
+            ],
+            "dom": {
+                "script#ze-snippet": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "zEACLoaded": "",
+                "zEmbed": ""
+            },
+            "scriptSrc": [
+                "static\\.zdassets\\.com/ekr/snippet\\.js"
+            ],
+            "website": "https://developer.zendesk.com",
+            "icon": "Zendesk Widget.png"
         },
         "Zenfolio": {
             "cats": [
