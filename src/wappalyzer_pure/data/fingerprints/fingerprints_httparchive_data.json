@@ -21737,6 +21737,34 @@
             "website": "https://github.com/lrsjng/h5ai",
             "icon": "default.svg"
         },
+        "Hackle": {
+            "cats": [
+                74,
+                85,
+                10,
+                32,
+                53
+            ],
+            "js": {
+                "_hackle": "",
+                "_hackleCafe24App": "",
+                "Hackle": "",
+                "HACKLE_PRELOAD_CLIENT": "",
+                "hackleClient": "",
+                "HacklePlugin": ""
+            },
+            "html": [
+                "<script[^>]*>[^<]*hackle_sdk_key"
+            ],
+            "scriptSrc": [
+                "@hackler/javascript-sdk",
+                "@hackler/javascript-sdk@([\\d.]+)(?:/|[?#]|$)\\;version:\\1",
+                "\\.hackle\\.io/"
+            ],
+            "description": "Hackle is an experimentation and growth platform providing A/B testing, feature flags, product analytics, and behavioral messaging.",
+            "website": "https://hackle.io",
+            "icon": "Hackle.png"
+        },
         "Haddock": {
             "cats": [
                 4
@@ -50526,6 +50554,18 @@
             "description": "Talkable is a cloud-based referral marketing system that assists medium to large businesses with campaign creation and channel performance tracking.",
             "website": "https://www.talkable.com",
             "icon": "Talkable.svg"
+        },
+        "TalksMedia": {
+            "cats": [
+                36
+            ],
+            "scriptSrc": [
+                "ads\\.talkscreativity\\.com/assets/publisher/[^/?#]+/init\\.js",
+                "ads\\.talkscreativity\\.com/assets/publisher/[^/?#]+/prebid\\.[\\w-]+\\.js"
+            ],
+            "description": "TalksMedia is an advertising platform that helps publishers monetize their websites.",
+            "website": "https://www.talksmedia.it",
+            "icon": "TalksMedia.png"
         },
         "Tallentor": {
             "cats": [

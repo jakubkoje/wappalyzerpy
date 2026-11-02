@@ -610,6 +610,17 @@
             },
             "website": "https://abicart.com/"
         },
+        "Abla": {
+            "cats": [
+                10
+            ],
+            "scriptSrc": [
+                "s\\.abla\\.io/abla\\.js"
+            ],
+            "description": "Abla is a French privacy-friendly, cookieless web analytics service.",
+            "website": "https://abla.io",
+            "icon": "Abla.png"
+        },
         "Able CDP": {
             "cats": [
                 97
@@ -1384,6 +1395,17 @@
             ],
             "website": "https://www.adlightning.com"
         },
+        "Ad-Shield": {
+            "cats": [
+                36
+            ],
+            "scriptSrc": [
+                "[/.](?:html-load|content-loader)\\.com/"
+            ],
+            "description": "Ad-Shield is an adblock-recovery layer; publisher pages load its loader from html-load.com and talk to content-loader.com.",
+            "website": "https://www.ad-shield.io",
+            "icon": "Ad-Shield.png"
+        },
         "Ada": {
             "cats": [
                 52
@@ -1795,6 +1817,22 @@
             "website": "https://www.adglare.com",
             "icon": "AdGlare.svg"
         },
+        "AdGrid": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "adgridConfig": "",
+                "adgridDomainId": "",
+                "adgridFqdn": ""
+            },
+            "scriptSrc": [
+                "console\\.adgrid\\.io/"
+            ],
+            "description": "AdGrid is a header-bidding and ad management platform that helps publishers monetize their inventory.",
+            "website": "https://www.adgrid.io",
+            "icon": "AdGrid.png"
+        },
         "Adimo": {
             "cats": [
                 6
@@ -1946,8 +1984,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "ADMITAD": "",
-                "admitad": ""
+                "admitad": "",
+                "ADMITAD": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -2155,6 +2193,16 @@
             },
             "icon": "Adobe Experience Platform.svg",
             "website": "https://business.adobe.com/uk/products/experience-manager/scene7-login.html"
+        },
+        "Adobe Edge Web Fonts": {
+            "cats": [
+                17
+            ],
+            "scriptSrc": [
+                "use\\.edgefonts\\.net"
+            ],
+            "website": "https://edgewebfonts.adobe.com",
+            "icon": "Adobe Edge Web Fonts.png"
         },
         "Adobe Experience Manager": {
             "cats": [
@@ -3880,6 +3928,9 @@
             ],
             "description": "Ali reviews is a shopify app to collect reviews from customers.",
             "icon": "Alireviews.svg",
+            "implies": [
+                "Shopify"
+            ],
             "js": {
                 "alireviews_tags": ""
             },
@@ -8611,8 +8662,8 @@
                 "<link[^>]+href=\"[^>]*awesomplete(?:\\.min)?\\.css"
             ],
             "js": {
-                "awesomplete": "",
-                "Awesomplete": ""
+                "Awesomplete": "",
+                "awesomplete": ""
             },
             "scriptSrc": [
                 "/awesomplete\\.js(?:$|\\?)"
@@ -9944,6 +9995,20 @@
             "website": "https://behzi.com",
             "icon": "Behzi.svg"
         },
+        "belboon": {
+            "cats": [
+                71
+            ],
+            "js": {
+                "belboonTag": ""
+            },
+            "scriptSrc": [
+                "containertags\\.belboon\\.(?:com|de)/"
+            ],
+            "description": "belboon is a German affiliate marketing network that tracks conversions and traffic through its belboon container tags.",
+            "website": "https://www.belboon.com",
+            "icon": "belboon.png"
+        },
         "Belliza": {
             "cats": [
                 81
@@ -10183,6 +10248,27 @@
             "description": "BetterBot is a conversational leasing tool tailored for real estate.",
             "website": "https://betterbot.com",
             "icon": "BetterBot.svg"
+        },
+        "BetterCMS": {
+            "cats": [
+                1
+            ],
+            "dom": {
+                "[data-bcms-field], [data-bcms-sections], [data-bcms-entry], img[src*='cdn.bettercms.ai'], img[srcset*='cdn.bettercms.ai'], source[srcset*='cdn.bettercms.ai']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "x-bcms-edge": ""
+            },
+            "meta": {
+                "generator": [
+                    "^bettercms$"
+                ]
+            },
+            "description": "BetterCMS is a headless and hybrid CMS with a visual editor, structured content and site hosting, for websites built with any framework.",
+            "website": "https://bettercms.ai",
+            "icon": "BetterCMS.svg"
         },
         "BetterDocs": {
             "cats": [
@@ -11908,6 +11994,16 @@
             "website": "https://bombbomb.com",
             "icon": "BombBomb.svg"
         },
+        "Bombora": {
+            "cats": [
+                97
+            ],
+            "scripts": [
+                "ml314\\.com"
+            ],
+            "website": "https://bombora.com",
+            "icon": "Bombora.png"
+        },
         "BON Loyalty": {
             "cats": [
                 84,
@@ -12067,6 +12163,21 @@
             "website": "https://www.bookedscheduler.com/",
             "icon": "Booked.svg"
         },
+        "Bookedin": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='bookedin.com']": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "scheduler\\.bookedin\\.com"
+            ],
+            "website": "https://bookedin.com/",
+            "icon": "Bookedin.png"
+        },
         "Bookeo": {
             "cats": [
                 72
@@ -12184,6 +12295,19 @@
             "website": "https://www.bookingkoala.com",
             "icon": "BookingKoala.svg"
         },
+        "BookingPress": {
+            "cats": [
+                72,
+                87
+            ],
+            "dom": {
+                "[class='bpa-frontend-main-container']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://www.bookingpressplugin.com",
+            "icon": "BookingPress.png"
+        },
         "Bookitit": {
             "cats": [
                 72
@@ -12240,6 +12364,21 @@
             "website": "https://bookmanager.com",
             "icon": "BookManager.svg"
         },
+        "Booknetic": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='booknetic.com']": {
+                    "exists": ""
+                }
+            },
+            "html": [
+                "<iframe [^>]*src=[\"\\']https://[^/]+\\.booknetic\\.com/[^\"\\']*"
+            ],
+            "website": "https://booknetic.com/",
+            "icon": "Booknetic.png"
+        },
         "BookStack": {
             "cats": [
                 4
@@ -12256,6 +12395,17 @@
                 "PHP"
             ],
             "website": "https://www.bookstackapp.com"
+        },
+        "Booksteam": {
+            "cats": [
+                72
+            ],
+            "html": [
+                "<a[^>]*href=['\"]http://booksteam\\.com/[^'\"]*['\"][^>]*>.*?</a>",
+                "<script[^>]*src=['\"]//booksteam\\.com/booknowscript\\.ashx[^'\"]*['\"][^>]*></script>"
+            ],
+            "website": "https://booksteam.com/",
+            "icon": "Booksteam.png"
         },
         "Bookster": {
             "cats": [
@@ -13246,6 +13396,20 @@
             "website": "https://www.bridgetownrb.com",
             "icon": "Bridgetown.svg"
         },
+        "BridTV": {
+            "cats": [
+                14
+            ],
+            "js": {
+                "bridCanRunAds": "",
+                "BridChromePlugin": ""
+            },
+            "scripts": [
+                "[/.]brid\\.tv"
+            ],
+            "website": "https://www.brid.tv",
+            "icon": "BridTV.png"
+        },
         "Brightcove": {
             "cats": [
                 14
@@ -13628,6 +13792,16 @@
             },
             "website": "https://www.bsmart.co.il/"
         },
+        "BSmartData": {
+            "cats": [
+                10
+            ],
+            "scripts": [
+                "pixel\\.bsmartdata\\.com"
+            ],
+            "website": "https://www.bsmartdata.com",
+            "icon": "BSmartData.png"
+        },
         "Bsport": {
             "cats": [
                 72
@@ -13697,6 +13871,22 @@
             ],
             "website": "https://buddypress.org"
         },
+        "Buffer button and social widgets": {
+            "cats": [
+                5
+            ],
+            "dom": {
+                "a.buffer-add-button": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "d389zggrogs7qo\\.cloudfront\\.net/js/button",
+                "static\\.buffer(?:app)?\\.com/js/button"
+            ],
+            "website": "https://buffer.com",
+            "icon": "Buffer button and social widgets.png"
+        },
         "Bugcrowd": {
             "cats": [
                 16
@@ -13741,8 +13931,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "bugsnag": "",
                 "Bugsnag": "",
+                "bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -14433,6 +14623,21 @@
             "website": "https://www.calendarwiz.com/",
             "icon": "CalendarWiz.svg"
         },
+        "Calendesk": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "iframe[src*='.calendesk.net']": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "Calendesk": ""
+            },
+            "website": "https://calendesk.com",
+            "icon": "Calendesk.png"
+        },
         "Calendly": {
             "cats": [
                 72
@@ -15088,6 +15293,16 @@
             "website": "https://cargoserver.ch",
             "icon": "CargoServer.svg"
         },
+        "Caroda": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "caroda\\.io"
+            ],
+            "website": "https://www.caroda.io",
+            "icon": "Caroda.png"
+        },
         "Carrd": {
             "cats": [
                 51
@@ -15444,6 +15659,9 @@
             "scripts": [
                 "fast-checkout-api\\.cartylabs\\.com"
             ],
+            "implies": [
+                "Shopify"
+            ],
             "description": "Cartylabs is a Shopify application that provides a fast checkout experience and enables merchants to implement upsell and cross-sell features directly within the shopping cart.",
             "website": "https://cartylabs.com",
             "icon": "Cartylabs.svg"
@@ -15666,6 +15884,19 @@
             "description": "CausalFunnel is an AI platform that analyzes customer behavior to optimize business conversion rates.",
             "website": "https://www.causalfunnel.com",
             "icon": "CuasalFunnel.svg"
+        },
+        "Cazamba": {
+            "cats": [
+                36
+            ],
+            "html": [
+                "id=.ad-cazamba"
+            ],
+            "scripts": [
+                "cazamba\\.com"
+            ],
+            "website": "https://cazamba.com",
+            "icon": "Cazamba.png"
         },
         "CCV Shop": {
             "cats": [
@@ -16131,6 +16362,21 @@
                 "ChannelIO": ""
             },
             "website": "https://channel.io"
+        },
+        "Channel99": {
+            "cats": [
+                10
+            ],
+            "dom": {
+                "img[src*='api.c99.ai/']": {
+                    "exists": ""
+                }
+            },
+            "scripts": [
+                "//api\\.c99\\.ai/api/v1/fire/"
+            ],
+            "website": "https://www.channel99.com/",
+            "icon": "Channel99.png"
         },
         "ChannelAdvisor": {
             "cats": [
@@ -16662,6 +16908,18 @@
             "description": "Chayns is a web platform that enables businesses and organizations to create customizable websites and apps, providing tools for digital communication, content management, and ecommerce integration.",
             "website": "https://chayns.site",
             "icon": "Chayns.svg"
+        },
+        "CheckCherry": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='checkcherry.com/reservation']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://www.checkcherry.com",
+            "icon": "CheckCherry.png"
         },
         "Checkfront": {
             "cats": [
@@ -17666,6 +17924,16 @@
             "website": "https://www.clever.com",
             "icon": "Clever.svg"
         },
+        "Clever Advertising": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "clevernt\\.com"
+            ],
+            "website": "https://cleveradvertising.com",
+            "icon": "Clever Advertising.png"
+        },
         "Cleverbridge": {
             "cats": [
                 6
@@ -17703,6 +17971,19 @@
             "description": "CleverInsight is a tool that helps businesses measure customer satisfaction and design loyalty programs to improve customer retention.",
             "website": "https://clever-insight.com",
             "icon": "CleverInsight.svg"
+        },
+        "CleverPush": {
+            "cats": [
+                32
+            ],
+            "js": {
+                "CleverPush": ""
+            },
+            "scripts": [
+                "//static\\.cleverpush\\.com/sdk/cleverpush-chat\\.js"
+            ],
+            "website": "https://cleverpush.com",
+            "icon": "CleverPush.png"
         },
         "CleverReach": {
             "cats": [
@@ -18674,6 +18955,13 @@
                 "_cloudinary": ""
             },
             "website": "https://cloudinary.com"
+        },
+        "ClouDNS": {
+            "cats": [
+                88
+            ],
+            "website": "https://www.cloudns.net/",
+            "icon": "ClouDNS.png"
         },
         "Cloudrexx": {
             "cats": [
@@ -20079,6 +20367,9 @@
             ],
             "description": "Conjured provides Shopify brands with Shopify apps and custom development.",
             "icon": "Conjured.svg",
+            "implies": [
+                "Shopify"
+            ],
             "scriptSrc": [
                 "app\\.conjured\\.co/"
             ],
@@ -20365,6 +20656,17 @@
             "description": "Contentder is a website development platform that integrates inbound marketing analytics to optimize site performance.",
             "website": "https://www.contentder.com",
             "icon": "Contentder.svg"
+        },
+        "ContentExchange": {
+            "cats": [
+                36
+            ],
+            "html": [
+                "data-contentexchange-widget",
+                "href=\"https://tracker\\.contentexchange\\.me/"
+            ],
+            "website": "https://www.contentexchange.me",
+            "icon": "ContentExchange.png"
         },
         "Contentful": {
             "cats": [
@@ -20765,6 +21067,16 @@
                 "\\.convertkit\\.com"
             ],
             "website": "https://convertkit.com"
+        },
+        "Converto": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "converto\\.com"
+            ],
+            "website": "https://www.converto.com",
+            "icon": "Converto.png"
         },
         "ConvertoBot": {
             "cats": [
@@ -21674,6 +21986,9 @@
             ],
             "description": "Covet.pics is a customizable Shopify app for Instagram and Lookbook shoppable galleries.",
             "icon": "Covet.pics.svg",
+            "implies": [
+                "Shopify"
+            ],
             "scriptSrc": [
                 "\\.covet\\.pics/"
             ],
@@ -24603,6 +24918,16 @@
             "icon": "DigiCert.svg",
             "website": "https://www.digicert.com/"
         },
+        "digidip": {
+            "cats": [
+                71
+            ],
+            "scripts": [
+                "digidip\\.net"
+            ],
+            "website": "https://digidip.net",
+            "icon": "digidip.png"
+        },
         "DigiFi": {
             "cats": [
                 6
@@ -25446,8 +25771,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DONORBOX": "",
                 "DonorBox": "",
+                "DONORBOX": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -29563,6 +29888,16 @@
             ],
             "website": "https://eshopcrm.com"
         },
+        "Eskimi": {
+            "cats": [
+                36
+            ],
+            "scripts": [
+                "eskimi\\.com"
+            ],
+            "website": "https://business.eskimi.com",
+            "icon": "Eskimi.png"
+        },
         "EspoCRM": {
             "cats": [
                 53
@@ -30952,6 +31287,9 @@
             "cats": [
                 42
             ],
+            "scripts": [
+                "fbq\\(\\s*['\"]init['\"]\\s*,\\s*['\"]?\\d+['\"]?\\s*,\\s*\\{"
+            ],
             "implies": [
                 "Facebook Pixel"
             ],
@@ -31425,17 +31763,6 @@
             ],
             "website": "https://fastpixel.io"
         },
-        "Fastspring": {
-            "cats": [
-                6
-            ],
-            "html": [
-                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
-                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
-            ],
-            "icon": "fastspring.png",
-            "website": "https://fastspring.com"
-        },
         "FastSpring": {
             "cats": [
                 6,
@@ -31457,6 +31784,17 @@
             "description": "FastSpring is a digital ecommerce platform that helps software and SaaS companies manage payments, subscriptions, tax compliance, and fraud prevention globally.",
             "website": "https://fastspring.com",
             "icon": "FastSpring.svg"
+        },
+        "Fastspring": {
+            "cats": [
+                6
+            ],
+            "html": [
+                "<a [^>]*href=\"https?://sites\\.fastspring\\.com",
+                "<form [^>]*action=\"https?://sites\\.fastspring\\.com"
+            ],
+            "icon": "fastspring.png",
+            "website": "https://fastspring.com"
         },
         "FastTony": {
             "cats": [
@@ -31661,6 +31999,19 @@
             },
             "icon": "Fedora.svg",
             "website": "https://fedoraproject.org"
+        },
+        "FeedAd": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "feedad": ""
+            },
+            "scripts": [
+                "feedad\\.com"
+            ],
+            "website": "https://feedad.com",
+            "icon": "FeedAd.png"
         },
         "Feedback Fish": {
             "cats": [
@@ -32335,6 +32686,23 @@
             "description": "Firework is a video commerce solution for brands, retailers, and publishers, enhancing digital storefronts with interactive livestream and shoppable video features.",
             "website": "https://firework.com",
             "icon": "Firework.svg"
+        },
+        "First-id": {
+            "cats": [
+                36
+            ],
+            "cookies": {
+                "firstid": ""
+            },
+            "js": {
+                "getFirstIdInfos": ""
+            },
+            "scriptSrc": [
+                "//cdn\\.first-id\\.fr/sdk/"
+            ],
+            "description": "First-id is a French first-party publisher ID solution; it sets the firstid cookie, loads its SDK from cdn.first-id.fr and calls the api-*.prod.first-id.fr endpoints.",
+            "website": "https://www.first-id.fr",
+            "icon": "First-id.png"
         },
         "FirstHive": {
             "cats": [
@@ -34452,17 +34820,6 @@
             "icon": "Frames.svg",
             "website": "https://getframes.io"
         },
-        "Framework7": {
-            "cats": [
-                26
-            ],
-            "js": {
-                "Framework7.Component": ""
-            },
-            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
-            "website": "https://framework7.io",
-            "icon": "Framework7.svg"
-        },
         "framework7": {
             "cats": [
                 59,
@@ -34480,6 +34837,17 @@
             "description": "Full Featured Mobile HTML Framework For Building iOS & Android Apps.",
             "website": "https://framework7.io/",
             "icon": "framework7.png"
+        },
+        "Framework7": {
+            "cats": [
+                26
+            ],
+            "js": {
+                "Framework7.Component": ""
+            },
+            "description": "Framework7 is a mobile HTML framework designed for creating iOS and Android applications with a native-like user experience.",
+            "website": "https://framework7.io",
+            "icon": "Framework7.svg"
         },
         "France Express": {
             "cats": [
@@ -34534,6 +34902,16 @@
             "description": "Fraud Blocker is an all-in-one solution designed to reduce costs by preventing bots, competitor clicks, fake leads, and other forms of digital ad fraud.",
             "website": "https://fraudblocker.com",
             "icon": "FraudBlocker.svg"
+        },
+        "fraud0": {
+            "cats": [
+                16
+            ],
+            "scriptSrc": [
+                "(?:api|bt)\\.fraud0\\.com/"
+            ],
+            "website": "https://www.fraud0.com/",
+            "icon": "fraud0.png"
         },
         "FraudLabs Pro": {
             "cats": [
@@ -34635,6 +35013,16 @@
                 "analytics\\.freespee\\.com/js/external/fs\\.(?:min\\.)?js"
             ],
             "website": "https://www.freespee.com"
+        },
+        "Freestar": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "freestar": ""
+            },
+            "website": "https://freestar.com",
+            "icon": "Freestar.png"
         },
         "FreeTextBox": {
             "cats": [
@@ -35679,6 +36067,19 @@
             ],
             "website": "https://gambio.de"
         },
+        "GameAnalytics": {
+            "cats": [
+                10
+            ],
+            "scripts": [
+                "gameanalytics(?:\\.min)?\\.js"
+            ],
+            "scriptSrc": [
+                "gameanalytics(?:\\.min)?\\.js"
+            ],
+            "website": "https://gameanalytics.com",
+            "icon": "GameAnalytics.png"
+        },
         "Gameball": {
             "cats": [
                 84
@@ -36237,6 +36638,19 @@
             "icon": "GEODIS.svg",
             "website": "https://geodis.com"
         },
+        "GeoEdge": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "geoedgeApi": ""
+            },
+            "scripts": [
+                "geoedge\\.be"
+            ],
+            "website": "https://www.geoedge.com",
+            "icon": "GeoEdge.png"
+        },
         "Geonetric": {
             "cats": [
                 1
@@ -36569,6 +36983,16 @@
             "description": "GetTerms is a tool that generates privacy policies for web platforms.",
             "website": "https://getterms.io",
             "icon": "GetTerms.svg"
+        },
+        "gettimely": {
+            "cats": [
+                72
+            ],
+            "scriptSrc": [
+                "\\.gettimely\\.com/widget"
+            ],
+            "website": "https://gettimely.com",
+            "icon": "gettimely.png"
         },
         "getUBetter": {
             "cats": [
@@ -39856,6 +40280,12 @@
                 32,
                 53
             ],
+            "description": "Hackle is an experimentation and growth platform providing A/B testing, feature flags, product analytics, and behavioral messaging.",
+            "html": [
+                "hackle_sdk_key",
+                "<script[^>]*>[^<]*hackle_sdk_key"
+            ],
+            "icon": "Hackle.png",
             "js": {
                 "_hackle": "",
                 "_hackleCafe24App": "",
@@ -39864,17 +40294,13 @@
                 "hackleClient": "",
                 "HacklePlugin": ""
             },
-            "html": [
-                "hackle_sdk_key"
-            ],
             "scriptSrc": [
                 "@hackler/javascript-sdk",
                 "@hackler/javascript-sdk@([\\d.]+)/\\;version:\\1",
-                "\\.hackle\\.io/"
+                "\\.hackle\\.io/",
+                "@hackler/javascript-sdk@([\\d.]+)(?:/|[?#]|$)\\;version:\\1"
             ],
-            "description": "Hackle is an experimentation and growth platform providing A/B testing, feature flags, product analytics, and behavioral messaging.",
-            "website": "https://hackle.io",
-            "icon": "Hackle.png"
+            "website": "https://hackle.io"
         },
         "Haddock": {
             "cats": [
@@ -40337,6 +40763,14 @@
                 "cdn\\.blog\\.st-hatena\\.com/"
             ],
             "website": "https://hatenablog.com"
+        },
+        "Have I Been Pwned": {
+            "cats": [
+                16
+            ],
+            "description": "Have I Been Pwned is a data breach notification service that lets organisations monitor breached email addresses on domains they have verified.",
+            "website": "https://haveibeenpwned.com",
+            "icon": "Have I Been Pwned.png"
         },
         "HawkSearch": {
             "cats": [
@@ -48249,6 +48683,9 @@
             "scriptSrc": [
                 "cdn\\.kilatechapps\\.com/"
             ],
+            "implies": [
+                "Shopify"
+            ],
             "description": "Kilatech is a Shopify ecommerce application builder.",
             "website": "https://web.kilatechapps.com",
             "icon": "Kilatech.svg"
@@ -48828,6 +49265,9 @@
             "js": {
                 "KLIP_APP_DATA.ATCPath": ""
             },
+            "implies": [
+                "Shopify"
+            ],
             "description": "Klip is a tool for creating product page coupons designed to enhance customer engagement, boost conversions, and improve retention.",
             "website": "https://klipcoupons.com",
             "icon": "Klip.svg"
@@ -49903,8 +50343,8 @@
             "description": "langify translate your shop into multiple languages. langify comes with a visual configurator that allows you to add language switchers that integrate seamlessly into your existing design.",
             "icon": "langify.svg",
             "js": {
-                "langify": "",
                 "Langify": "",
+                "langify": "",
                 "langify.settings.switcher.version": "([\\d\\.]+)\\;version:\\1"
             },
             "website": "https://langify-app.com"
@@ -49970,8 +50410,8 @@
                 "Laravel"
             ],
             "js": {
-                "echo.connector": "",
-                "Echo.connector": ""
+                "Echo.connector": "",
+                "echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -50065,8 +50505,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrignition": "\\;confidence:25",
                 "lrIgnition": "\\;confidence:25",
+                "lrignition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -59046,12 +59486,12 @@
         },
         "Motion.page": {
             "cats": [
-                87
+                59
             ],
             "js": {
                 "MOTIONPAGE_FRONT.version": "^([0-9\\.]+)$\\;version:\\1"
             },
-            "description": "Motion.page is a WordPress animation plugin utilizing GSAP and ScrollTrigger.",
+            "description": "Motion.page is a visual animation builder available as a WordPress plugin and as a desktop app.",
             "website": "https://motion.page",
             "icon": "Motion.Page.svg"
         },
@@ -59200,17 +59640,6 @@
             "website": "https://www.movylo.com",
             "icon": "Movylo.svg"
         },
-        "mOxie": {
-            "cats": [
-                59
-            ],
-            "js": {
-                "mOxie": "",
-                "moxie": ""
-            },
-            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
-            "website": "https://github.com/moxiecode/moxie"
-        },
         "Moxie": {
             "cats": [
                 5,
@@ -59220,6 +59649,17 @@
                 "moxie(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
             ],
             "description": "Pollyfills for XHR2 and File API",
+            "website": "https://github.com/moxiecode/moxie"
+        },
+        "mOxie": {
+            "cats": [
+                59
+            ],
+            "js": {
+                "mOxie": "",
+                "moxie": ""
+            },
+            "description": "mOxie is a library providing polyfills for XHR2 and File API, ensuring compatibility with older browsers that lack native support.",
             "website": "https://github.com/moxiecode/moxie"
         },
         "Moyklass": {
@@ -59604,8 +60044,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "Myfoodlink": "",
-                "myfoodlink": ""
+                "myfoodlink": "",
+                "Myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -66934,8 +67374,8 @@
                 "__paypal_global__": "",
                 "checkout.enabledpayments.paypal": "^true$",
                 "enablePaypal": "",
-                "PAYPAL": "",
                 "paypal": "",
+                "PAYPAL": "",
                 "paypalClientId": "",
                 "paypalJs": "",
                 "wc_ga_pro.available_gateways.paypal": ""
@@ -68259,8 +68699,8 @@
             ],
             "icon": "phpdebugbar.png",
             "js": {
-                "phpdebugbar": "",
-                "PhpDebugBar": ""
+                "PhpDebugBar": "",
+                "phpdebugbar": ""
             },
             "scriptSrc": [
                 "debugbar.*\\.js"
@@ -71402,6 +71842,9 @@
             ],
             "description": "Pretty Damn Quick is a Shopify app for eCommerce brands to deliver personalized checkout experiences.",
             "icon": "PrettyDamnQuick.png",
+            "implies": [
+                "Shopify"
+            ],
             "js": {
                 "initPDQscript": ""
             },
@@ -75596,7 +76039,8 @@
             "description": "Rebuy offers personlisation solutions for ecommerce sites.",
             "icon": "Rebuy.svg",
             "implies": [
-                "Cart Functionality"
+                "Cart Functionality",
+                "Shopify"
             ],
             "js": {
                 "rebuyConfig": ""
@@ -75632,8 +76076,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "Recaptcha": "",
-                "recaptcha": ""
+                "recaptcha": "",
+                "Recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -77267,7 +77711,6 @@
         },
         "Retention.com": {
             "cats": [
-                100,
                 36
             ],
             "js": {
@@ -82171,6 +82614,17 @@
             "website": "https://setrow.com",
             "icon": "Setrow.svg"
         },
+        "Setupad": {
+            "cats": [
+                36
+            ],
+            "scriptSrc": [
+                "stpd\\.cloud/"
+            ],
+            "description": "Setupad is a header-bidding monetization platform; sites load its wrapper from stpd.cloud and bid via prebid.setupad.io.",
+            "website": "https://setupad.com",
+            "icon": "Setupad.png"
+        },
         "SEUR": {
             "cats": [
                 99
@@ -82485,8 +82939,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "sheerid": "",
-                "SheerID": ""
+                "SheerID": "",
+                "sheerid": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -83135,6 +83589,7 @@
         },
         "Shopify Buy Button": {
             "cats": [
+                6,
                 100
             ],
             "description": "Shopify Buy Button is an app from Shopify which allows merchant to embed buy functionality for any product or collection into another website or blog.",
@@ -83143,7 +83598,6 @@
                 "ShopifyBuy": ""
             },
             "scriptSrc": [
-                "sdk\\. shopifycdn\\.com/buy-button/latest/",
                 "sdks\\.shopifycdn\\.com/buy-button/",
                 "sdks\\.shopifycdn\\.com/js-buy-sdk/"
             ],
@@ -83299,8 +83753,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "SHOPLAZZA": "",
-                "Shoplazza": ""
+                "Shoplazza": "",
+                "SHOPLAZZA": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -88247,6 +88701,17 @@
             ],
             "website": "https://spinasale.com"
         },
+        "spin.js": {
+            "cats": [
+                25
+            ],
+            "scriptSrc": [
+                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
+            ],
+            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
+            "website": "https://spin.js.org/",
+            "icon": "spin.js.png"
+        },
         "Spin.js": {
             "cats": [
                 59
@@ -88260,17 +88725,6 @@
             "description": "Spin.js is a configurable JavaScript/CSS spinner serving as a resolution-independent loading indicator.",
             "website": "https://spin.js.org",
             "icon": "SpinJS.svg"
-        },
-        "spin.js": {
-            "cats": [
-                25
-            ],
-            "scriptSrc": [
-                "spin(?:\\.min)?\\.js(?:\\?ver=([\\d.]+))?\\;version:\\1"
-            ],
-            "description": "Configurable JavaScript/CSS spinner that can be used as a resolution-independent loading indicator",
-            "website": "https://spin.js.org/",
-            "icon": "spin.js.png"
         },
         "Spine.js": {
             "cats": [
@@ -91588,6 +92042,9 @@
             "scripts": [
                 "app\\.sweetupsell\\.com"
             ],
+            "implies": [
+                "Shopify"
+            ],
             "description": "Upsell is a tool that boosts Shopify store profits by automating product upsells.",
             "website": "https://sweetupsell.com",
             "icon": "SweetUpsell.svg"
@@ -92548,6 +93005,17 @@
             ],
             "website": "https://taggbox.com/"
         },
+        "Taggrs.io": {
+            "cats": [
+                42
+            ],
+            "html": [
+                "<!-- server side tagging by taggrs\\.io",
+                "<!-- server side tracking by taggrs\\.io"
+            ],
+            "website": "https://taggrs.io",
+            "icon": "Taggrs.io.png"
+        },
         "Tagnology": {
             "cats": [
                 32
@@ -92825,6 +93293,18 @@
             "description": "TalkJS is a platform that enables user-to-user messaging within marketplaces or platforms.",
             "website": "https://talkjs.com",
             "icon": "TalkJS.svg"
+        },
+        "TalksMedia": {
+            "cats": [
+                36
+            ],
+            "scriptSrc": [
+                "ads\\.talkscreativity\\.com/assets/publisher/[^/?#]+/init\\.js",
+                "ads\\.talkscreativity\\.com/assets/publisher/[^/?#]+/prebid\\.[\\w-]+\\.js"
+            ],
+            "description": "TalksMedia is an advertising platform that helps publishers monetize their websites.",
+            "website": "https://www.talksmedia.it",
+            "icon": "TalksMedia.png"
         },
         "Tallentor": {
             "cats": [
@@ -94702,6 +95182,9 @@
             ],
             "description": "Thimatic is a Shopify app for product reviews.",
             "icon": "Thimatic.svg",
+            "implies": [
+                "Shopify"
+            ],
             "scriptSrc": [
                 "thimatic-apps\\.com/product_review/.*?v=([\\d.]+)\\;version:\\1"
             ],
@@ -94956,6 +95439,16 @@
                 "three(?:\\.min)?\\.js"
             ],
             "website": "https://threejs.org"
+        },
+        "Threedium": {
+            "cats": [
+                105
+            ],
+            "scripts": [
+                "unlimited3d\\.com"
+            ],
+            "website": "https://threedium.co.uk",
+            "icon": "Threedium.png"
         },
         "Threekit": {
             "cats": [
@@ -95432,8 +95925,8 @@
             "description": "Tiledesk is the full-stack open-source Live Chat with built-in Chatbots, written in Node.js and Angular.",
             "icon": "Tiledesk.svg",
             "js": {
-                "Tiledesk": "",
                 "tiledesk": "",
+                "Tiledesk": "",
                 "tileDeskAsyncInit": "",
                 "tiledeskSettings": ""
             },
@@ -95510,6 +96003,9 @@
             "js": {
                 "timesactScriptNew": ""
             },
+            "implies": [
+                "Shopify"
+            ],
             "description": "Timesact is a Shopify app that automates pre-order and back-in-stock notifications to streamline inventory and sales management.",
             "website": "https://timesact.com",
             "icon": "Timesact.svg"
@@ -96374,8 +96870,8 @@
             "description": "TrackJS is an error monitoring agent for production web sites and applications.",
             "icon": "TrackJs.svg",
             "js": {
-                "TrackJs": "",
-                "trackJs": ""
+                "trackJs": "",
+                "TrackJs": ""
             },
             "scriptSrc": [
                 "cdn\\.trackjs\\.com"
@@ -96529,6 +97025,21 @@
                 "\\.tsyndicate\\.com/"
             ],
             "website": "https://trafficstars.com"
+        },
+        "Trafft": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='.trafft.com']": {
+                    "exists": ""
+                },
+                "iframe[src*='.trafft.com']": {
+                    "exists": ""
+                }
+            },
+            "website": "https://trafft.com",
+            "icon": "Trafft.png"
         },
         "Trak": {
             "cats": [
@@ -97178,6 +97689,26 @@
             ],
             "website": "https://www.trustedshops.co.uk"
         },
+        "TrustedSite": {
+            "cats": [
+                16
+            ],
+            "cookies": {
+                "trustedsite_tm_float_seen": "",
+                "trustedsite_visit": ""
+            },
+            "js": {
+                "TrustedSite": "",
+                "TrustedSiteInline": ""
+            },
+            "scriptSrc": [
+                "cdn\\.trustedsite\\.com/",
+                "cdn\\.ywxi\\.net/"
+            ],
+            "description": "TrustedSite (formerly McAfee SECURE) is a website security certification and trustmark service that displays trust seals on certified sites.",
+            "website": "https://www.trustedsite.com",
+            "icon": "TrustedSite.png"
+        },
         "Trustify": {
             "cats": [
                 90
@@ -97338,6 +97869,19 @@
                 "mpsnare\\.iesnare\\.com"
             ],
             "website": "https://www.transunion.com/solution/truvalidate"
+        },
+        "truvid": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "trvpbjsChunk": ""
+            },
+            "scripts": [
+                "trvdp\\.com"
+            ],
+            "website": "https://www.truvid.com",
+            "icon": "truvid.png"
         },
         "TryNow": {
             "cats": [
@@ -100095,8 +100639,8 @@
                 "Java"
             ],
             "js": {
-                "Vaadin": "",
-                "vaadin": ""
+                "vaadin": "",
+                "Vaadin": ""
             },
             "scriptSrc": [
                 "vaadinbootstrap\\.js(?:\\?v=([\\d.]+))?\\;version:\\1"
@@ -100173,6 +100717,26 @@
                 "\\.valuecommerce\\.com"
             ],
             "website": "https://www.valuecommerce.co.jp"
+        },
+        "VanChat AI Agent": {
+            "cats": [
+                52
+            ],
+            "dom": {
+                "#vanchat-root": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "vanchat_api_url": "",
+                "vanchat_app_config": ""
+            },
+            "scriptSrc": [
+                "vanchat"
+            ],
+            "description": "VanChat is an AI shopping chatbot for Shopify; stores embed its widget from vanchat.app and expose vanchat_* globals.",
+            "website": "https://vanchat.io",
+            "icon": "VanChat AI Agent.png"
         },
         "Vanco Payment Solutions": {
             "cats": [
@@ -101356,6 +101920,17 @@
             },
             "website": "https://apps.shopify.com/videogreet-gift-messages"
         },
+        "Videobot": {
+            "cats": [
+                52
+            ],
+            "scripts": [
+                "video-bot-iframe\\.vercel\\.app/video-bot\\.js",
+                "videobot\\.com/embed/videobot\\.mjs"
+            ],
+            "website": "https://www.videobot.com",
+            "icon": "Videobot.png"
+        },
         "VideoJS": {
             "cats": [
                 14
@@ -101372,8 +101947,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "VideoJS": "",
                 "videojs": "",
+                "VideoJS": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -104454,17 +105029,6 @@
             },
             "website": "https://www.websitebuilder.com"
         },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
-        },
         "WebSocket": {
             "cats": [
                 19
@@ -104489,6 +105053,17 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
+        },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [
@@ -104891,6 +105466,22 @@
             "description": "WeTravel is a platform providing booking and payment solutions tailored for travel companies.",
             "website": "https://www.wetravel.com",
             "icon": "WeTravel.svg"
+        },
+        "wetter.com": {
+            "cats": [
+                5
+            ],
+            "js": {
+                "_wcomDefault": "",
+                "_wcomOps": "",
+                "_wcomRequest": "",
+                "_wcomWidget": ""
+            },
+            "scripts": [
+                "wettercomassets\\.com/"
+            ],
+            "website": "https://www.wetter.com",
+            "icon": "wetter.com.png"
         },
         "WeWeb": {
             "cats": [
@@ -107750,7 +108341,7 @@
         },
         "XYZScripts": {
             "cats": [
-                87
+                19
             ],
             "dom": {
                 "a[href*='xyzscripts.com/'] + a[href*='www.xyzscripts.com']": {
@@ -109851,6 +110442,9 @@
             ],
             "description": "Zipify OCU allows you to add upsells and cross-sells to your checkout sequence.",
             "icon": "Zipify OCU.svg",
+            "implies": [
+                "Shopify"
+            ],
             "scriptSrc": [
                 "/zipify-oneclickupsell-vendor\\.js"
             ],
@@ -110170,8 +110764,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "Zonos": "",
                 "zonos": "",
+                "Zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [
