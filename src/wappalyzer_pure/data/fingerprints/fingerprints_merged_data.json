@@ -1984,8 +1984,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "admitad": "",
-                "ADMITAD": ""
+                "ADMITAD": "",
+                "admitad": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -2965,8 +2965,8 @@
             },
             "icon": "afterpay.svg",
             "js": {
-                "Afterpay": "",
                 "AfterPay": "",
+                "Afterpay": "",
                 "Afterpay.version": "([\\d\\.]+)\\;version:\\1",
                 "afterpay_product": "",
                 "AfterpayAttractWidget": "",
@@ -13931,8 +13931,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "Bugsnag": "",
                 "bugsnag": "",
+                "Bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -25771,8 +25771,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DonorBox": "",
                 "DONORBOX": "",
+                "DonorBox": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -40172,6 +40172,14 @@
             "website": "https://www.freeguppy.org",
             "icon": "Guppy.svg"
         },
+        "GURU": {
+            "cats": [
+                88
+            ],
+            "description": "GURU is a UK hosting provider; hosted domains use guru.net.uk nameservers.",
+            "website": "https://www.guru.co.uk",
+            "icon": "GURU.png"
+        },
         "Gurucan": {
             "cats": [
                 21
@@ -43521,6 +43529,17 @@
             "icon": "idCloudHost.svg",
             "website": "https://idcloudhost.com"
         },
+        "Ideal Media": {
+            "cats": [
+                36
+            ],
+            "scriptSrc": [
+                "jsc\\.idealmedia\\.io/"
+            ],
+            "description": "Ideal Media is a content-recommendation advertising network (MGID family); publishers embed a site loader script from jsc.idealmedia.io.",
+            "website": "https://idealmedia.io",
+            "icon": "Ideal Media.png"
+        },
         "Ideasoft": {
             "cats": [
                 6
@@ -43871,6 +43890,22 @@
             "icon": "ImageEngine.svg",
             "website": "https://imageengine.io"
         },
+        "Imagekit": {
+            "cats": [
+                7
+            ],
+            "dom": {
+                "link[href*='ik.imagekit.io/']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "x-server": "imagekit\\.io"
+            },
+            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
+            "website": "https://imagekit.io/",
+            "icon": "ImageKit.svg"
+        },
         "ImageKit": {
             "cats": [
                 31,
@@ -43885,22 +43920,6 @@
                 "x-server": "imagekit\\.io"
             },
             "description": "ImageKit is a real-time image and video transformation, optimization, and delivery service with built-in digital asset management, powered by a global CDN.",
-            "website": "https://imagekit.io/",
-            "icon": "ImageKit.svg"
-        },
-        "Imagekit": {
-            "cats": [
-                7
-            ],
-            "dom": {
-                "link[href*='ik.imagekit.io/']": {
-                    "exists": ""
-                }
-            },
-            "headers": {
-                "x-server": "imagekit\\.io"
-            },
-            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
             "website": "https://imagekit.io/",
             "icon": "ImageKit.svg"
         },
@@ -51391,6 +51410,14 @@
             ],
             "website": "https://service.aainc.co.jp/product/letro/"
         },
+        "LetsHost": {
+            "cats": [
+                88
+            ],
+            "description": "LetsHost is an Irish hosting provider; hosted domains use dnsireland.com/.ie nameservers.",
+            "website": "https://letshost.ie",
+            "icon": "LetsHost.png"
+        },
         "Levar": {
             "cats": [
                 105
@@ -55061,8 +55088,8 @@
                 "webtrekkHeatmapObjects": "",
                 "webtrekkLinktrackObjects": "",
                 "webtrekkUnloadObjects": "",
-                "webtrekkV3": "",
                 "WebtrekkV3": "",
+                "webtrekkV3": "",
                 "wt_tt": "",
                 "wt_ttv2": "",
                 "wtSmart": ""
@@ -55892,6 +55919,14 @@
             },
             "icon": "MaxCDN.png",
             "website": "https://www.maxcdn.com"
+        },
+        "maxcluster": {
+            "cats": [
+                88
+            ],
+            "description": "maxcluster is a German e-commerce hosting provider; hosted domains use maxcluster.net nameservers.",
+            "website": "https://maxcluster.de",
+            "icon": "maxcluster.png"
         },
         "Maxemail": {
             "cats": [
@@ -60044,8 +60079,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "myfoodlink": "",
-                "Myfoodlink": ""
+                "Myfoodlink": "",
+                "myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -63116,6 +63151,14 @@
                 "/web/js/(?:web\\.assets_common/|website\\.assets_frontend/)\\;confidence:25"
             ],
             "website": "https://odoo.com"
+        },
+        "Offerista": {
+            "cats": [
+                36
+            ],
+            "description": "Offerista is a retail-marketing network; publisher pages embed its brochure widgets served from marktjagd.com and offerista.com.",
+            "website": "https://www.offerista.com",
+            "icon": "Offerista.png"
         },
         "Offline.js": {
             "cats": [
@@ -73191,19 +73234,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "Publive": {
-            "cats": [
-                1
-            ],
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "description": "Publive is a headless CMS for online publishers.",
-            "website": "https://www.thepublive.com",
-            "icon": "PubLive.svg"
-        },
         "PubLive": {
             "cats": [
                 1
@@ -73216,6 +73246,19 @@
             },
             "icon": "PubLive.svg",
             "website": "https://thepublive.com"
+        },
+        "Publive": {
+            "cats": [
+                1
+            ],
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "description": "Publive is a headless CMS for online publishers.",
+            "website": "https://www.thepublive.com",
+            "icon": "PubLive.svg"
         },
         "Publy": {
             "cats": [
@@ -81679,8 +81722,8 @@
                 "jQuery"
             ],
             "js": {
-                "selectize": "",
-                "Selectize": ""
+                "Selectize": "",
+                "selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -82939,8 +82982,8 @@
             },
             "icon": "SheerID.svg",
             "js": {
-                "SheerID": "",
-                "sheerid": ""
+                "sheerid": "",
+                "SheerID": ""
             },
             "scripts": [
                 "\"sheeridendpoint\":"
@@ -95943,17 +95986,6 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
-        },
         "timeago": {
             "cats": [
                 59
@@ -95966,6 +95998,17 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
+        },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -101947,8 +101990,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "videojs": "",
                 "VideoJS": "",
+                "videojs": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -103233,7 +103276,7 @@
                 }
             },
             "html": [
-                "<(?!svg)[^>]+\\sdata-v(?:ue)?-",
+                "<(?:[^s<>]|s[^v<>]|sv[^g<>])[^<>]*\\sdata-v(?:ue)?-|<(?:s|sv)\\sdata-v(?:ue)?-",
                 "<[^>]+\\sdata-v(?:ue)?-"
             ],
             "icon": "vue.svg",
@@ -105029,6 +105072,17 @@
             },
             "website": "https://www.websitebuilder.com"
         },
+        "Websocket": {
+            "cats": [
+                19
+            ],
+            "html": [
+                "<(?:link|a)[^>]+href=[\"']wss?://",
+                "<link[^>]+rel=[\"']web-socket[\"']"
+            ],
+            "icon": "websocket.png",
+            "website": "https://en.wikipedia.org/wiki/WebSocket"
+        },
         "WebSocket": {
             "cats": [
                 19
@@ -105053,17 +105107,6 @@
             "description": "WebSocket is a communication protocol that provides full-duplex communication channels over a single, long-lived connection, enabling interactive communication between web browsers and servers.",
             "website": "https://en.wikipedia.org/wiki/WebSocket",
             "icon": "WebSocket.svg"
-        },
-        "Websocket": {
-            "cats": [
-                19
-            ],
-            "html": [
-                "<(?:link|a)[^>]+href=[\"']wss?://",
-                "<link[^>]+rel=[\"']web-socket[\"']"
-            ],
-            "icon": "websocket.png",
-            "website": "https://en.wikipedia.org/wiki/WebSocket"
         },
         "WebSphere": {
             "cats": [
@@ -110764,8 +110807,8 @@
             "description": "Zonos is a cross-border ecommerce software and app solution for companies with international business.",
             "icon": "Zonos.svg",
             "js": {
-                "zonos": "",
                 "Zonos": "",
+                "zonos": "",
                 "zonosCheckout": ""
             },
             "scriptSrc": [
