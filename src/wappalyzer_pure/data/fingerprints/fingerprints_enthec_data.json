@@ -39986,6 +39986,14 @@
             "website": "https://www.freeguppy.org",
             "icon": "Guppy.svg"
         },
+        "GURU": {
+            "cats": [
+                88
+            ],
+            "description": "GURU is a UK hosting provider; hosted domains use guru.net.uk nameservers.",
+            "website": "https://www.guru.co.uk",
+            "icon": "GURU.png"
+        },
         "Gurucan": {
             "cats": [
                 21
@@ -43304,6 +43312,17 @@
             "description": "idCloudHost is a local web service provider based in Indonesia that offer a wide range of services including domain name registration and cloud hosting.",
             "website": "https://idcloudhost.com",
             "icon": "idCloudHost.svg"
+        },
+        "Ideal Media": {
+            "cats": [
+                36
+            ],
+            "scriptSrc": [
+                "jsc\\.idealmedia\\.io/"
+            ],
+            "description": "Ideal Media is a content-recommendation advertising network (MGID family); publishers embed a site loader script from jsc.idealmedia.io.",
+            "website": "https://idealmedia.io",
+            "icon": "Ideal Media.png"
         },
         "Ideasoft": {
             "cats": [
@@ -51095,6 +51114,14 @@
             "website": "https://service.aainc.co.jp/product/letro/",
             "icon": "Letro.svg"
         },
+        "LetsHost": {
+            "cats": [
+                88
+            ],
+            "description": "LetsHost is an Irish hosting provider; hosted domains use dnsireland.com/.ie nameservers.",
+            "website": "https://letshost.ie",
+            "icon": "LetsHost.png"
+        },
         "Levar": {
             "cats": [
                 105
@@ -55564,6 +55591,14 @@
             "description": "MaxCDN is a content delivery network, which accelerates web-sites and decreases the server load.",
             "website": "https://www.maxcdn.com",
             "icon": "MaxCDN.png"
+        },
+        "maxcluster": {
+            "cats": [
+                88
+            ],
+            "description": "maxcluster is a German e-commerce hosting provider; hosted domains use maxcluster.net nameservers.",
+            "website": "https://maxcluster.de",
+            "icon": "maxcluster.png"
         },
         "Maxemail": {
             "cats": [
@@ -62771,6 +62806,14 @@
             "website": "https://odoo.com",
             "cpe": "cpe:2.3:a:odoo:odoo:*:*:*:*:*:*:*:*",
             "icon": "Odoo.svg"
+        },
+        "Offerista": {
+            "cats": [
+                36
+            ],
+            "description": "Offerista is a retail-marketing network; publisher pages embed its brochure widgets served from marktjagd.com and offerista.com.",
+            "website": "https://www.offerista.com",
+            "icon": "Offerista.png"
         },
         "Offline.js": {
             "cats": [
@@ -102675,7 +102718,7 @@
                 "VueRoot": ""
             },
             "html": [
-                "<(?!svg)[^>]+\\sdata-v(?:ue)?-"
+                "<(?:[^s<>]|s[^v<>]|sv[^g<>])[^<>]*\\sdata-v(?:ue)?-|<(?:s|sv)\\sdata-v(?:ue)?-"
             ],
             "scriptSrc": [
                 "(?:/([\\d.]+))?/vue(?:\\.min)?\\.js\\;version:\\1",
