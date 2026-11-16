@@ -3056,7 +3056,7 @@
                 "Analyzee._sessionExtend": ""
             },
             "scriptSrc": [
-                "cdn\\.analyzee\\.io/sdk/(.*)\\.js"
+                "cdn\\.analyzee\\.io/sdk/.*\\.js"
             ],
             "description": "Analyzee is an analytics tool that allows you to gain insights into visitor behavior and optimise your website's user experience using heatmaps and other analytics features.",
             "website": "https://analyzee.io",
@@ -17979,8 +17979,8 @@
                 "FontAwesomeCdnConfig": ""
             },
             "scriptSrc": [
-                "(?:f|f)o(?:n|r)t-?(?:a|a)wesome(?:.*?([0-9a-fa-f]{7,40}|[\\d]+(?:.[\\d]+(?:.[\\d]+)?)?)|)",
-                "\\.fontawesome\\.com/([0-9a-z]+).js"
+                "(?:f|f)o(?:n|r)t-?(?:a|a)wesome(?:.*?(?:[0-9a-fa-f]{7,40}|[\\d]+(?:.[\\d]+(?:.[\\d]+)?)?)|)",
+                "\\.fontawesome\\.com/(?:[0-9a-z]+).js"
             ],
             "description": "Font Awesome is a font and icon toolkit based on CSS and Less.",
             "website": "https://fontawesome.com/",
@@ -18653,7 +18653,7 @@
                 }
             },
             "scripts": [
-                "x-frc-client\",\"js-(\\d+(\\.\\d+)+)\\;version:\\1"
+                "x-frc-client\",\"js-(\\d+(?:\\.\\d+)+)\\;version:\\1"
             ],
             "description": "Friendly Captcha is a proof-of-work based solution in which the user\u2019s device does all the work.",
             "website": "https://friendlycaptcha.com",
@@ -20529,7 +20529,7 @@
                 "google_trackConversion": ""
             },
             "scripts": [
-                "gtag\\([^)]+'(aw-)"
+                "gtag\\([^)]+'aw-"
             ],
             "scriptSrc": [
                 "\\.googleadservices\\.com/pagead/conversion_async\\.js",
@@ -20858,7 +20858,7 @@
                 }
             },
             "scriptSrc": [
-                "pay\\.google\\.com/([a-z/]+)/pay\\.js"
+                "pay\\.google\\.com/[a-z/]+/pay\\.js"
             ],
             "description": "Google Pay is a digital wallet platform and online payment system developed by Google to power in-app and tap-to-pay purchases on mobile devices, enabling users to make payments with Android phones, tablets or watches.",
             "website": "https://pay.google.com",
@@ -40264,6 +40264,27 @@
             "website": "https://qikify.com",
             "icon": "Qikify.svg"
         },
+        "Qorfechi": {
+            "cats": [
+                1,
+                6,
+                51
+            ],
+            "js": {
+                "Qorfechi.platform": "^Qorfechi$"
+            },
+            "headers": {
+                "x-powered-by": "^qorfechi$"
+            },
+            "meta": {
+                "generator": [
+                    "^qorfechi$"
+                ]
+            },
+            "description": "Qorfechi is a hosted website builder and CMS from Iran with online store, CRM, booking and online course modules.",
+            "website": "https://qorfechi.com",
+            "icon": "Qorfechi.svg"
+        },
         "Qstomizer": {
             "cats": [
                 76
@@ -45216,6 +45237,28 @@
             },
             "website": "https://shopfa.com",
             "icon": "Shopfa.svg"
+        },
+        "ShopFast": {
+            "cats": [
+                6
+            ],
+            "dom": {
+                "a.sf-powered[href^='https://shopfa.st/']": {
+                    "exists": ""
+                },
+                "script#sf-skeletons[type='application/json']": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "/_sf/runtime\\.[\\da-f]{12}\\.js"
+            ],
+            "meta": {
+                "sf:page-type": []
+            },
+            "description": "ShopFast is a hosted ecommerce platform for selling digital products, with customisable storefronts on shopfa.st subdomains or custom domains.",
+            "website": "https://shopfa.st",
+            "icon": "ShopFast.svg"
         },
         "ShopGold": {
             "cats": [

@@ -1984,8 +1984,8 @@
             "description": "Admitad is an affiliate network that acts as an intermediary between advertisers and publishers.",
             "icon": "Admitad.svg",
             "js": {
-                "ADMITAD": "",
-                "admitad": ""
+                "admitad": "",
+                "ADMITAD": ""
             },
             "scriptSrc": [
                 "artfut\\.com/static/(?:tracking|crossdevice)\\.min\\.js",
@@ -3558,10 +3558,6 @@
             "cats": [
                 62
             ],
-            "headers": {
-                "server": "^volt-adc$",
-                "x-volterra-location": ""
-            },
             "implies": [
                 "Akamai"
             ],
@@ -5099,7 +5095,8 @@
                 "Analyzee._sessionExtend": ""
             },
             "scriptSrc": [
-                "cdn\\.analyzee\\.io/sdk/(.*)\\.js"
+                "cdn\\.analyzee\\.io/sdk/(.*)\\.js",
+                "cdn\\.analyzee\\.io/sdk/.*\\.js"
             ],
             "website": "https://analyzee.io"
         },
@@ -13931,8 +13928,8 @@
             "description": "Bugsnag is a cross-platform error monitoring, reporting, and resolution software.",
             "icon": "BugSnag.svg",
             "js": {
-                "bugsnag": "",
                 "Bugsnag": "",
+                "bugsnag": "",
                 "bugsnagClient": ""
             },
             "scriptSrc": [
@@ -21365,6 +21362,20 @@
             ],
             "website": "https://www.cookiehub.com"
         },
+        "CookieOfficer": {
+            "cats": [
+                67
+            ],
+            "cookies": {
+                "co_consent": ""
+            },
+            "scriptSrc": [
+                "cdn\\.cookieofficer\\.com/s/co-"
+            ],
+            "description": "CookieOfficer is a consent management platform for websites with cookie scanning, automatic script blocking and Google Consent Mode v2 support.",
+            "website": "https://cookieofficer.com",
+            "icon": "CookieOfficer.svg"
+        },
         "CookieYes": {
             "cats": [
                 67
@@ -25771,8 +25782,8 @@
             },
             "icon": "Donorbox.svg",
             "js": {
-                "DONORBOX": "",
                 "DonorBox": "",
+                "DONORBOX": "",
                 "donorbox_check_donation_period": ""
             },
             "website": "https://donorbox.org"
@@ -31156,8 +31167,12 @@
                 62
             ],
             "headers": {
+                "server": "^volt-(?:adc|cdn)$",
                 "x-volterra-location": ""
             },
+            "implies": [
+                "Envoy"
+            ],
             "description": "F5 Distributed Cloud Services is a SaaS platform providing security, networking, and application management to deploy, secure, and operate applications in cloud-native environments.",
             "website": "https://www.f5.com/products/distributed-cloud-services",
             "icon": "F5DistributedCloudServices.svg"
@@ -33989,7 +34004,9 @@
             },
             "scriptSrc": [
                 "(?:f|f)o(?:n|r)t-?(?:a|a)wesome(?:.*?([0-9a-fa-f]{7,40}|[\\d]+(?:.[\\d]+(?:.[\\d]+)?)?)|)",
-                "\\.fontawesome\\.com/([0-9a-z]+).js"
+                "\\.fontawesome\\.com/([0-9a-z]+).js",
+                "(?:f|f)o(?:n|r)t-?(?:a|a)wesome(?:.*?(?:[0-9a-fa-f]{7,40}|[\\d]+(?:.[\\d]+(?:.[\\d]+)?)?)|)",
+                "\\.fontawesome\\.com/(?:[0-9a-z]+).js"
             ],
             "website": "https://fontawesome.com/"
         },
@@ -35287,7 +35304,8 @@
             },
             "icon": "FriendlyCaptcha.svg",
             "scripts": [
-                "x-frc-client\",\"js-(\\d+(\\.\\d+)+)\\;version:\\1"
+                "x-frc-client\",\"js-(\\d+(\\.\\d+)+)\\;version:\\1",
+                "x-frc-client\",\"js-(\\d+(?:\\.\\d+)+)\\;version:\\1"
             ],
             "website": "https://friendlycaptcha.com"
         },
@@ -38437,7 +38455,8 @@
                 "google_trackConversion": ""
             },
             "scripts": [
-                "gtag\\([^)]+'(aw-)"
+                "gtag\\([^)]+'(aw-)",
+                "gtag\\([^)]+'aw-"
             ],
             "scriptSrc": [
                 "\\.googleadservices\\.com/pagead/conversion_async\\.js",
@@ -38800,7 +38819,8 @@
             },
             "icon": "Google.svg",
             "scriptSrc": [
-                "pay\\.google\\.com/([a-z/]+)/pay\\.js"
+                "pay\\.google\\.com/([a-z/]+)/pay\\.js",
+                "pay\\.google\\.com/[a-z/]+/pay\\.js"
             ],
             "website": "https://pay.google.com"
         },
@@ -41215,6 +41235,30 @@
             "description": "HelpOnClick is a live chat and customer tracking platform designed to support real-time communication and monitor visitor interactions on websites.",
             "website": "https://helponclick.com",
             "icon": "HelpOnClick.svg"
+        },
+        "Helpvane": {
+            "cats": [
+                52
+            ],
+            "dom": {
+                "div[data-helpvane-widget]": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "HelpvaneWidget": ""
+            },
+            "scriptSrc": [
+                "helpvane\\.com/widget/widget\\.js"
+            ],
+            "meta": {
+                "generator": [
+                    "^helpvane$"
+                ]
+            },
+            "description": "Helpvane is an AI customer support chat widget and shopper assistant for websites and online stores.",
+            "website": "https://helpvane.com",
+            "icon": "Helpvane.svg"
         },
         "Helpwise": {
             "cats": [
@@ -43890,22 +43934,6 @@
             "icon": "ImageEngine.svg",
             "website": "https://imageengine.io"
         },
-        "Imagekit": {
-            "cats": [
-                7
-            ],
-            "dom": {
-                "link[href*='ik.imagekit.io/']": {
-                    "exists": ""
-                }
-            },
-            "headers": {
-                "x-server": "imagekit\\.io"
-            },
-            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
-            "website": "https://imagekit.io/",
-            "icon": "ImageKit.svg"
-        },
         "ImageKit": {
             "cats": [
                 31,
@@ -43920,6 +43948,22 @@
                 "x-server": "imagekit\\.io"
             },
             "description": "ImageKit is a real-time image and video transformation, optimization, and delivery service with built-in digital asset management, powered by a global CDN.",
+            "website": "https://imagekit.io/",
+            "icon": "ImageKit.svg"
+        },
+        "Imagekit": {
+            "cats": [
+                7
+            ],
+            "dom": {
+                "link[href*='ik.imagekit.io/']": {
+                    "exists": ""
+                }
+            },
+            "headers": {
+                "x-server": "imagekit\\.io"
+            },
+            "description": "ImageKit is an image optimisation and transformation server for web and mobile app developers.",
             "website": "https://imagekit.io/",
             "icon": "ImageKit.svg"
         },
@@ -50429,8 +50473,8 @@
                 "Laravel"
             ],
             "js": {
-                "Echo.connector": "",
-                "echo.connector": ""
+                "echo.connector": "",
+                "Echo.connector": ""
             },
             "website": "https://laravel.com/docs/broadcasting#client-side-installation"
         },
@@ -50524,8 +50568,8 @@
             "description": "Launchrock is an online tool designed to help capture email addresses and create online product launching events.",
             "icon": "Launchrock.svg",
             "js": {
-                "lrIgnition": "\\;confidence:25",
                 "lrignition": "\\;confidence:25",
+                "lrIgnition": "\\;confidence:25",
                 "lrLoadedJs": "\\;confidence:25",
                 "lrSiteRenderingData.apiEndpoint": "",
                 "lrSiteSettingAsBoolean": "\\;confidence:25"
@@ -58510,6 +58554,20 @@
             "website": "https://www.modalforms.com",
             "icon": "ModalForms.svg"
         },
+        "Model Context Protocol": {
+            "cats": [
+                112
+            ],
+            "headers": {
+                "access-control-allow-headers": "\\bmcp-(?:session-id|protocol-version)\\b",
+                "access-control-expose-headers": "\\bmcp-(?:session-id|protocol-version)\\b",
+                "mcp-session-id": "",
+                "www-authenticate": "resource_metadata=\"https?://[^\"]+/\\.well-known/oauth-protected-resource/mcp/?\""
+            },
+            "description": "Model Context Protocol (MCP) is an open protocol that connects AI applications to external tools and data sources.",
+            "website": "https://modelcontextprotocol.io",
+            "icon": "Model Context Protocol.svg"
+        },
         "Modelo": {
             "cats": [
                 105
@@ -60079,8 +60137,8 @@
             "description": "My Food Link provides a fully hosted specialist online supermarket ecommerce platform to supermarkets and grocers.",
             "icon": "My Food Link.svg",
             "js": {
-                "Myfoodlink": "",
-                "myfoodlink": ""
+                "myfoodlink": "",
+                "Myfoodlink": ""
             },
             "website": "https://www.myfoodlink.com.au"
         },
@@ -73234,19 +73292,6 @@
             "website": "https://publishrr.com",
             "icon": "Publishrr.svg"
         },
-        "PubLive": {
-            "cats": [
-                1
-            ],
-            "description": "PubLive is a headless CMS for online publishers.",
-            "dom": {
-                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
-                    "exists": ""
-                }
-            },
-            "icon": "PubLive.svg",
-            "website": "https://thepublive.com"
-        },
         "Publive": {
             "cats": [
                 1
@@ -73259,6 +73304,19 @@
             "description": "Publive is a headless CMS for online publishers.",
             "website": "https://www.thepublive.com",
             "icon": "PubLive.svg"
+        },
+        "PubLive": {
+            "cats": [
+                1
+            ],
+            "description": "PubLive is a headless CMS for online publishers.",
+            "dom": {
+                "link[href*='.thepublive.com/'], img[src*='.thepublive.com/']": {
+                    "exists": ""
+                }
+            },
+            "icon": "PubLive.svg",
+            "website": "https://thepublive.com"
         },
         "Publy": {
             "cats": [
@@ -74152,6 +74210,27 @@
             "description": "QoreAI is an all-in-one collaboration operating system designed for the automotive industry.",
             "website": "https://www.qoreai.com",
             "icon": "QoreAI.svg"
+        },
+        "Qorfechi": {
+            "cats": [
+                1,
+                6,
+                51
+            ],
+            "description": "Qorfechi is a hosted website builder and CMS from Iran with online store, CRM, booking and online course modules.",
+            "headers": {
+                "x-powered-by": "^qorfechi$"
+            },
+            "icon": "Qorfechi.svg",
+            "js": {
+                "Qorfechi.platform": "^Qorfechi$"
+            },
+            "meta": {
+                "generator": [
+                    "^qorfechi$"
+                ]
+            },
+            "website": "https://qorfechi.com"
         },
         "Qpien": {
             "cats": [
@@ -76119,8 +76198,8 @@
             },
             "icon": "reCAPTCHA.svg",
             "js": {
-                "recaptcha": "",
-                "Recaptcha": ""
+                "Recaptcha": "",
+                "recaptcha": ""
             },
             "scripts": [
                 "/recaptcha/api\\.js"
@@ -80977,6 +81056,21 @@
             "website": "https://www.scheduleanyone.com",
             "icon": "ScheduleAnyone.svg"
         },
+        "Schedulicity": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='schedulicity.com/scheduling/']": {
+                    "exists": ""
+                }
+            },
+            "scripts": [
+                "api\\.schedulicity\\.com"
+            ],
+            "website": "https://www.schedulicity.com",
+            "icon": "Schedulicity.png"
+        },
         "Schema App": {
             "cats": [
                 54
@@ -81149,8 +81243,8 @@
             "description": "Scrivito is a decoupled/headless enterprise web CMS.",
             "icon": "Scrivito.svg",
             "js": {
-                "scrivito": "",
-                "Scrivito": ""
+                "Scrivito": "",
+                "scrivito": ""
             },
             "meta": {
                 "generator": [
@@ -81722,8 +81816,8 @@
                 "jQuery"
             ],
             "js": {
-                "Selectize": "",
-                "selectize": ""
+                "selectize": "",
+                "Selectize": ""
             },
             "website": "https://selectize.dev"
         },
@@ -83532,6 +83626,31 @@
             "website": "https://www.shopfactory.com",
             "icon": "ShopFactory.svg"
         },
+        "ShopFast": {
+            "cats": [
+                6
+            ],
+            "description": "ShopFast is a hosted ecommerce platform for selling digital products, with customisable storefronts on shopfa.st subdomains or custom domains.",
+            "dom": {
+                "a.sf-powered[href^='https://shopfa.st/']": {
+                    "exists": ""
+                },
+                "img[src^='https://media.shopfa.st/']": {
+                    "exists": ""
+                },
+                "script#sf-skeletons[type='application/json']": {
+                    "exists": ""
+                }
+            },
+            "icon": "ShopFast.svg",
+            "meta": {
+                "sf:page-type": []
+            },
+            "scriptSrc": [
+                "/_sf/runtime\\.[\\da-f]{12}\\.js"
+            ],
+            "website": "https://shopfa.st"
+        },
         "Shopflo": {
             "cats": [
                 41
@@ -83796,8 +83915,8 @@
             "description": "Shoplazza is a SaaS ecommerce platform.",
             "icon": "Shoplazza.svg",
             "js": {
-                "Shoplazza": "",
-                "SHOPLAZZA": ""
+                "SHOPLAZZA": "",
+                "Shoplazza": ""
             },
             "website": "https://www.shoplazza.com"
         },
@@ -90300,6 +90419,47 @@
             },
             "website": "https://stenciljs.com"
         },
+        "Stencil (hellostencil.com)": {
+            "cats": [
+                51
+            ],
+            "meta": {
+                "generator": [
+                    "^stencil \\(hellostencil\\.com\\)$"
+                ]
+            },
+            "description": "Stencil is an AI app builder that creates, hosts and publishes web apps from a plain-language description.",
+            "website": "https://hellostencil.com",
+            "icon": "hellostencil.png"
+        },
+        "SterkCommerce": {
+            "cats": [
+                6,
+                1
+            ],
+            "cookies": {
+                "sterk_search_bucket": ""
+            },
+            "js": {
+                "SterkCommerce.name": "^SterkCommerce$",
+                "SterkCommerce.version": "^(.+)$\\;version:\\1"
+            },
+            "headers": {
+                "x-powered-by": "^sterkcommerce$"
+            },
+            "meta": {
+                "generator": [
+                    "^sterkcommerce(?: cloud)?(?: ([\\d.]+))?$\\;version:\\1"
+                ]
+            },
+            "implies": [
+                "Next.js",
+                "React"
+            ],
+            "description": "SterkCommerce is a headless e-commerce platform and CMS (Next.js storefront with Magento or custom backends) by Sterk Commerce.",
+            "website": "https://sterkcommerce.com",
+            "icon": "SterkCommerce.png"
+        },
         "Stetic Analytics": {
             "cats": [
                 10
@@ -91146,8 +91306,8 @@
             },
             "icon": "Stylitics.svg",
             "js": {
-                "stylitics": "",
-                "Stylitics": ""
+                "Stylitics": "",
+                "stylitics": ""
             },
             "scriptSrc": [
                 "/stylitics/js/stylitics\\.js\\?ver=v([\\d.]+)\\;version:\\1",
@@ -95986,6 +96146,17 @@
             "website": "https://www.tillerhq.com",
             "icon": "Tiller.svg"
         },
+        "Timeago": {
+            "cats": [
+                59
+            ],
+            "scriptSrc": [
+                "jquery\\.timeago\\.js"
+            ],
+            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
+            "website": "https://timeago.yarp.com",
+            "icon": "Timeago.svg"
+        },
         "timeago": {
             "cats": [
                 59
@@ -95998,17 +96169,6 @@
             ],
             "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.",
             "website": "https://timeago.yarp.com/"
-        },
-        "Timeago": {
-            "cats": [
-                59
-            ],
-            "scriptSrc": [
-                "jquery\\.timeago\\.js"
-            ],
-            "description": "Timeago is a jQuery plugin that automatically updates fuzzy timestamps.",
-            "website": "https://timeago.yarp.com",
-            "icon": "Timeago.svg"
         },
         "Timepad": {
             "cats": [
@@ -101990,8 +102150,8 @@
             },
             "icon": "VideoJS.svg",
             "js": {
-                "VideoJS": "",
                 "videojs": "",
+                "VideoJS": "",
                 "videojs.VERSION": "^(.+)$\\;version:\\1"
             },
             "scriptSrc": [
@@ -103927,6 +104087,26 @@
             "description": "Waste Connections is a provider of waste management solutions, offering trash collection, dumpster rental, and recycling services across the United States.",
             "website": "https://www.wasteconnections.com",
             "icon": "WasteConnections.svg"
+        },
+        "Watch Music Web API": {
+            "cats": [
+                19
+            ],
+            "dom": {
+                "html[data-watchmusic-web-api]": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "WatchMusicWebAPI.version": "^(.+)$\\;version:\\1"
+            },
+            "scriptSrc": [
+                "developers\\.watchmusic\\.app/sdk/v\\d+/web-api\\.js",
+                "sdk\\.watchmusic\\.app/web-api/v\\d+\\.js"
+            ],
+            "description": "Watch Music Web API endpoints return JSON metadata about music artists, albums, tracks and playlists from the Watch Music catalogue, and give OAuth 2.0 access to listener libraries and playback.",
+            "website": "https://developers.watchmusic.app",
+            "icon": "WatchMusic.svg"
         },
         "WatchThem": {
             "cats": [

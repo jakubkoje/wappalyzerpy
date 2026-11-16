@@ -3537,10 +3537,6 @@
             "cats": [
                 62
             ],
-            "headers": {
-                "server": "^volt-adc$",
-                "x-volterra-location": ""
-            },
             "implies": [
                 "Akamai"
             ],
@@ -21283,6 +21279,20 @@
             "website": "https://www.cookiehub.com",
             "icon": "CookieHub.svg"
         },
+        "CookieOfficer": {
+            "cats": [
+                67
+            ],
+            "cookies": {
+                "co_consent": ""
+            },
+            "scriptSrc": [
+                "cdn\\.cookieofficer\\.com/s/co-"
+            ],
+            "description": "CookieOfficer is a consent management platform for websites with cookie scanning, automatic script blocking and Google Consent Mode v2 support.",
+            "website": "https://cookieofficer.com",
+            "icon": "CookieOfficer.svg"
+        },
         "CookieYes": {
             "cats": [
                 67
@@ -31047,8 +31057,12 @@
                 62
             ],
             "headers": {
+                "server": "^volt-(?:adc|cdn)$",
                 "x-volterra-location": ""
             },
+            "implies": [
+                "Envoy"
+            ],
             "description": "F5 Distributed Cloud Services is a SaaS platform providing security, networking, and application management to deploy, secure, and operate applications in cloud-native environments.",
             "website": "https://www.f5.com/products/distributed-cloud-services",
             "icon": "F5DistributedCloudServices.svg"
@@ -41023,6 +41037,30 @@
             "description": "HelpOnClick is a live chat and customer tracking platform designed to support real-time communication and monitor visitor interactions on websites.",
             "website": "https://helponclick.com",
             "icon": "HelpOnClick.svg"
+        },
+        "Helpvane": {
+            "cats": [
+                52
+            ],
+            "dom": {
+                "div[data-helpvane-widget]": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "HelpvaneWidget": ""
+            },
+            "scriptSrc": [
+                "helpvane\\.com/widget/widget\\.js"
+            ],
+            "meta": {
+                "generator": [
+                    "^helpvane$"
+                ]
+            },
+            "description": "Helpvane is an AI customer support chat widget and shopper assistant for websites and online stores.",
+            "website": "https://helpvane.com",
+            "icon": "Helpvane.svg"
         },
         "Helpwise": {
             "cats": [
@@ -58174,6 +58212,20 @@
             "website": "https://www.modalforms.com",
             "icon": "ModalForms.svg"
         },
+        "Model Context Protocol": {
+            "cats": [
+                112
+            ],
+            "headers": {
+                "access-control-allow-headers": "\\bmcp-(?:session-id|protocol-version)\\b",
+                "access-control-expose-headers": "\\bmcp-(?:session-id|protocol-version)\\b",
+                "mcp-session-id": "",
+                "www-authenticate": "resource_metadata=\"https?://[^\"]+/\\.well-known/oauth-protected-resource/mcp/?\""
+            },
+            "description": "Model Context Protocol (MCP) is an open protocol that connects AI applications to external tools and data sources.",
+            "website": "https://modelcontextprotocol.io",
+            "icon": "Model Context Protocol.svg"
+        },
         "Modelo": {
             "cats": [
                 105
@@ -73752,6 +73804,27 @@
             "website": "https://www.qoreai.com",
             "icon": "QoreAI.svg"
         },
+        "Qorfechi": {
+            "cats": [
+                1,
+                6,
+                51
+            ],
+            "js": {
+                "Qorfechi.platform": "^Qorfechi$"
+            },
+            "headers": {
+                "x-powered-by": "^qorfechi$"
+            },
+            "meta": {
+                "generator": [
+                    "^qorfechi$"
+                ]
+            },
+            "description": "Qorfechi is a hosted website builder and CMS from Iran with online store, CRM, booking and online course modules.",
+            "website": "https://qorfechi.com",
+            "icon": "Qorfechi.svg"
+        },
         "Qpien": {
             "cats": [
                 52
@@ -80552,6 +80625,21 @@
             "website": "https://www.scheduleanyone.com",
             "icon": "ScheduleAnyone.svg"
         },
+        "Schedulicity": {
+            "cats": [
+                72
+            ],
+            "dom": {
+                "a[href*='schedulicity.com/scheduling/']": {
+                    "exists": ""
+                }
+            },
+            "scripts": [
+                "api\\.schedulicity\\.com"
+            ],
+            "website": "https://www.schedulicity.com",
+            "icon": "Schedulicity.png"
+        },
         "Schema App": {
             "cats": [
                 54
@@ -83089,6 +83177,31 @@
             "description": "ShopFactory is an all-in-one ecommerce platform that allows businesses to create and manage their online stores without the need for extensive technical expertise.",
             "website": "https://www.shopfactory.com",
             "icon": "ShopFactory.svg"
+        },
+        "ShopFast": {
+            "cats": [
+                6
+            ],
+            "dom": {
+                "a.sf-powered[href^='https://shopfa.st/']": {
+                    "exists": ""
+                },
+                "img[src^='https://media.shopfa.st/']": {
+                    "exists": ""
+                },
+                "script#sf-skeletons[type='application/json']": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "/_sf/runtime\\.[\\da-f]{12}\\.js"
+            ],
+            "meta": {
+                "sf:page-type": []
+            },
+            "description": "ShopFast is a hosted ecommerce platform for selling digital products, with customisable storefronts on shopfa.st subdomains or custom domains.",
+            "website": "https://shopfa.st",
+            "icon": "ShopFast.svg"
         },
         "Shopflo": {
             "cats": [
@@ -89830,6 +89943,47 @@
             "description": "Stenciljs is an open-source web component compiler that enables developers to create reusable, interoperable UI components that can work across different frameworks and platforms.",
             "website": "https://stenciljs.com",
             "icon": "Stencil.svg"
+        },
+        "Stencil (hellostencil.com)": {
+            "cats": [
+                51
+            ],
+            "meta": {
+                "generator": [
+                    "^stencil \\(hellostencil\\.com\\)$"
+                ]
+            },
+            "description": "Stencil is an AI app builder that creates, hosts and publishes web apps from a plain-language description.",
+            "website": "https://hellostencil.com",
+            "icon": "hellostencil.png"
+        },
+        "SterkCommerce": {
+            "cats": [
+                6,
+                1
+            ],
+            "cookies": {
+                "sterk_search_bucket": ""
+            },
+            "js": {
+                "SterkCommerce.name": "^SterkCommerce$",
+                "SterkCommerce.version": "^(.+)$\\;version:\\1"
+            },
+            "headers": {
+                "x-powered-by": "^sterkcommerce$"
+            },
+            "meta": {
+                "generator": [
+                    "^sterkcommerce(?: cloud)?(?: ([\\d.]+))?$\\;version:\\1"
+                ]
+            },
+            "implies": [
+                "Next.js",
+                "React"
+            ],
+            "description": "SterkCommerce is a headless e-commerce platform and CMS (Next.js storefront with Magento or custom backends) by Sterk Commerce.",
+            "website": "https://sterkcommerce.com",
+            "icon": "SterkCommerce.png"
         },
         "Stetic Analytics": {
             "cats": [
@@ -103341,6 +103495,26 @@
             "description": "Waste Connections is a provider of waste management solutions, offering trash collection, dumpster rental, and recycling services across the United States.",
             "website": "https://www.wasteconnections.com",
             "icon": "WasteConnections.svg"
+        },
+        "Watch Music Web API": {
+            "cats": [
+                19
+            ],
+            "dom": {
+                "html[data-watchmusic-web-api]": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "WatchMusicWebAPI.version": "^(.+)$\\;version:\\1"
+            },
+            "scriptSrc": [
+                "developers\\.watchmusic\\.app/sdk/v\\d+/web-api\\.js",
+                "sdk\\.watchmusic\\.app/web-api/v\\d+\\.js"
+            ],
+            "description": "Watch Music Web API endpoints return JSON metadata about music artists, albums, tracks and playlists from the Watch Music catalogue, and give OAuth 2.0 access to listener libraries and playback.",
+            "website": "https://developers.watchmusic.app",
+            "icon": "WatchMusic.svg"
         },
         "WatchThem": {
             "cats": [
