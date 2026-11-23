@@ -4979,6 +4979,22 @@
             "website": "https://autoptimize.com",
             "icon": "Autoptimize.png"
         },
+        "Avacy": {
+            "cats": [
+                67
+            ],
+            "js": {
+                "AVACY": "",
+                "Avacy.version": "^(.+)$\\;version:\\1"
+            },
+            "scriptSrc": [
+                "\\.avacy-cdn\\.com/(?:current/dist/oil|v3/)",
+                "\\.avacy-cdn\\.com/v3/web/(\\d+\\.\\d+\\.\\d+)/\\;version:\\1"
+            ],
+            "description": "Avacy is a consent management platform (CMP) that helps websites collect and manage visitor consent for cookies and trackers under GDPR and the IAB TCF.",
+            "website": "https://avacysolution.com",
+            "icon": "Avacy.svg"
+        },
         "Avada AVASHIP": {
             "cats": [
                 100

@@ -30397,6 +30397,21 @@
             "website": "https://www.evolvemediallc.com",
             "icon": "EvolveMedia.svg"
         },
+        "evoSeller": {
+            "cats": [
+                32,
+                53
+            ],
+            "js": {
+                "evoSeller.version": "^([\\d.]+)$\\;version:\\1"
+            },
+            "scriptSrc": [
+                "//(?:api|app)\\.evoseller\\.com/(?:tracker|popups|loja)\\.js"
+            ],
+            "description": "evoSeller is a CRM for e-commerce and service businesses with WhatsApp messaging, marketing automation, campaigns and AI agents.",
+            "website": "https://evoseller.com",
+            "icon": "evoSeller.svg"
+        },
         "Evvnt": {
             "cats": [
                 72,
@@ -30505,6 +30520,25 @@
             "description": "ExactVisitor is a tool that identifies and provides insights about individuals visiting a website.",
             "website": "https://exactvisitor.com",
             "icon": "ExactVisitor.svg"
+        },
+        "ExaSpark": {
+            "cats": [
+                51,
+                112
+            ],
+            "dom": {
+                "a#spk-badge[data-spk-badge][href^='https://exaspark.ai/']": {
+                    "exists": ""
+                }
+            },
+            "meta": {
+                "generator": [
+                    "^exaspark$"
+                ]
+            },
+            "description": "ExaSpark is an AI app builder that builds, publishes and hosts websites and Android apps from a text prompt.",
+            "website": "https://exaspark.ai",
+            "icon": "ExaSpark.svg"
         },
         "Excel Impact": {
             "cats": [
@@ -53265,6 +53299,29 @@
             "website": "https://lovable.dev",
             "icon": "Lovable.svg"
         },
+        "LovedByAI": {
+            "cats": [
+                54,
+                87
+            ],
+            "dom": {
+                "script#geoguru-llm-tracking-js-after": {
+                    "exists": ""
+                },
+                "script#geoguru-llm-tracking-js-before": {
+                    "exists": ""
+                },
+                "style#geoguru-llm-link-styles-inline-css": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "geoguru_llm_tracking.proxyUrl": "/wp-json/geoguru/v1/llm-source-event"
+            },
+            "description": "LovedByAI is a WordPress plugin for AI search optimisation (generative engine optimisation) that adds structured data and tracks referral traffic from AI assistants.",
+            "website": "https://www.lovedby.ai",
+            "icon": "LovedByAI.png"
+        },
         "Lovi": {
             "cats": [
                 52
@@ -65367,6 +65424,20 @@
             "website": "https://outplay.ai",
             "icon": "Outplay.svg"
         },
+        "Outpush": {
+            "cats": [
+                36
+            ],
+            "js": {
+                "pushmasterTag": ""
+            },
+            "scriptSrc": [
+                "\\.pushmaster-cdn\\.xyz/"
+            ],
+            "description": "Outpush monetizes web push notifications; publishers load an SDK from cdn.pushmaster-cdn.xyz which beacons to ingest.pushmaster-cdn.xyz.",
+            "website": "https://outpush.io",
+            "icon": "Outpush.png"
+        },
         "OutSystems": {
             "cats": [
                 47
@@ -67280,6 +67351,24 @@
             "description": "PCRecruiter is an ATS/CRM hybrid SaaS solution for recruiting and sourcing professionals.",
             "website": "https://www.pcrecruiter.net",
             "icon": "PCRecruiter.svg"
+        },
+        "PDF Embedder": {
+            "cats": [
+                5,
+                87
+            ],
+            "dom": {
+                "link[href*='/wp-content/plugins/pdf-embedder/']": {
+                    "exists": ""
+                }
+            },
+            "scriptSrc": [
+                "/plugins/pdf-embedder/assets/js/pdfemb\\.min\\.js\\?ver=(\\d+\\.\\d+(?:\\.\\d+)*)\\;version:\\1",
+                "/wp-content/plugins/pdf-embedder/"
+            ],
+            "description": "PDF Embedder is a WordPress plugin that embeds PDF files in posts and pages with a responsive viewer.",
+            "website": "https://wordpress.org/plugins/pdf-embedder/",
+            "icon": "PDF Embedder.png"
         },
         "PDF.js": {
             "cats": [
@@ -80085,6 +80174,14 @@
             "website": "https://www.gosameday.com",
             "icon": "Sameday.svg"
         },
+        "Samhub": {
+            "cats": [
+                36
+            ],
+            "description": "Samhub is a Swedish data/advertising platform whose collection runs on dep-x.com and brainnordic.com hosts.",
+            "website": "https://samhub.io",
+            "icon": "Samhub.png"
+        },
         "Samsung Food": {
             "cats": [
                 76
@@ -82344,6 +82441,25 @@
             "description": "SevenRooms is an fully-integrated reservation, seating and restaurant management system.",
             "website": "https://sevenrooms.com",
             "icon": "SevenRooms.svg"
+        },
+        "Sevio": {
+            "cats": [
+                36
+            ],
+            "dom": {
+                "ins.sevioads": {
+                    "exists": ""
+                }
+            },
+            "js": {
+                "sevioads": ""
+            },
+            "scriptSrc": [
+                "cdn\\.adx\\.ws/"
+            ],
+            "description": "Sevio is an ad platform; sites load its loader from cdn.adx.ws, declare sevioads placements and request adx.ws endpoints.",
+            "website": "https://sevio.com",
+            "icon": "Sevio.png"
         },
         "Sezzle": {
             "cats": [
@@ -85925,6 +86041,23 @@
             "description": "Slack is a team messaging and collaboration platform.",
             "website": "https://slack.com",
             "icon": "Slack.svg"
+        },
+        "SLAED CMS": {
+            "cats": [
+                1
+            ],
+            "meta": {
+                "generator": [
+                    "^(?:slaed cms(?: ([\\d.]+))?|open slaed)\\;version:\\1"
+                ],
+                "sl-token": []
+            },
+            "implies": [
+                "PHP"
+            ],
+            "description": "SLAED CMS is a free and open-source content management system written in PHP.",
+            "website": "https://slaed.net",
+            "icon": "SLAED CMS.svg"
         },
         "Slapform": {
             "cats": [
@@ -91348,6 +91481,14 @@
             "website": "https://superformjs.webflow.io/",
             "icon": "Superform.svg"
         },
+        "SuperHosting.BG": {
+            "cats": [
+                88
+            ],
+            "description": "SuperHosting.BG is a Bulgarian web hosting provider, part of the team.blue group.",
+            "website": "https://www.superhosting.bg",
+            "icon": "SuperHosting.BG.png"
+        },
         "SuperHote": {
             "cats": [
                 72
@@ -91956,6 +92097,14 @@
             "description": "Swiper is a JavaScript library that creates modern touch sliders with hardware-accelerated transitions.",
             "website": "https://swiperjs.com",
             "icon": "Swiper.svg"
+        },
+        "Swizzonic": {
+            "cats": [
+                88
+            ],
+            "description": "Swizzonic is a Swiss registrar/hosting provider; hosted domains use swizzonic.ch nameservers.",
+            "website": "https://swizzonic.ch",
+            "icon": "Swizzonic.png"
         },
         "Swoogo": {
             "cats": [
@@ -95978,6 +96127,17 @@
             "description": "toastr is a Javascript library for non-blocking notifications. The goal is to create a simple core library that can be customized and extended.",
             "website": "https://github.com/CodeSeven/toastr",
             "icon": "toastr.png"
+        },
+        "ToberHost": {
+            "cats": [
+                88
+            ],
+            "headers": {
+                "x-powered-by": "toberhost"
+            },
+            "description": "ToberHost is an Indonesian web hosting and website development provider.",
+            "website": "https://toberhost.com",
+            "icon": "ToberHost.svg"
         },
         "Tockify": {
             "cats": [
